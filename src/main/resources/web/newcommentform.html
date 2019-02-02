@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h1 {
+            color:blue;
+        }
+        table {
+            margin:auto;
+            width:600px;
+            border: 1px solid black;
+            border-collapse:collapse;
+        }
+
+        tr td {
+            border: 1px solid black;
+        }
+
+        .cols1 {
+            width:100px;
+        }
+
+        .rows2 {
+            height:100px;
+        }
+
+        .text {
+            width:99%;
+            height:99%;
+        }
+
+        .center {
+            text-align:center;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1 class="center">Create Comment Form</h1>
+
+<p>
+<form action="/createcomment" method="post">
+    <table>
+        <tr>
+            <td class="cols1">Status: </td>
+            <td>
+                <select name="status">
+                    <option value="wip">Work In Progress</option>
+                    <option value="resolved">Resolved</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Text: </td>
+            <td class="rows2"><textarea class="text" name="text"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="center"><input type="submit" value="Add"></td>
+        </tr>
+    </table>
+</form>
+</p>
+
+</body>
+</html>
