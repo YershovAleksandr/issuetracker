@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Issue Tracker</title>
@@ -27,7 +27,7 @@ th {
 </style>
 <body>
 <!-- Header -->
-<h1>Issue Tracker</h1>
+<h1>Issue Tracker <span th:text="${foo}"></span></h1>
 <table>
     <tr>
         <td><a href="/issue?42">Issue 42 Title</a></td>
