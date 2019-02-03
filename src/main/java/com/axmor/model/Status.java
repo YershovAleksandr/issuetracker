@@ -8,4 +8,6 @@ public class Status {
     //Created
     //Resolved
     //Closed
+    //????
+    //Duplicate
 }
