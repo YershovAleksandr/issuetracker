@@ -28,9 +28,10 @@ th {
 <body>
 <!-- Header -->
 <h1>Issue Tracker <span th:text="${foo}"></span></h1>
+
 <table>
-    <tr>
-        <td><a href="/issue/42">Issue 42 Title</a></td>
+    <tr th:each="issue : ${issueList}">
+        <td><a href="/issue/42"><span th:text="${issue.getId()}"></span><span th:text="${issue.getTitle()}"></span></a></td>
         <td>Created</td>
         <td>09/11/2001</td>
         <td><a href="/update/42">Update</a></td>
