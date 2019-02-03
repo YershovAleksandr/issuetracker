@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<h1 class="center">View Issue</h1>
+<h1 class="center">View Issue <span th:text="${id}"></span></h1>
 
 <table>
     <tr>
@@ -54,6 +54,13 @@
     </tr>
 </table>
 
+<h5 class="center">View all coments</h5>
+
+<span th:insert="comment"></span>
+
+<h5 class="center">Add comment</h5>
+
+<span th:insert="commentform"></span>
 
 </body>
 </html>
