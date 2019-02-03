@@ -1,8 +1,11 @@
 package com.axmor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Route;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.HashMap;
@@ -13,65 +16,82 @@ import static spark.Spark.*;
 /**
  * Application entry point
  */
+
 public class Main {
+    final static Logger log = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
 
+        //TODO fix this shit
         staticFiles.location("/web");
         port(8080);
 
-        get("/x/:id", (request, response) -> {
-            return "Hello: " + request.params(":id") + " Buz = " + request.queryParams("buz");
-        });
+        Route routeViewIssues = (request, response) -> {
+            Map map1 = new HashMap();
+            map1.put("foo", "bar");
+            log.info("view all issues");
 
-        get("/", (Request req, Response res) -> index());
-        //get("/viewissues", (Request req, Response res) -> {res.redirect("/index.html");});
-        get("/create", (Request req, Response res) -> create());
-        get("/comment", (Request req, Response res) -> comment());
+            return new ThymeleafTemplateEngine().render(new ModelAndView(map1, "issues"));
+        };
 
-        /*
-        *
-        * path("/api", () -> {
-            before("/*", (q, a) -> log.info("Received api call"));
-            path("/email", () -> {
-                post("/add",       EmailApi.addEmail);
-                put("/change",     EmailApi.changeEmail);
-                delete("/remove",  EmailApi.deleteEmail);
-            });
-            path("/username", () -> {
-                post("/add",       UserApi.addUsername);
-                put("/change",     UserApi.changeUsername);
-                delete("/remove",  UserApi.deleteUsername);
-            });
-        });
-        *
-        * */
+        get("/", routeViewIssues);
 
-        Map map = new HashMap();
-        map.put("foo", "bar!!!!");
+        Route routeViewIssue = (request, response) -> {
+            Map map1 = new HashMap();
+            map1.put("id", request.params(":id"));
+            log.info("view issue id = " + request.params(":id"));
 
-        get("/hello", (rq, rs) -> new ModelAndView(map, "index"), new ThymeleafTemplateEngine());
+            return new ThymeleafTemplateEngine().render(new ModelAndView(map1, "issue"));
+        };
 
+        get("/issue/:id", routeViewIssue);
+
+        Route routeUpdateIssue =  (request, response) -> {
+            Map map1 = new HashMap();
+            map1.put("id", request.params(":id"));
+
+            log.info("update issue id = " + request.params(":id"));
+
+            return new ThymeleafTemplateEngine().render(new ModelAndView(map1, "update"));
+        };
+
+        get("/update/:id", routeUpdateIssue);
+
+        Route routeDeleteIssue = (request, response) -> {
+            log.info("delete issue id = " + request.params(":id"));
+
+            response.redirect("/");
+
+            //return routeViewIssues.handle(request, response);
+            return null;
+        };
+
+        get("/delete/:id", routeDeleteIssue);
+
+        Route routeCreateIssue = (request, response) -> {
+            log.info("Create new issue");
+
+            response.redirect("/");
+
+            return null;
+        };
+
+        post("/createissue", routeCreateIssue);
+
+        Route routeCreateComment = (request, response) -> {
+            log.info("Create new comment at issue id = " + request.params(":id"));
+
+
+            //log.info("url " + request.url() + " queryString " + request.queryString());
+            response.redirect(request.url());
+
+            return null;
+
+            //return routeViewIssue.handle(request, response);
+        };
+
+        post("/issue/:id", routeCreateComment);
 
         notFound("<html><body><h1>Fuck off!</h1></body></html>");
-
-    }
-
-    private static String index(){
-        return "<html>" +
-                "<body>" +
-                "<h1>View Issues!</h1>" +
-                "<a href=\"/create\">Create Issue</a>" +
-                "<br>" +
-                "<a href=\"/create\">Comment Issue</a>" +
-                "</body>" +
-                "</html>";
-    }
-
-    private static String create(){
-        return "<html><body><h1>Create Issue</h1></body></html>";
-    }
-
-    private static String comment(){
-        return "<html><body><h1>Comment Issue</h1></body></html>";
     }
 }
