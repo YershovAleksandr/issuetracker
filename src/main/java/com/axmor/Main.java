@@ -1,5 +1,7 @@
 package com.axmor;
 
+import com.axmor.controller.IssueController;
+import com.axmor.model.Issue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
@@ -9,6 +11,7 @@ import spark.Route;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -20,16 +23,34 @@ import static spark.Spark.*;
 public class Main {
     final static Logger log = LoggerFactory.getLogger(Main.class);
 
+    private static void FillIssue(){
+
+        Issue issue = new Issue();
+
+        issue.setId(1);
+        issue.setTitle("Title 1");
+        issue.setDescription("Description 1");
+
+        IssueController.create(issue);
+    }
+
     public static void main(String[] args) {
+
+        FillIssue();
 
         //TODO fix this shit
         staticFiles.location("/web");
+
         port(8080);
 
         Route routeViewIssues = (request, response) -> {
             Map map1 = new HashMap();
             map1.put("foo", "bar");
             log.info("view all issues");
+
+            List<Issue> issueList = IssueController.getAll();
+
+            map1.put("issueList", issueList);
 
             return new ThymeleafTemplateEngine().render(new ModelAndView(map1, "issues"));
         };
