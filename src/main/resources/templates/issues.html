@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Issue Tracker</title>
@@ -30,27 +30,30 @@ th {
 <h1>Issue Tracker <span th:text="${foo}"></span></h1>
 <table>
     <tr>
-        <td><a href="/issue?42">Issue 42 Title</a></td>
+        <td><a href="/issue/42">Issue 42 Title</a></td>
         <td>Created</td>
         <td>09/11/2001</td>
-        <td><a href="/update?42">Update</a></td>
-        <td><a href="/delete?42">Delete</a></td>
+        <td><a href="/update/42">Update</a></td>
+        <td><a href="/delete/42">Delete</a></td>
     </tr>
     <tr>
-        <td><a href="/issue?43">Issue 43 Title</a></td>
+        <td><a href="/issue/43">Issue 43 Title</a></td>
         <td>Resolved</td>
         <td>09/11/2001</td>
-        <td><a href="/update?43">Update</a></td>
-        <td><a href="/delete?43">Delete</a></td>
+        <td><a href="/update/43">Update</a></td>
+        <td><a href="/delete/43">Delete</a></td>
     </tr>
     <tr>
-        <td><a href="/issue?44">Issue 44 Title</a></td>
+        <td><a href="/issue/44">Issue 44 Title</a></td>
         <td>Closed</td>
         <td>09/11/2001</td>
-        <td><a href="/update?44">Update</a></td>
-        <td><a href="/delete?44">Delete</a></td>
+        <td><a href="/update/44">Update</a></td>
+        <td><a href="/delete/44">Delete</a></td>
     </tr>
 </table>
+
+<span th:insert="issueform"></span>
+
 <!-- -->
 </body>
 </html>
