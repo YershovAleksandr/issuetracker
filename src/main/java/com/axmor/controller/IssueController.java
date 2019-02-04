@@ -2,13 +2,17 @@ package com.axmor.controller;
 
 import com.axmor.dao.IssueDAO;
 import com.axmor.model.Issue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Map;
 
 public class IssueController {
+    private static Logger log = LoggerFactory.getLogger(IssueController.class);
     private static IssueDAO issueDAO = new IssueDAO();
 
-    public static List<Issue> getAll(){
+    public static Map<Integer, Issue> getAll(){
         return issueDAO.getAll();
     }
 
@@ -16,15 +20,48 @@ public class IssueController {
         return issueDAO.get(id);
     }
 
-    public static void create(Issue issue){
+    public static void create(Map<String, String> params){
+        //TODO FIX create service layer
+        String title = params.get("title");
+        String description = params.get("description");
+
+        Issue issue = new Issue();
+
+        //issue.setId(2);
+        //issue.setUserId(22);
+        issue.setTitle(title);
+        issue.setDescription(description);
+        issue.setDate(new Date());
+        issue.setStatus(777);
+
+        log.info("Create issue " + issue);
+
         issueDAO.create(issue);
     }
 
-    public static void update(Issue issue){
+    public static void update(Map<String, String> params){
+        log.info("Update id = " + params.get("id"));
+        //TODO FIX create service layer
+        String title = params.get("title");
+        String description = params.get("description");
+        String id = params.get("id");
+
+        int intId = Integer.valueOf(id);
+
+        Issue issue = issueDAO.get(intId);
+
+        log.info("Issue" + issue);
+        issue.setTitle(title);
+        issue.setDescription(description);
+        log.info("Updated Issue" + issue);
+
         issueDAO.update(issue);
     }
 
-    public static void delete(int id){
+    public static void delete(String strId){
+        int id = Integer.valueOf(strId);
+        log.info("Delete id = " + id);
+
         issueDAO.delete(id);
     }
 }

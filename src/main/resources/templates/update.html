@@ -11,9 +11,12 @@
     </style>
 </head>
 <body>
+<!-- Header -->
+<header th:insert="header"></header>
+
 <h1 class="center">Update Issue id = <span th:text="${id}"></span></h1>
 
-<span th:insert="issueform"></span>
+<span th:insert="updateissueform"></span>
 
 </body>
 </html>

@@ -25,31 +25,32 @@
     </style>
 </head>
 <body>
-<h1 class="center">View Issue <span th:text="${id}"></span></h1>
+<!-- Header -->
+<header th:insert="header"></header>
+
+<h1 class="center">View Issue <span th:text="${issue.getId()}"></span></h1>
 
 <table>
     <tr>
         <td class="row1">Title</td>
-        <td>Title42</td>
+        <td><span th:text="${issue.getTitle()}"></span></td>
     </tr>
     <tr>
         <td>Status</td>
-        <td>Status42</td>
+        <td><span th:text="${issue.getStatus()}"></span></td>
     </tr>
     <tr>
         <td>Date</td>
-        <td>11/09/2001</td>
+        <td><span th:text="${issue.getDate()}"></span></td>
     </tr>
     <tr>
         <td>Author</td>
-        <td>User42</td>
+        <td><span th:text="${issue.getUserId()}"></span></td>
     </tr>
     <tr>
         <td>Description</td>
         <td>
-            Description bla bla bla Description bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla bla
-            Description bla bla bla Description bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla bla
-            Description bla bla bla Description bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla blaDescription bla bla bla
+            <span th:text="${issue.getDescription()}"></span>
         </td>
     </tr>
 </table>

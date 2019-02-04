@@ -10,7 +10,7 @@ h1 {
 }
 
 table {
-    width:500px;
+    width:1024px;
     margin:auto;
     border: solid 1px black;
     border-collapse: collapse;
@@ -27,33 +27,30 @@ th {
 </style>
 <body>
 <!-- Header -->
+<header th:insert="header"></header>
+
 <h1>Issue Tracker <span th:text="${foo}"></span></h1>
 
 <table>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>User</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
     <tr th:each="issue : ${issueList}">
-        <td><a href="/issue/42"><span th:text="${issue.getId()}"></span><span th:text="${issue.getTitle()}"></span></a></td>
-        <td>Created</td>
-        <td>09/11/2001</td>
-        <td><a href="/update/42">Update</a></td>
-        <td><a href="/delete/42">Delete</a></td>
-    </tr>
-    <tr>
-        <td><a href="/issue/43">Issue 43 Title</a></td>
-        <td>Resolved</td>
-        <td>09/11/2001</td>
-        <td><a href="/update/43">Update</a></td>
-        <td><a href="/delete/43">Delete</a></td>
-    </tr>
-    <tr>
-        <td><a href="/issue/44">Issue 44 Title</a></td>
-        <td>Closed</td>
-        <td>09/11/2001</td>
-        <td><a href="/update/44">Update</a></td>
-        <td><a href="/delete/44">Delete</a></td>
+        <td><span th:text="${issue.getId()}"></span></td>
+        <td><a th:href="@{issue/{id}(id=${issue.getId()})}"><span th:text="${issue.getTitle()}"></span></a></td>
+        <td><span th:text="${issue.getStatus()}"></span></td>
+        <td><span th:text="${issue.getDate().toString()}"></span></td>
+        <td><span th:text="${issue.getUserId()}"></span></td>
+        <td><a th:href="@{update/{id}(id=${issue.getId()})}">Update</a></td>
+        <td><a th:href="@{delete/{id}(id=${issue.getId()})}">Delete</a></td>
     </tr>
 </table>
-
-<span th:insert="issueform"></span>
 
 <!-- -->
 </body>

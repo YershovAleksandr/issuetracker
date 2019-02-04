@@ -7,7 +7,7 @@ public class Issue {
     private int userId;
     private String title;
     private String description;
-    private Date startDate;
+    private Date date;
     //todo fix type status
     private int status;
 
@@ -43,12 +43,12 @@ public class Issue {
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getStatus() {
@@ -61,12 +61,12 @@ public class Issue {
 
     @Override
     public String toString() {
-        return "Issue{" +
+        return "Issue {" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", startDate=" + startDate +
+                ", date=" + date +
                 ", status=" + status +
                 '}';
     }
