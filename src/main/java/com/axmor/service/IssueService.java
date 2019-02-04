@@ -1,0 +1,65 @@
+package com.axmor.service;
+
+import com.axmor.dao.IssueDAO;
+import com.axmor.model.Issue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+import java.util.Map;
+
+public class IssueService {
+    private static Logger log = LoggerFactory.getLogger(IssueService.class);
+    private static IssueDAO issueDAO = new IssueDAO();
+
+    public static Map<Integer, Issue> getAll(){
+        return issueDAO.getAll();
+    }
+
+    public static Issue get(int id){
+        return issueDAO.get(id);
+    }
+
+    public static void create(Map<String, String> params){
+        String title = params.get("title");
+        String description = params.get("description");
+
+        Issue issue = new Issue();
+
+        //issue.setId(2);
+        //issue.setUserId(22);
+        issue.setTitle(title);
+        issue.setDescription(description);
+        issue.setDate(new Date());
+        issue.setStatus(777);
+
+        log.info("Create issue " + issue);
+
+        issueDAO.create(issue);
+    }
+
+    public static void update(Map<String, String> params){
+        log.info("Update id = " + params.get("id"));
+        String title = params.get("title");
+        String description = params.get("description");
+        String id = params.get("id");
+
+        int intId = Integer.valueOf(id);
+
+        Issue issue = issueDAO.get(intId);
+
+        log.info("Issue" + issue);
+        issue.setTitle(title);
+        issue.setDescription(description);
+        log.info("Updated Issue" + issue);
+
+        issueDAO.update(issue);
+    }
+
+    public static void delete(String strId){
+        int id = Integer.valueOf(strId);
+        log.info("Delete id = " + id);
+
+        issueDAO.delete(id);
+    }
+}

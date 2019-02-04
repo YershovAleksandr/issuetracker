@@ -1,67 +1,108 @@
 package com.axmor.controller;
 
-import com.axmor.dao.IssueDAO;
 import com.axmor.model.Issue;
+import com.axmor.service.IssueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import spark.ModelAndView;
+import spark.Route;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 public class IssueController {
     private static Logger log = LoggerFactory.getLogger(IssueController.class);
-    private static IssueDAO issueDAO = new IssueDAO();
+    private static IssueService issueService = new IssueService();
 
-    public static Map<Integer, Issue> getAll(){
-        return issueDAO.getAll();
-    }
+    public static Route ViewIssues = (request, response) -> {
+        log.info("view all issues");
 
-    public static Issue get(int id){
-        return issueDAO.get(id);
-    }
+        Map map = new HashMap();
+        //TODO fix this shit
+        List<Issue> issueList = new ArrayList<Issue>(issueService.getAll().values());
+        map.put("issueList", issueList);
 
-    public static void create(Map<String, String> params){
-        //TODO FIX create service layer
-        String title = params.get("title");
-        String description = params.get("description");
+        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issues"));
+    };
 
-        Issue issue = new Issue();
+    public static Route ViewIssue = (request, response) -> {
+        log.info("view issue id = " + request.params(":id"));
 
-        //issue.setId(2);
-        //issue.setUserId(22);
-        issue.setTitle(title);
-        issue.setDescription(description);
-        issue.setDate(new Date());
-        issue.setStatus(777);
+        Map map = new HashMap();
+        //TODO fix this shit
+        int intId = Integer.valueOf(request.params(":id"));
 
-        log.info("Create issue " + issue);
+        Issue issue = issueService.get(intId);
+        map.put("issue", issue);
 
-        issueDAO.create(issue);
-    }
+        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issue"));
+    };
 
-    public static void update(Map<String, String> params){
-        log.info("Update id = " + params.get("id"));
-        //TODO FIX create service layer
-        String title = params.get("title");
-        String description = params.get("description");
-        String id = params.get("id");
+    public static Route UpdateIssue =  (request, response) -> {
+        log.info("update issue id = " + request.params(":id"));
 
-        int intId = Integer.valueOf(id);
+        Map map = new HashMap();
+        //TODO fix this shit
+        int intId = Integer.valueOf(request.params(":id"));
 
-        Issue issue = issueDAO.get(intId);
+        Issue issue = issueService.get(intId);
+        map.put("issue", issue);
 
-        log.info("Issue" + issue);
-        issue.setTitle(title);
-        issue.setDescription(description);
-        log.info("Updated Issue" + issue);
+        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "update"));
+    };
 
-        issueDAO.update(issue);
-    }
+    public static Route UpdateIssuePost = (request, response) -> {
+        log.info("Update issue");
 
-    public static void delete(String strId){
-        int id = Integer.valueOf(strId);
-        log.info("Delete id = " + id);
+        Map<String, String> map= new HashMap<>();
+        //TODO fix this shit
+        map.put("id", request.queryParams("id"));
+        map.put("title", request.queryParams("title"));
+        map.put("description", request.queryParams("description"));
 
-        issueDAO.delete(id);
-    }
+        issueService.update(map);
+        response.redirect("/");
+
+        return null;
+    };
+
+    public static Route DeleteIssue = (request, response) -> {
+        log.info("delete issue id = " + request.params(":id"));
+
+        //TODO fix this shit
+        issueService.delete(request.params(":id"));
+        response.redirect("/");
+
+        return null;
+    };
+
+    public static Route CreateIssue = (request, response) -> {
+        log.info("Create issue");
+        Map map = new HashMap();
+        //TODO fix this shit
+        map.put("foo", "bar");
+
+        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "createissueform"));
+    };
+
+    public static Route CreateIssuePost = (request, response) -> {
+        log.info("Create issue post");
+
+        Map<String, String> map= new HashMap<>();
+        map.put("title", request.queryParams("title"));
+        map.put("description", request.queryParams("description"));
+        //TODO fix this shit
+        issueService.create(map);
+        response.redirect("/");
+
+        return null;
+    };
+
+    public static Route CreateComment = (request, response) -> {
+        log.info("Create new comment at issue id = " + request.params(":id"));
+
+        response.redirect(request.url());
+
+        return null;
+    };
 }
