@@ -12,14 +12,13 @@ import java.util.*;
 
 public class IssueController {
     private static Logger log = LoggerFactory.getLogger(IssueController.class);
-    private static IssueService issueService = new IssueService();
 
     public static Route ViewIssues = (request, response) -> {
         log.info("view all issues");
 
         Map map = new HashMap();
         //TODO fix this shit
-        List<Issue> issueList = new ArrayList<Issue>(issueService.getAll().values());
+        List<Issue> issueList = new ArrayList<Issue>(IssueService.getAll().values());
         map.put("issueList", issueList);
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issues"));
@@ -32,7 +31,7 @@ public class IssueController {
         //TODO fix this shit
         int intId = Integer.valueOf(request.params(":id"));
 
-        Issue issue = issueService.get(intId);
+        Issue issue = IssueService.get(intId);
         map.put("issue", issue);
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issue"));
@@ -45,7 +44,7 @@ public class IssueController {
         //TODO fix this shit
         int intId = Integer.valueOf(request.params(":id"));
 
-        Issue issue = issueService.get(intId);
+        Issue issue = IssueService.get(intId);
         map.put("issue", issue);
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "update"));
@@ -60,7 +59,7 @@ public class IssueController {
         map.put("title", request.queryParams("title"));
         map.put("description", request.queryParams("description"));
 
-        issueService.update(map);
+        IssueService.update(map);
         response.redirect("/");
 
         return null;
@@ -70,7 +69,7 @@ public class IssueController {
         log.info("delete issue id = " + request.params(":id"));
 
         //TODO fix this shit
-        issueService.delete(request.params(":id"));
+        IssueService.delete(request.params(":id"));
         response.redirect("/");
 
         return null;
@@ -92,7 +91,7 @@ public class IssueController {
         map.put("title", request.queryParams("title"));
         map.put("description", request.queryParams("description"));
         //TODO fix this shit
-        issueService.create(map);
+        IssueService.create(map);
         response.redirect("/");
 
         return null;
