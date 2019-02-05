@@ -75,6 +75,7 @@ public class IssueController {
 
         //TODO fix this shit
         IssueService.delete(request.params(":id"));
+        CommentService.deleteByIssueId(request.params(":id"));
         response.redirect("/");
 
         return null;

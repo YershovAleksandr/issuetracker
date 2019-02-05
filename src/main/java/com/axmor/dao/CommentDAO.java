@@ -4,32 +4,42 @@ import com.axmor.model.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class CommentDAO {
     private Logger log = LoggerFactory.getLogger(CommentDAO.class);
-    private List<Comment> commentList = new ArrayList<>();
+    private Map<Integer, Comment> commentMap = new LinkedHashMap<>();
 
-    public List<Comment> getAll(){
-        return commentList;
+    public Map<Integer, Comment> getAll(){
+        return commentMap;
     }
 
     public Comment get(int id){
-        return commentList.get(id);
+        return commentMap.get(id);
     }
 
-    public void create(Comment issue){
-        commentList.add(issue);
-        issue.setId(commentList.indexOf(issue));
+    public void create(Comment comment){
+        int newId = 0;
+
+        if (commentMap.size() == 0){
+            newId = 0;
+        } else {
+            newId = Collections.max(commentMap.keySet()) + 10;
+        }
+
+        commentMap.put(newId, comment);
+        comment.setId(newId);
+
+        log.info("Create comment " + comment);
+
     }
 
     public void update(Comment issue){
-        commentList.add(issue.getId(), issue);
+        commentMap.put(issue.getId(), issue);
     }
 
     public void delete(int id){
-        commentList.remove(id);
+        commentMap.remove(id);
     }
 }

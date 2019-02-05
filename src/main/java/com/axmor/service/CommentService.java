@@ -5,10 +5,7 @@ import com.axmor.model.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CommentService {
     private static Logger log = LoggerFactory.getLogger(CommentService.class);
@@ -16,7 +13,7 @@ public class CommentService {
 
     public static List<Comment> getByUserId(int userId){
 
-        List<Comment> commentList = commentDAO.getAll();
+        List<Comment> commentList = new ArrayList<>(commentDAO.getAll().values());
         List<Comment> resultList = new ArrayList<>();
 
         for(Comment comment : commentList){
@@ -59,24 +56,25 @@ public class CommentService {
         commentDAO.create(comment);
     }
 
-    /*
-    public static void update(Map<String, String> params){
-        log.info("Update id = " + params.get("id"));
-        String title = params.get("title");
-        String description = params.get("description");
-        String id = params.get("id");
 
-        int intId = Integer.valueOf(id);
+    public static void deleteByIssueId(String issueId){
+        Map<Integer, Comment> commentMap = commentDAO.getAll();
 
-        Issue issue = issueDAO.get(intId);
+        int intIssueId = Integer.valueOf(issueId);
 
-        log.info("Issue" + issue);
-        issue.setTitle(title);
-        issue.setDescription(description);
-        log.info("Updated Issue" + issue);
+        log.info("Comments " + commentMap.toString());
+        commentMap.entrySet().removeIf(comment -> (comment.getValue().getIssueId() == intIssueId));
+        log.info("Comments after remove" + commentMap.toString());
+        /*
+        for(Comment comment: commentList){
+            if (comment.getIssueId() == intIssueId){
+                log.info("Remove " + comment);
 
-        issueDAO.update(issue);
-    }*/
+                commentList.remove(comment);
+            }
+        }*/
+    }
+
 
     /*
     public static void delete(String strId){
