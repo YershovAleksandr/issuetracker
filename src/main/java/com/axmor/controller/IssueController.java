@@ -2,8 +2,10 @@ package com.axmor.controller;
 
 import com.axmor.model.Comment;
 import com.axmor.model.Issue;
+import com.axmor.model.Status;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
+import com.axmor.service.StatusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
@@ -35,6 +37,9 @@ public class IssueController {
 
         Issue issue = IssueService.get(intId);
         map.put("issue", issue);
+
+        List<Status> statusList = StatusService.getAll();
+        map.put("statusList", statusList);
 
         List<Comment> commentList = CommentService.getByUserId(intId);
         map.put("commentList", commentList);

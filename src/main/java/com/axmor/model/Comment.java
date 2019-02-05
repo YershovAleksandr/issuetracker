@@ -6,7 +6,7 @@ public class Comment {
     private int id;
     private int userId;
     private int issueId;
-    private int statusId;
+    private Status status;
     private String text;
     private Date date;
 
@@ -34,12 +34,12 @@ public class Comment {
         this.issueId = issueId;
     }
 
-    public int getStatusId() {
-        return statusId;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public String getText() {
@@ -64,7 +64,7 @@ public class Comment {
                 "id=" + id +
                 ", userId=" + userId +
                 ", issueId=" + issueId +
-                ", statusId=" + statusId +
+                ", statusId=" + status +
                 ", text='" + text + '\'' +
                 ", date=" + date +
                 '}';

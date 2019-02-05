@@ -38,8 +38,8 @@
             <td><span th:text="${comment.getIssueId()}"></span></td>
         </tr>
         <tr>
-            <td>Status Id</td>
-            <td><span th:text="${comment.getStatusId()}"></span></td>
+            <td>Status changed to </td>
+            <td><span th:text="${comment.getStatus().getStatus()}"></span></td>
         </tr>
         <tr>
             <td>Text</td>

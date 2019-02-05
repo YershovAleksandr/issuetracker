@@ -46,7 +46,7 @@ public class Main {
     private static void Configuration(){
         //TODO FIX this shit
 
-        List<String> statusStringList = new ArrayList<>(Arrays.asList("Created", "Resolved", "Closed", "Duplicated"));
+        List<String> statusStringList = new ArrayList<>(Arrays.asList("Created", "Resolved", "Closed", "Duplicated", "Reopened"));
 
         for(String statusString : statusStringList) {
             Status status = new Status();

@@ -2,6 +2,7 @@ package com.axmor.service;
 
 import com.axmor.dao.IssueDAO;
 import com.axmor.model.Issue;
+import com.axmor.model.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ public class IssueService {
         issue.setTitle(title);
         issue.setDescription(description);
         issue.setDate(new Date());
-        issue.setStatus(777);
+        issue.setStatus(StatusService.getCreatedStatus());
 
         log.info("Create issue " + issue);
 
@@ -46,7 +47,7 @@ public class IssueService {
 
         int intId = Integer.valueOf(id);
 
-        Issue issue = issueDAO.get(intId);
+        Issue issue = get(intId);
 
         log.info("Issue" + issue);
         issue.setTitle(title);
@@ -61,5 +62,12 @@ public class IssueService {
         log.info("Delete id = " + id);
 
         issueDAO.delete(id);
+    }
+
+    public static void updateStatusByIssueId(int id, Status status){
+        Issue issue = get(id);
+
+        //TODO check for null;
+        issue.setStatus(status);
     }
 }

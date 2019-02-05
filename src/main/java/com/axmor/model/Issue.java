@@ -9,7 +9,7 @@ public class Issue {
     private String description;
     private Date date;
     //todo fix type status
-    private int status;
+    private Status status;
 
     public int getId() {
         return id;
@@ -51,11 +51,11 @@ public class Issue {
         this.date = date;
     }
 
-    public int getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

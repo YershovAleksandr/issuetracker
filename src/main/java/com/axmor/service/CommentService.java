@@ -2,6 +2,7 @@ package com.axmor.service;
 
 import com.axmor.dao.CommentDAO;
 import com.axmor.model.Comment;
+import com.axmor.model.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +29,7 @@ public class CommentService {
     public static void create(Map<String, String> params){
         //int userId = Integer.valueOf(params.get("userid"));
         int issueId = Integer.valueOf(params.get("issueid"));
-        String status = params.get("status");
+        String strStatus = params.get("status");
         String text = params.get("text");
 
         Comment comment = new Comment();
@@ -37,19 +38,22 @@ public class CommentService {
         comment.setUserId(44);
         comment.setIssueId(issueId);
 
-        int intStatus = 0;
+        Status status = null;
 
-        switch(status){
-            //case "wip" : intStatus = 7; break;
-            case "resolved" : intStatus = 88; break;
-            case "closed" : intStatus = 999; break;
+        switch(strStatus){
+            case "resolved" : status = StatusService.getResolvedStatus(); break;
+            case "closed" : status = StatusService.getClosedStatus(); break;
+            case "duplicated" : status = StatusService.getDuplicatedStatus(); break;
+            case "reopened" : status = StatusService.getReopenedStatus(); break;
 
-            default: intStatus = 7;
+            default: status = StatusService.getCreatedStatus(); //Created;
         }
 
-        comment.setStatusId(intStatus);
+        comment.setStatus(status);
         comment.setText(text);
         comment.setDate(new Date());
+
+        IssueService.updateStatusByIssueId(issueId, status);
 
         log.info("Create comment " + comment);
 

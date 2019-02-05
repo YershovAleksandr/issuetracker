@@ -1,3 +1,4 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <style>
         h1 {
             color:blue;
@@ -39,9 +40,9 @@
             <td class="cols1">Status: </td>
             <td>
                 <select name="status">
-                    <option value="wip">Work In Progress</option>
-                    <option value="resolved">Resolved</option>
-                    <option value="closed">Closed</option>
+                    <th:block th:each="status : ${statusList}">
+                        <option th:value="${status.getStatus().toLowerCase()}"><span th:text="${status.getStatus()}"></span></option>
+                    </th:block>
                 </select>
             </td>
         </tr>
@@ -55,3 +56,4 @@
     </table>
 </form>
 </p>
+</html>

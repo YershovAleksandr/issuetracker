@@ -31,4 +31,63 @@ public class StatusService {
         statusDAO.delete(id);
     }
 
+    public static Status getCreatedStatus(){
+        List<Status> statusList = getAll();
+
+        for (Status status : statusList){
+            if (status.getStatus().equals("Created")){
+                return status;
+            }
+        }
+
+        return null;
+    }
+
+    public static Status getResolvedStatus(){
+        List<Status> statusList = getAll();
+
+        for (Status status : statusList){
+            if (status.getStatus().equals("Resolved")){
+                return status;
+            }
+        }
+
+        return null;
+    }
+
+    public static Status getClosedStatus(){
+        List<Status> statusList = getAll();
+
+        for (Status status : statusList){
+            if (status.getStatus().equals("Closed")){
+                return status;
+            }
+        }
+
+        return null;
+    }
+
+    public static Status getDuplicatedStatus(){
+        List<Status> statusList = getAll();
+
+        for (Status status : statusList){
+            if (status.getStatus().equals("Duplicated")){
+                return status;
+            }
+        }
+
+        return null;
+    }
+
+    public static Status getReopenedStatus(){
+        List<Status> statusList = getAll();
+
+        for (Status status : statusList){
+            if (status.getStatus().equals("Reopened")){
+                return status;
+            }
+        }
+
+        return null;
+    }
 }
