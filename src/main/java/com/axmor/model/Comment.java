@@ -1,11 +1,14 @@
 package com.axmor.model;
 
+import java.util.Date;
+
 public class Comment {
     private int id;
     private int userId;
     private int issueId;
     private int statusId;
     private String text;
+    private Date date;
 
     public int getId() {
         return id;
@@ -47,14 +50,23 @@ public class Comment {
         this.text = text;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        return "Comment{" +
+        return "Comment {" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", issueId=" + issueId +
                 ", statusId=" + statusId +
                 ", text='" + text + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

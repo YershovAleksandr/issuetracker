@@ -1,6 +1,8 @@
 package com.axmor.controller;
 
+import com.axmor.model.Comment;
 import com.axmor.model.Issue;
+import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,9 @@ public class IssueController {
 
         Issue issue = IssueService.get(intId);
         map.put("issue", issue);
+
+        List<Comment> commentList = CommentService.getByUserId(intId);
+        map.put("commentList", commentList);
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issue"));
     };
@@ -93,14 +98,6 @@ public class IssueController {
         //TODO fix this shit
         IssueService.create(map);
         response.redirect("/");
-
-        return null;
-    };
-
-    public static Route CreateComment = (request, response) -> {
-        log.info("Create new comment at issue id = " + request.params(":id"));
-
-        response.redirect(request.url());
 
         return null;
     };

@@ -1,3 +1,4 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div>
     <style>
         .center {
@@ -21,28 +22,32 @@
     </style>
     <h1 class="center">Comment</h1>
 
+    <th:block th:each="comment : ${commentList}">
+    <p>
     <table>
         <tr>
-            <td class="row1">Updated by</td>
-            <td>User42</td>
+            <td class="row1">Id</td>
+            <td><span th:text="${comment.getId()}"></span></td>
         </tr>
         <tr>
-            <td>Date</td>
-            <td>11/09/2001</td>
+            <td>User Id</td>
+            <td><span th:text="${comment.getUserId()}"></span></td>
         </tr>
         <tr>
-            <td>Status changed to</td>
-            <td>Status42</td>
+            <td>Issue Id</td>
+            <td><span th:text="${comment.getIssueId()}"></span></td>
+        </tr>
+        <tr>
+            <td>Status Id</td>
+            <td><span th:text="${comment.getStatusId()}"></span></td>
         </tr>
         <tr>
             <td>Text</td>
-            <td>
-                Text bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla bla
-                Text bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla bla
-                Text bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla blaText bla bla bla Text bla bla bla
-            </td>
+            <td><span th:text="${comment.getText()}"></span></td>
         </tr>
     </table>
+    </p>
+    </th:block>
 
 
 </div>
