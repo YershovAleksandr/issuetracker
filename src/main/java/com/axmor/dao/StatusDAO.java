@@ -35,4 +35,3 @@ public class StatusDAO {
         statusList.remove(id);
     }
 }
-
