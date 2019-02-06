@@ -19,9 +19,27 @@
             border: 1px solid black;
         }
 
-        .row1 {
+        .row100 {
             width:100px;
         }
+
+        .row150 {
+            width:150px;
+        }
+
+        .cols1 {
+            width:100px;
+        }
+
+        .rows2 {
+            height:100px;
+        }
+
+        .text {
+            width:99%;
+            height:99%;
+        }
+
     </style>
 </head>
 <body>
@@ -32,7 +50,7 @@
 
 <table>
     <tr>
-        <td class="row1">Title</td>
+        <td class="row100">Title</td>
         <td><span th:text="${issue.getTitle()}"></span></td>
     </tr>
     <tr>
@@ -57,11 +75,58 @@
 
 <h5 class="center">View all coments</h5>
 
-<span th:insert="comment"></span>
+<h1 class="center">Comment</h1>
+
+<th:block th:each="comment : ${commentList}">
+    <p>
+    <table>
+        <tr>
+            <td class="row150">Id</td>
+            <td><span th:text="${comment.getId()}"></span></td>
+        </tr>
+        <tr>
+            <td>Author</td>
+            <td><span th:text="${comment.getUser().getName()}"></span></td>
+        </tr>
+        <tr>
+            <td>Issue Id</td>
+            <td><span th:text="${comment.getIssueId()}"></span></td>
+        </tr>
+        <tr>
+            <td>Status changed to </td>
+            <td><span th:text="${comment.getStatus().getStatus()}"></span></td>
+        </tr>
+        <tr>
+            <td>Text</td>
+            <td><span th:text="${comment.getText()}"></span></td>
+        </tr>
+    </table>
+    </p>
+</th:block>
 
 <h5 class="center">Add comment</h5>
 
-<span th:insert="commentform"></span>
+<form action="" method="post">
+    <table>
+        <tr>
+            <td class="cols1">Status: </td>
+            <td>
+                <select name="status">
+                    <th:block th:each="status : ${statusList}">
+                        <option th:value="${status.getStatus().toLowerCase()}"><span th:text="${status.getStatus()}"></span></option>
+                    </th:block>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Text: </td>
+            <td class="rows2"><textarea class="text" name="text"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="center"><input type="submit" value="Add"></td>
+        </tr>
+    </table>
+</form>
 
 </body>
 </html>
