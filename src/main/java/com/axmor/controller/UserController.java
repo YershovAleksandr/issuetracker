@@ -1,5 +1,6 @@
 package com.axmor.controller;
 
+import com.axmor.model.User;
 import com.axmor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,6 @@ public class UserController {
 
         //TODO FIX
         Map map = new HashMap();
-
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "login"));
     };
@@ -45,9 +45,16 @@ public class UserController {
     };
 
     public static Route RegisterPost = (request, response) -> {
-        log.info("Register user ");
+        log.info("Create new user");
 
-        Map map = new HashMap();
+        String login = request.queryParams("login");
+        String password = request.queryParams("password");
+
+        User user = new User();
+        user.setName(login);
+        user.setPassword(password);
+
+        UserService.create(user);
 
         response.redirect("/");
 
@@ -57,9 +64,26 @@ public class UserController {
     public static Route LoginPost = (request, response) -> {
         log.info("Login post ");
 
-        //TODO FIX
-        Map map = new HashMap();
+        //TODO fix this shit
 
+        Map<String, String> map= new HashMap<>();
+
+        String login = request.queryParams("login");
+        String password = request.queryParams("password");
+
+        User user = UserService.getUserByName(login);
+
+        if (user != null && user.getPassword().equals(password)){
+            log.info("User accepted " + user);
+
+            //TODO user accepted
+            //response.redirect("/");
+        } else {
+            log.info("User not accepted " + user);
+
+            //TODO user not accepted
+            //response.redirect("/");
+        }
 
         response.redirect("/");
 

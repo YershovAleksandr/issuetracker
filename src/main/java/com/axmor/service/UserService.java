@@ -31,4 +31,16 @@ public class UserService {
     public static void logout(){
         //
     }
+
+    public static User getUserByName(String name){
+        List<User> userList = getAll();
+
+        for (User user : userList){
+            if (user.getName().equals(name)){
+                return user;
+            }
+        }
+
+        return null;
+    }
 }

@@ -65,7 +65,8 @@ public class Main {
 
         User user = new User();
         user.setId(42);
-        user.setName("User 777");
+        user.setName("User1");
+        user.setPassword("qwe");
         UserService.create(user);
     }
 }
