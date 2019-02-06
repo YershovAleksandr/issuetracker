@@ -19,6 +19,7 @@ public class IssueController {
 
     public static Route ViewIssues = (request, response) -> {
         log.info("view all issues");
+        log.info("request.session.attribute(user) " + request.session().attribute("user"));
 
         Map map = new HashMap();
         //TODO fix this shit

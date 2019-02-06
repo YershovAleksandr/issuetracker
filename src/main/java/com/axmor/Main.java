@@ -9,6 +9,7 @@ import com.axmor.service.StatusService;
 import com.axmor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Main {
 
         port(8080);
 
-        get("/login", UserController.Login);
+        get("/login", UserController::Login, new ThymeleafTemplateEngine());
         get("/logout", UserController.Logout);
         get("/register", UserController.Register);
         post("/registerpost", UserController.RegisterPost);

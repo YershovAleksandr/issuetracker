@@ -5,6 +5,8 @@ import com.axmor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 import spark.Route;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
@@ -14,19 +16,34 @@ import java.util.Map;
 public class UserController {
     private static Logger log = LoggerFactory.getLogger(UserController.class);
 
-    public static Route Login = (request, response) -> {
+    //public static Route Login = (request, response) -> {
+    public static ModelAndView Login (Request request, Response response){
         log.info("Login ");
+
+        log.info("Request.headers " + request.headers());
+        log.info("Request.cookies " + request.cookies());
+
+        //response.cookie("foo", "bar");
+        //request.session(true);
+        log.info("request.session " + request.session().attributes());
+        //request.session().attribute("user", "pidor");
+        //request.session().attributes()
 
         //TODO FIX
         Map map = new HashMap();
 
-        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "login"));
+        //return new ThymeleafTemplateEngine().render(new ModelAndView(map, "login"));
+        return new ModelAndView(map, "login");
     };
 
     public static Route Logout = (request, response) -> {
         log.info("Logout ");
 
+        //response.cookie("foo", "bar");
+        log.info("request.session " + request.session().attribute("user"));
         //Map map = new HashMap();
+
+        request.session().removeAttribute("user");
 
         UserService.logout();
 
@@ -75,6 +92,10 @@ public class UserController {
 
         if (user != null && user.getPassword().equals(password)){
             log.info("User accepted " + user);
+
+            request.session().attribute("user", user.getName()+user.getPassword());
+
+            log.info("request.session.attribute(user) " + request.session().attribute("user"));
 
             //TODO user accepted
             //response.redirect("/");
