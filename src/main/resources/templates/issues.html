@@ -37,7 +37,7 @@ th {
         <th>Title</th>
         <th>Status</th>
         <th>Date</th>
-        <th>User</th>
+        <th>Author</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -46,7 +46,7 @@ th {
         <td><a th:href="@{issue/{id}(id=${issue.getId()})}"><span th:text="${issue.getTitle()}"></span></a></td>
         <td><span th:text="${issue.getStatus().getStatus()}"></span></td>
         <td><span th:text="${issue.getDate().toString()}"></span></td>
-        <td><span th:text="${issue.getUserId()}"></span></td>
+        <td><span th:text="${issue.getUser().getName()}"></span></td>
         <td><a th:href="@{update/{id}(id=${issue.getId()})}">Update</a></td>
         <td><a th:href="@{delete/{id}(id=${issue.getId()})}">Delete</a></td>
     </tr>

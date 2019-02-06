@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Comment {
     private int id;
-    private int userId;
+    private User user;
     private int issueId;
     private Status status;
     private String text;
@@ -18,12 +18,12 @@ public class Comment {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getIssueId() {
@@ -62,7 +62,7 @@ public class Comment {
     public String toString() {
         return "Comment {" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", user=" + user +
                 ", issueId=" + issueId +
                 ", statusId=" + status +
                 ", text='" + text + '\'' +

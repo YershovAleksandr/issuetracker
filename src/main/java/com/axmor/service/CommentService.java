@@ -3,6 +3,7 @@ package com.axmor.service;
 import com.axmor.dao.CommentDAO;
 import com.axmor.model.Comment;
 import com.axmor.model.Status;
+import com.axmor.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,8 @@ public class CommentService {
         Comment comment = new Comment();
 
         //comment.setId(33);
-        comment.setUserId(44);
+        User user = UserService.get(0);
+        comment.setUser(user);
         comment.setIssueId(issueId);
 
         Status status = null;

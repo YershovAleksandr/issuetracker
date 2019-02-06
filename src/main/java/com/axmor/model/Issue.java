@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Issue {
     private int id;
-    private int userId;
+    private User user;
     private String title;
     private String description;
     private Date date;
@@ -19,12 +19,12 @@ public class Issue {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getTitle() {
@@ -63,7 +63,7 @@ public class Issue {
     public String toString() {
         return "Issue {" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", user=" + user +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", date=" + date +

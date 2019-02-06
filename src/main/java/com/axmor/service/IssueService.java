@@ -3,6 +3,7 @@ package com.axmor.service;
 import com.axmor.dao.IssueDAO;
 import com.axmor.model.Issue;
 import com.axmor.model.Status;
+import com.axmor.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +29,8 @@ public class IssueService {
         Issue issue = new Issue();
 
         //issue.setId(2);
-        //issue.setUserId(22);
+        User user = UserService.get(0);
+        issue.setUser(user);
         issue.setTitle(title);
         issue.setDescription(description);
         issue.setDate(new Date());

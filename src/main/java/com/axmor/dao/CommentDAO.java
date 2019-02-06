@@ -31,7 +31,7 @@ public class CommentDAO {
         commentMap.put(newId, comment);
         comment.setId(newId);
 
-        log.info("Create comment " + comment);
+        log.info("Created comment " + comment);
 
     }
 

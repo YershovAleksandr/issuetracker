@@ -24,11 +24,11 @@ public class StatusDAO {
         statusList.add(status);
         status.setId(statusList.indexOf(status));
 
-        log.info("Create status " + status);
+        log.info("Created status " + status);
     }
 
     public void update(Status status){
-        statusList.add(status);
+        statusList.add(status.getId(), status);
     }
 
     public void delete(int id){

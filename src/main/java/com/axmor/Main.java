@@ -3,7 +3,9 @@ package com.axmor;
 import com.axmor.controller.CommentController;
 import com.axmor.controller.IssueController;
 import com.axmor.model.Status;
+import com.axmor.model.User;
 import com.axmor.service.StatusService;
+import com.axmor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,5 +55,10 @@ public class Main {
             status.setStatus(statusString);
             StatusService.create(status);
         }
+
+        User user = new User();
+        user.setId(42);
+        user.setName("User 777");
+        UserService.create(user);
     }
 }
