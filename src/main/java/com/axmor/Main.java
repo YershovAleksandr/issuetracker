@@ -2,6 +2,7 @@ package com.axmor;
 
 import com.axmor.controller.CommentController;
 import com.axmor.controller.IssueController;
+import com.axmor.controller.UserController;
 import com.axmor.model.Status;
 import com.axmor.model.User;
 import com.axmor.service.StatusService;
@@ -30,6 +31,12 @@ public class Main {
         Configuration();
 
         port(8080);
+
+        get("/login", UserController.Login);
+        get("/logout", UserController.Logout);
+        get("/register", UserController.Register);
+        post("/registerpost", UserController.RegisterPost);
+        post("/", UserController.LoginPost);
 
         get("/", IssueController.ViewIssues);
         get("/issue/:id", IssueController.ViewIssue);

@@ -27,4 +27,8 @@ public class UserService {
     public static void delete(int id){
         userDAO.delete(id);
     }
+
+    public static void logout(){
+        //
+    }
 }
