@@ -7,6 +7,32 @@
         .center {
             text-align:center;
         }
+        h1 {
+            color:blue;
+        }
+        table {
+            margin:auto;
+            width:600px;
+            border: 1px solid black;
+            border-collapse:collapse;
+        }
+
+        tr td {
+            border: 1px solid black;
+        }
+
+        .cols1 {
+            width:100px;
+        }
+
+        .rows2 {
+            height:100px;
+        }
+
+        .text {
+            width:99%;
+            height:99%;
+        }
 
     </style>
 </head>
@@ -16,7 +42,25 @@
 
 <h1 class="center">Update Issue id = <span th:text="${id}"></span></h1>
 
-<span th:insert="updateissueform"></span>
+<form action="/updateissue" method="post">
+    <table>
+        <tr>
+            <td class="cols1">Id: </td>
+            <td><input class="text" type="text" name="id" th:value="${issue.getId()}"></td>
+        </tr>
+        <tr>
+            <td>Title: </td>
+            <td><input class="text" type="text" name="title" th:value="${issue.getTitle()}"></td>
+        </tr>
+        <tr>
+            <td>Description: </td>
+            <td class="rows2"><textarea class="text" name="description" th:utext="${issue.getDescription()}"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="center"><input type="submit" value="Update"></td>
+        </tr>
+    </table>
+</form>
 
 </body>
 </html>
