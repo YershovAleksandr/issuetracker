@@ -36,20 +36,24 @@ public class Main {
         before("/*", UserController.CheckAuth);
 
         get("/login", UserController::Login, new ThymeleafTemplateEngine());
+        post("/login", UserController.LoginPost);
         get("/logout", UserController.Logout);
+
         get("/register", UserController.Register);
         post("/registerpost", UserController.RegisterPost);
-        post("/", UserController.LoginPost);
 
         get("/", IssueController.ViewIssues);
         get("/issue/:id", IssueController.ViewIssue);
-        get("/update/:id", IssueController.UpdateIssue);
-        post("/updateissue", IssueController.UpdateIssuePost);
-        get("/delete/:id", IssueController.DeleteIssue);
+        post("/issue/:id", CommentController.CreateComment);
+
         get("/create", IssueController.CreateIssue);
         post("/createissue", IssueController.CreateIssuePost);
 
-        post("/issue/:id", CommentController.CreateComment);
+        get("/update/:id", IssueController.UpdateIssue);
+        post("/updateissue", IssueController.UpdateIssuePost);
+        get("/delete/:id", IssueController.DeleteIssue);
+
+
         //post("/createcomment", CommentController.CreateCommentPost);
 
         notFound("<html><body><h1>Fuck off!</h1></body></html>");

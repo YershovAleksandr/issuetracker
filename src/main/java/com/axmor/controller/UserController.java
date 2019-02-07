@@ -90,7 +90,7 @@ public class UserController {
 
         UserService.create(user);
 
-        response.redirect("/");
+        response.redirect("/login");
 
         return null;
     };
@@ -109,6 +109,8 @@ public class UserController {
 
         User user = UserService.getUserByName(login);
 
+        String url = "/";
+
         if (user != null && user.getPassword().equals(password)){
             log.info("User accepted " + user);
 
@@ -117,15 +119,15 @@ public class UserController {
             log.info("request.session.attribute(user) " + request.session().attribute("user"));
 
             //TODO user accepted
-            //response.redirect("/");
+
         } else {
             log.info("User not accepted " + user);
 
             //TODO user not accepted
-            //response.redirect("/");
+            url = "/login";
         }
 
-        response.redirect("/");
+        response.redirect(url);
 
         return null;
     };
