@@ -50,11 +50,17 @@ public class IssueController {
 
     public static Route CreateIssue = (request, response) -> {
         log.info("Create issue");
-        Map map = new HashMap();
-        //TODO fix this shit
-        map.put("foo", "bar");
 
-        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "createissueform"));
+        if (request.session().attribute("user") == null){
+            log.warn("Create issue for not authorized user");
+
+            //TODO show NotAuthorizesUser page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        return new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(), "createissueform"));
     };
 
     public static Route CreateIssuePost = (request, response) -> {
