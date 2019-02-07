@@ -31,59 +31,11 @@ public class StatusService {
         statusDAO.delete(id);
     }
 
-    public static Status getCreatedStatus(){
+     public static Status getStatusByName(String name){
         List<Status> statusList = getAllStatus();
 
         for (Status status : statusList){
-            if (status.getStatus().equals("Created")){
-                return status;
-            }
-        }
-
-        return null;
-    }
-
-    public static Status getResolvedStatus(){
-        List<Status> statusList = getAllStatus();
-
-        for (Status status : statusList){
-            if (status.getStatus().equals("Resolved")){
-                return status;
-            }
-        }
-
-        return null;
-    }
-
-    public static Status getClosedStatus(){
-        List<Status> statusList = getAllStatus();
-
-        for (Status status : statusList){
-            if (status.getStatus().equals("Closed")){
-                return status;
-            }
-        }
-
-        return null;
-    }
-
-    public static Status getDuplicatedStatus(){
-        List<Status> statusList = getAllStatus();
-
-        for (Status status : statusList){
-            if (status.getStatus().equals("Duplicated")){
-                return status;
-            }
-        }
-
-        return null;
-    }
-
-    public static Status getReopenedStatus(){
-        List<Status> statusList = getAllStatus();
-
-        for (Status status : statusList){
-            if (status.getStatus().equals("Reopened")){
+            if (status.getStatus().toLowerCase().equals(name)){
                 return status;
             }
         }

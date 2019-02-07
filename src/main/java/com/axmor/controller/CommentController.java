@@ -3,6 +3,7 @@ package com.axmor.controller;
 import com.axmor.model.User;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
+import com.axmor.service.StatusService;
 import com.axmor.util.CommentValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,9 @@ public class CommentController {
 
             //TODO show CommentStatusOrDescriptionNotValid page?
         } else {
-            CommentService.createCommentByIssueId(id, status, text, user);
+            CommentService.createCommentByIssueId(IssueService.getIssueById(id), status, text, user);
+
+            IssueService.updateStatusById(id, StatusService.getStatusByName(status));
         }
 
         response.redirect(request.url());

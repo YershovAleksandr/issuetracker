@@ -5,7 +5,7 @@ import java.util.Date;
 public class Comment {
     private int id;
     private User user;
-    private int issueId;
+    private Issue issue;
     private Status status;
     private String text;
     private Date date;
@@ -26,12 +26,12 @@ public class Comment {
         this.user = user;
     }
 
-    public int getIssueId() {
-        return issueId;
+    public Issue getIssue() {
+        return issue;
     }
 
-    public void setIssueId(int issueId) {
-        this.issueId = issueId;
+    public void setIssue(Issue issue) {
+        this.issue = issue;
     }
 
     public Status getStatus() {
@@ -63,7 +63,7 @@ public class Comment {
         return "Comment {" +
                 "id=" + id +
                 ", user=" + user +
-                ", issueId=" + issueId +
+                ", issue=" + issue +
                 ", statusId=" + status +
                 ", text='" + text + '\'' +
                 ", date=" + date +
