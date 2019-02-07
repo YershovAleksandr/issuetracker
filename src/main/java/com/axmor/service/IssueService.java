@@ -74,7 +74,8 @@ public class IssueService {
     public static void updateStatusByIssueId(String id, Status status){
         Issue issue = getIssueById(id);
 
-        //TODO check for null;
-        issue.setStatus(status);
+        if (issue != null) {
+            issue.setStatus(status);
+        }
     }
 }
