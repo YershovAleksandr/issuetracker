@@ -33,9 +33,9 @@ public class Main {
 
         port(8080);
 
-        before("/*", UserController.CheckAuth);
+        //before("/*", UserController.CheckAuth);
 
-        get("/login", UserController::Login, new ThymeleafTemplateEngine());
+        get("/login", UserController.Login);
         post("/login", UserController.LoginPost);
         get("/logout", UserController.Logout);
 

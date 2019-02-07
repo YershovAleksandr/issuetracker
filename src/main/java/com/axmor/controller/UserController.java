@@ -15,7 +15,7 @@ public class UserController {
 
 
 
-    public static Filter CheckAuth = (request, response) -> {
+/*    public static Filter CheckAuth = (request, response) -> {
         log.info("CheckAuth");
 
         //Session session = request.session(true);
@@ -42,18 +42,49 @@ public class UserController {
 
 
         return;
-    };
+    };*/
 
-
-    //public static Route Login = (request, response) -> {
-    public static ModelAndView Login (Request request, Response response){
+    public static Route Login = (request, response) -> {
         log.info("Login ");
 
-        //TODO FIX
-        Map map = new HashMap();
+        return new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(), "login"));
+    };
 
-        //return new ThymeleafTemplateEngine().render(new ModelAndView(map, "login"));
-        return new ModelAndView(map, "login");
+    public static Route LoginPost = (request, response) -> {
+        log.info("Login post ");
+
+        //TODO fix this shit
+
+        Map<String, String> map= new HashMap<>();
+
+        String login = request.queryParams("login");
+        String password = request.queryParams("password");
+
+        //request.session().attribute("user", login);
+
+        User user = UserService.getUserByName(login);
+
+        String url = "/";
+
+        if (user != null && user.getPassword().equals(password)){
+            log.info("User accepted " + user);
+
+            request.session().attribute("user", user);
+
+            log.info("request.session.attribute(user) " + request.session().attribute("user"));
+
+            //TODO user accepted
+
+        } else {
+            log.info("User not accepted " + user);
+
+            //TODO user not accepted
+            url = "/login";
+        }
+
+        response.redirect(url);
+
+        return null;
     };
 
     public static Route Logout = (request, response) -> {
@@ -91,43 +122,6 @@ public class UserController {
         UserService.create(user);
 
         response.redirect("/login");
-
-        return null;
-    };
-
-    public static Route LoginPost = (request, response) -> {
-        log.info("Login post ");
-
-        //TODO fix this shit
-
-        Map<String, String> map= new HashMap<>();
-
-        String login = request.queryParams("login");
-        String password = request.queryParams("password");
-
-        //request.session().attribute("user", login);
-
-        User user = UserService.getUserByName(login);
-
-        String url = "/";
-
-        if (user != null && user.getPassword().equals(password)){
-            log.info("User accepted " + user);
-
-            request.session().attribute("user", user);
-
-            log.info("request.session.attribute(user) " + request.session().attribute("user"));
-
-            //TODO user accepted
-
-        } else {
-            log.info("User not accepted " + user);
-
-            //TODO user not accepted
-            url = "/login";
-        }
-
-        response.redirect(url);
 
         return null;
     };
