@@ -76,15 +76,4 @@ public class CommentService {
             }
         }*/
     }
-
-
-    /*
-    public static void delete(String strId){
-        int id = Integer.valueOf(strId);
-        log.info("Delete id = " + id);
-
-        issueDAO.delete(id);
-    }
-    */
-
 }

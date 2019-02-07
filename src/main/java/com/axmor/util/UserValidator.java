@@ -16,6 +16,5 @@ public class UserValidator {
         } else {
             return false;
         }
-        //return true;
     }
 }

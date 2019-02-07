@@ -4,13 +4,9 @@ import com.axmor.model.User;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import com.axmor.util.CommentValidator;
-import com.axmor.util.IssueValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Route;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class CommentController {
     private static Logger log = LoggerFactory.getLogger(CommentController.class);
