@@ -15,22 +15,10 @@ public class UserDAO {
         return userList;
     }
 
-    public User get(int id){
-        return userList.get(id);
-    }
-
     public void create(User user){
         userList.add(user);
         user.setId(userList.indexOf(user));
 
         log.info("Created user " + user);
-    }
-
-    public void update(User user){
-        userList.add(user.getId(), user);
-    }
-
-    public void delete(int id){
-        userList.remove(id);
     }
 }

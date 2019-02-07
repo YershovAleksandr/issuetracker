@@ -9,41 +9,9 @@ import spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class UserController {
     private static Logger log = LoggerFactory.getLogger(UserController.class);
-
-
-
-/*    public static Filter CheckAuth = (request, response) -> {
-        log.info("CheckAuth");
-
-        //Session session = request.session(true);
-        log.info("Session.isNew() " + request.session().isNew());
-
-        log.info("session.maxInactiveInterval() " + request.session().maxInactiveInterval());
-        //request.session().maxInactiveInterval(10);
-        log.info("session.maxInactiveInterval() " + request.session().maxInactiveInterval());
-        log.info("request.session().id() " + request.session().id());
-        log.info("Request.cookies " + request.cookies());
-        log.info("Session.attributes " + request.session().attributes());
-        log.info("Session.attribute(user)  " + request.session().attribute("user"));
-
-
-        //response.cookie("foo", "bar");
-        //request.session().attribute("user", "pidor");
-        //request.session().attributes()
-        //response.cookie("foo", "bar");
-
-        //Map map = new HashMap();
-
-        //request.session().removeAttribute("user");
-
-
-
-        return;
-    };*/
 
     public static Route Login = (request, response) -> {
         log.info("Login ");
@@ -79,6 +47,7 @@ public class UserController {
             }
 
         }
+
         response.redirect(url);
 
         return null;
