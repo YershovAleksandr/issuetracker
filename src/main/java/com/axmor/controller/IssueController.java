@@ -3,6 +3,8 @@ package com.axmor.controller;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import com.axmor.service.StatusService;
+import com.axmor.util.IssueValidator;
+import com.axmor.util.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
@@ -66,14 +68,26 @@ public class IssueController {
     public static Route CreateIssuePost = (request, response) -> {
         log.info("Create issue post");
 
-        Map<String, Object> map= new HashMap<>();
-        map.put("title", request.queryParams("title"));
-        map.put("description", request.queryParams("description"));
-        //TODO fix this shit
+        if (request.session().attribute("user") == null){
+            log.warn("Create issue post for not authorized user");
 
-        map.put("user", request.session().attribute("user"));
+            //TODO show NotAuthorizesUser page?
+            response.redirect("/");
 
-        IssueService.create(map);
+            return null;
+        }
+
+        String title = request.queryParams("title");
+        String description = request.queryParams("description");
+
+        if (!IssueValidator.isTitleValid(title) || !IssueValidator.isDescriptionValid(description)) {
+            log.warn("Issue title or description not valid");
+
+            //TODO show IssueTitleOrDescriptionNotValid page?
+        } else {
+            IssueService.createIssue(request.session().attribute("user"), title, description);
+        }
+
         response.redirect("/");
 
         return null;

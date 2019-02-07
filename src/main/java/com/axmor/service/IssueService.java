@@ -41,13 +41,8 @@ public class IssueService {
         return issueDAO.get(intId);
     }
 
-    public static void create(Map<String, Object> params){
-        String title = (String)params.get("title");
-        String description = (String)params.get("description");
-        User user = (User)params.get("user");
+    public static void createIssue(User user, String title, String description){
         Issue issue = new Issue();
-
-        //issue.setId(2);
         issue.setUser(user);
         issue.setTitle(title);
         issue.setDescription(description);
