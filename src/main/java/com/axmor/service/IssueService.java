@@ -19,8 +19,26 @@ public class IssueService {
         return issueDAO.getAll();
     }
 
-    public static Issue get(int id){
-        return issueDAO.get(id);
+    public static boolean isIssueExistsById(String id){
+        Issue issue = getIssueById(id);
+
+        if (issue != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static Issue getIssueById(String id){
+        int intId;
+
+        try {
+            intId = Integer.valueOf(id);
+        } catch (NumberFormatException e){
+            return null;
+        }
+
+        return issueDAO.get(intId);
     }
 
     public static void create(Map<String, Object> params){
@@ -47,9 +65,7 @@ public class IssueService {
         String description = params.get("description");
         String id = params.get("id");
 
-        int intId = Integer.valueOf(id);
-
-        Issue issue = get(intId);
+        Issue issue = getIssueById(id);
 
         log.info("Issue" + issue);
         issue.setTitle(title);
@@ -66,8 +82,8 @@ public class IssueService {
         issueDAO.delete(id);
     }
 
-    public static void updateStatusByIssueId(int id, Status status){
-        Issue issue = get(id);
+    public static void updateStatusByIssueId(String id, Status status){
+        Issue issue = getIssueById(id);
 
         //TODO check for null;
         issue.setStatus(status);

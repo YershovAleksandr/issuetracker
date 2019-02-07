@@ -46,7 +46,7 @@
 <!-- Header -->
 <header th:insert="header"></header>
 
-<h1 class="center">View Issue <span th:text="${issue.getId()}"></span></h1>
+<h1 class="center">Issue <span th:text="${issue.getId()}"></span></h1>
 
 <table>
     <tr>
@@ -73,24 +73,14 @@
     </tr>
 </table>
 
-<h5 class="center">View all coments</h5>
-
-<h1 class="center">Comment</h1>
+<br>
 
 <th:block th:each="comment : ${commentList}">
     <p>
     <table>
         <tr>
-            <td class="row150">Id</td>
-            <td><span th:text="${comment.getId()}"></span></td>
-        </tr>
-        <tr>
-            <td>Author</td>
+            <td class="row150">Author</td>
             <td><span th:text="${comment.getUser().getName()}"></span></td>
-        </tr>
-        <tr>
-            <td>Issue Id</td>
-            <td><span th:text="${comment.getIssueId()}"></span></td>
         </tr>
         <tr>
             <td>Status changed to </td>
@@ -104,7 +94,7 @@
     </p>
 </th:block>
 
-<h5 class="center">Add comment</h5>
+<br>
 
 <form action="" method="post">
     <table>
@@ -123,7 +113,7 @@
             <td class="rows2"><textarea class="text" name="text"></textarea></td>
         </tr>
         <tr>
-            <td colspan="2" class="center"><input type="submit" value="Add"></td>
+            <td colspan="2" class="center"><input type="submit" value="Comment"></td>
         </tr>
     </table>
 </form>

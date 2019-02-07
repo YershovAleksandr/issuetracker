@@ -13,13 +13,15 @@ public class CommentService {
     private static Logger log = LoggerFactory.getLogger(CommentService.class);
     private static CommentDAO commentDAO = new CommentDAO();
 
-    public static List<Comment> getByUserId(int userId){
+    public static List<Comment> getCommentByIssueId(String id){
+        //
+        int issueId = Integer.valueOf(id);
 
         List<Comment> commentList = new ArrayList<>(commentDAO.getAll().values());
         List<Comment> resultList = new ArrayList<>();
 
         for(Comment comment : commentList){
-            if (comment.getIssueId() == userId){
+            if (comment.getIssueId() == issueId){
                 resultList.add(comment);
             }
         }
@@ -30,7 +32,7 @@ public class CommentService {
     public static void create(Map<String, Object> params){
         //int userId = Integer.valueOf(params.get("userid"));
         //TODO FIX THIS FUCKING SHIT!!!!
-        int issueId = Integer.valueOf((String)params.get("issueid"));
+        String issueId = (String)params.get("issueid");
         String strStatus = (String)params.get("status");
         String text = (String)params.get("text");
 
@@ -39,7 +41,7 @@ public class CommentService {
         //comment.setId(33);
         User user = (User)params.get("user");
         comment.setUser(user);
-        comment.setIssueId(issueId);
+        comment.setIssueId(Integer.valueOf(issueId));
 
         Status status = null;
 

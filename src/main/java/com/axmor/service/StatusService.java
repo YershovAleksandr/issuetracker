@@ -11,7 +11,7 @@ public class StatusService {
     private static Logger log = LoggerFactory.getLogger(StatusService.class);
     private static StatusDAO statusDAO = new StatusDAO();
 
-    public static List<Status> getAll(){
+    public static List<Status> getAllStatus(){
         return statusDAO.getAll();
     }
 
@@ -32,7 +32,7 @@ public class StatusService {
     }
 
     public static Status getCreatedStatus(){
-        List<Status> statusList = getAll();
+        List<Status> statusList = getAllStatus();
 
         for (Status status : statusList){
             if (status.getStatus().equals("Created")){
@@ -44,7 +44,7 @@ public class StatusService {
     }
 
     public static Status getResolvedStatus(){
-        List<Status> statusList = getAll();
+        List<Status> statusList = getAllStatus();
 
         for (Status status : statusList){
             if (status.getStatus().equals("Resolved")){
@@ -56,7 +56,7 @@ public class StatusService {
     }
 
     public static Status getClosedStatus(){
-        List<Status> statusList = getAll();
+        List<Status> statusList = getAllStatus();
 
         for (Status status : statusList){
             if (status.getStatus().equals("Closed")){
@@ -68,7 +68,7 @@ public class StatusService {
     }
 
     public static Status getDuplicatedStatus(){
-        List<Status> statusList = getAll();
+        List<Status> statusList = getAllStatus();
 
         for (Status status : statusList){
             if (status.getStatus().equals("Duplicated")){
@@ -80,7 +80,7 @@ public class StatusService {
     }
 
     public static Status getReopenedStatus(){
-        List<Status> statusList = getAll();
+        List<Status> statusList = getAllStatus();
 
         for (Status status : statusList){
             if (status.getStatus().equals("Reopened")){

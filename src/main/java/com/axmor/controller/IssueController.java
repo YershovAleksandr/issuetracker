@@ -1,8 +1,5 @@
 package com.axmor.controller;
 
-import com.axmor.model.Comment;
-import com.axmor.model.Issue;
-import com.axmor.model.Status;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import com.axmor.service.StatusService;
@@ -14,6 +11,7 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class IssueController {
     private static Logger log = LoggerFactory.getLogger(IssueController.class);
 
@@ -28,22 +26,23 @@ public class IssueController {
     };
 
     public static Route ViewIssue = (request, response) -> {
-        log.info("view issue id = " + request.params(":id"));
+        log.info("View issue id = " + request.params(":id"));
+
+        String strId = request.params(":id");
+
+        if (!IssueService.isIssueExistsById(strId)){
+            log.warn("Issue id not valid");
+
+            //TODO show IssueIdNotValid page?
+            response.redirect("/");
+
+            return null;
+        }
 
         Map map = new HashMap();
-        //TODO fix this shit
-        int intId = Integer.valueOf(request.params(":id"));
-
-        Issue issue = IssueService.get(intId);
-        map.put("issue", issue);
-
-        List<Status> statusList = StatusService.getAll();
-        map.put("statusList", statusList);
-
-        List<Comment> commentList = CommentService.getByUserId(intId);
-        map.put("commentList", commentList);
-
-        //TODO FIX THIS SHIT
+        map.put("issue", IssueService.getIssueById(strId));
+        map.put("commentList", CommentService.getCommentByIssueId(strId));
+        map.put("statusList", StatusService.getAllStatus());
         map.put("user", request.session().attribute("user"));
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issue"));
@@ -78,11 +77,7 @@ public class IssueController {
         log.info("update issue id = " + request.params(":id"));
 
         Map map = new HashMap();
-        //TODO fix this shit
-        int intId = Integer.valueOf(request.params(":id"));
-
-        Issue issue = IssueService.get(intId);
-        map.put("issue", issue);
+        map.put("issue", IssueService.getIssueById(request.params(":id")));
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "update"));
     };
