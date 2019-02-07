@@ -27,40 +27,31 @@ th {
 </style>
 <body>
 <!-- Header -->
-<header th:insert="header"></header>
+    <header th:insert="header"></header>
 
-<h1>Issue Tracker</h1>
-<th:block th:if="${user}">
-    <h1>Welcome <span th:text="${user.getName()}"></span></h1>
-</th:block>
+    <h1>Issue Tracker</h1>
+    <th:block th:if="${user}">
+        <h1>Welcome <span th:text="${user.getName()}"></span></h1>
+    </th:block>
 
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Date</th>
-        <th>Author</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-    <tr th:each="issue : ${issueList}">
-        <td><span th:text="${issue.getId()}"></span></td>
-        <td><a th:href="@{issue/{id}(id=${issue.getId()})}"><span th:text="${issue.getTitle()}"></span></a></td>
-        <td><span th:text="${issue.getStatus().getStatus()}"></span></td>
-        <td><span th:text="${issue.getDate().toString()}"></span></td>
-        <td><span th:text="${issue.getUser().getName()}"></span></td>
-
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Author</th>
+        </tr>
+        <tr th:each="issue : ${issueList}">
+            <td><a th:href="@{issue/{id}(id=${issue.getId()})}"><span th:text="${issue.getTitle()}"></span></a></td>
+            <td><span th:text="${issue.getStatus().getStatus()}"></span></td>
+            <td><span th:text="${issue.getDate()}"></span></td>
+            <td><span th:text="${issue.getUser().getName()}"></span></td>
 
             <th:block th:if="${user} == ${issue.getUser()}">
                 <td><a th:href="@{update/{id}(id=${issue.getId()})}">Update</a></td>
                 <td><a th:href="@{delete/{id}(id=${issue.getId()})}">Delete</a></td>
             </th:block>
-
-
-    </tr>
-</table>
-
-<!-- -->
+        </tr>
+    </table>
 </body>
 </html>

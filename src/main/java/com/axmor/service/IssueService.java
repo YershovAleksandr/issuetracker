@@ -8,13 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class IssueService {
     private static Logger log = LoggerFactory.getLogger(IssueService.class);
     private static IssueDAO issueDAO = new IssueDAO();
 
-    public static Map<Integer, Issue> getAll(){
+    public static List<Issue> getAllIssues(){
         return issueDAO.getAll();
     }
 

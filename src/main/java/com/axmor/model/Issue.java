@@ -8,7 +8,6 @@ public class Issue {
     private String title;
     private String description;
     private Date date;
-    //todo fix type status
     private Status status;
 
     public int getId() {

@@ -38,14 +38,14 @@ public class Main {
 
         get("/", IssueController.ViewIssues);
         get("/issue/:id", IssueController.ViewIssue);
-        post("/issue/:id", CommentController.CreateComment);
-
         get("/create", IssueController.CreateIssue);
         post("/createissue", IssueController.CreateIssuePost);
 
         get("/update/:id", IssueController.UpdateIssue);
         post("/updateissue", IssueController.UpdateIssuePost);
         get("/delete/:id", IssueController.DeleteIssue);
+
+        post("/issue/:id", CommentController.CreateComment);
 
         notFound("<html><body><h1>Fuck off!</h1></body></html>");
     }

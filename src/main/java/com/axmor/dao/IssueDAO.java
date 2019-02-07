@@ -4,16 +4,14 @@ import com.axmor.model.Issue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class IssueDAO {
     private Logger log = LoggerFactory.getLogger(IssueDAO.class);
-    private Map<Integer, Issue> issueMap = new LinkedHashMap<>();
+    private HashMap<Integer, Issue> issueMap = new LinkedHashMap<>();
 
-    public Map<Integer, Issue> getAll(){
-        return issueMap;
+    public List<Issue> getAll(){
+        return new ArrayList<>(issueMap.values());
     }
 
     public Issue get(int id){
@@ -21,7 +19,7 @@ public class IssueDAO {
     }
 
     public void create(Issue issue){
-        int newId = 0;
+        int newId;
 
         if (issueMap.size() == 0){
             newId = 0;

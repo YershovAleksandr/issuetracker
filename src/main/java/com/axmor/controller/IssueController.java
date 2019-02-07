@@ -3,7 +3,6 @@ package com.axmor.controller;
 import com.axmor.model.Comment;
 import com.axmor.model.Issue;
 import com.axmor.model.Status;
-import com.axmor.model.User;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import com.axmor.service.StatusService;
@@ -19,13 +18,10 @@ public class IssueController {
     private static Logger log = LoggerFactory.getLogger(IssueController.class);
 
     public static Route ViewIssues = (request, response) -> {
-        log.info("view all issues");
+        log.info("View issues");
 
         Map map = new HashMap();
-        //TODO fix this shit
-        List<Issue> issueList = new ArrayList<Issue>(IssueService.getAll().values());
-        map.put("issueList", issueList);
-
+        map.put("issueList", IssueService.getAllIssues());
         map.put("user", request.session().attribute("user"));
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issues"));
@@ -51,6 +47,31 @@ public class IssueController {
         map.put("user", request.session().attribute("user"));
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issue"));
+    };
+
+    public static Route CreateIssue = (request, response) -> {
+        log.info("Create issue");
+        Map map = new HashMap();
+        //TODO fix this shit
+        map.put("foo", "bar");
+
+        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "createissueform"));
+    };
+
+    public static Route CreateIssuePost = (request, response) -> {
+        log.info("Create issue post");
+
+        Map<String, Object> map= new HashMap<>();
+        map.put("title", request.queryParams("title"));
+        map.put("description", request.queryParams("description"));
+        //TODO fix this shit
+
+        map.put("user", request.session().attribute("user"));
+
+        IssueService.create(map);
+        response.redirect("/");
+
+        return null;
     };
 
     public static Route UpdateIssue =  (request, response) -> {
@@ -87,31 +108,6 @@ public class IssueController {
         //TODO fix this shit
         IssueService.delete(request.params(":id"));
         CommentService.deleteByIssueId(request.params(":id"));
-        response.redirect("/");
-
-        return null;
-    };
-
-    public static Route CreateIssue = (request, response) -> {
-        log.info("Create issue");
-        Map map = new HashMap();
-        //TODO fix this shit
-        map.put("foo", "bar");
-
-        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "createissueform"));
-    };
-
-    public static Route CreateIssuePost = (request, response) -> {
-        log.info("Create issue post");
-
-        Map<String, Object> map= new HashMap<>();
-        map.put("title", request.queryParams("title"));
-        map.put("description", request.queryParams("description"));
-        //TODO fix this shit
-
-        map.put("user", request.session().attribute("user"));
-
-        IssueService.create(map);
         response.redirect("/");
 
         return null;
