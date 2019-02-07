@@ -16,10 +16,6 @@ public class UserService {
         return userDAO.get(id);
     }
 
-    public static void create(User user){
-        userDAO.create(user);
-    }
-
     public static void update(User user){
         userDAO.update(user);
     }
@@ -38,5 +34,13 @@ public class UserService {
         }
 
         return null;
+    }
+
+    public static void createNewUser(String login, String password){
+        User user = new User();
+        user.setName(login);
+        user.setPassword(password);
+
+        userDAO.create(user);
     }
 }

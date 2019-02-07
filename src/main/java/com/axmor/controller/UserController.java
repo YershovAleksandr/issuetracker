@@ -62,7 +62,7 @@ public class UserController {
         if (!UserValidator.isNameValid(login) || !UserValidator.isPasswordValid(password)){
             log.warn("User name or password not valid");
 
-            //TODO show UserNameOrPasswordNotValid page?
+            //TODO show UserLoginOrPasswordNotValid page?
         } else {
             User user = UserService.getUserByName(login);
 
@@ -96,10 +96,7 @@ public class UserController {
     public static Route Register = (request, response) -> {
         log.info("Register user ");
 
-        Map map = new HashMap();
-
-
-        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "register"));
+        return new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(), "register"));
     };
 
     public static Route RegisterPost = (request, response) -> {
@@ -108,11 +105,13 @@ public class UserController {
         String login = request.queryParams("login");
         String password = request.queryParams("password");
 
-        User user = new User();
-        user.setName(login);
-        user.setPassword(password);
+        if (!UserValidator.isNameValid(login) || !UserValidator.isPasswordValid(password)){
+            log.warn("User name or password not valid");
 
-        UserService.create(user);
+            //TODO show UserLoginOrPasswordNotValid page?
+        } else {
+            UserService.createNewUser(login, password);
+        }
 
         response.redirect("/login");
 
