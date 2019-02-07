@@ -1,10 +1,10 @@
 package com.axmor.controller;
 
+import com.axmor.model.User;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import com.axmor.service.StatusService;
 import com.axmor.util.IssueValidator;
-import com.axmor.util.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
@@ -94,10 +94,41 @@ public class IssueController {
     };
 
     public static Route UpdateIssue =  (request, response) -> {
-        log.info("update issue id = " + request.params(":id"));
+        log.info("Update issue id = " + request.params(":id"));
+
+        String strId = request.params(":id");
+
+        if (!IssueService.isIssueExistsById(strId)){
+            log.warn("Issue id not valid");
+
+            //TODO show IssueIdNotValid page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        User user = request.session().attribute("user");
+        if (user == null){
+            log.warn("Create issue post for not authorized user");
+
+            //TODO show NotAuthorizesUser page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        if (!IssueService.getIssueById(strId).getUser().equals(user)){
+            log.warn("Update issue for foreign user");
+
+            //TODO show ForeignUser page?
+            response.redirect("/");
+
+            return null;
+        }
 
         Map map = new HashMap();
-        map.put("issue", IssueService.getIssueById(request.params(":id")));
+        map.put("issue", IssueService.getIssueById(strId));
+        map.put("user", user);
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "update"));
     };
