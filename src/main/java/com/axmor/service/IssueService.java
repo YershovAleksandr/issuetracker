@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class IssueService {
     private static Logger log = LoggerFactory.getLogger(IssueService.class);
@@ -71,7 +70,7 @@ public class IssueService {
         issueDAO.delete(id);
     }
 
-    public static void updateStatusByIssueId(String id, Status status){
+    public static void updateStatusById(String id, Status status){
         Issue issue = getIssueById(id);
 
         if (issue != null) {

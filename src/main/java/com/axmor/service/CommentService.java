@@ -51,7 +51,7 @@ public class CommentService {
         comment.setText(text);
         comment.setDate(new Date());
 
-        IssueService.updateStatusByIssueId(id, st);
+        IssueService.updateStatusById(id, st);
 
         log.info("Create comment " + comment);
 
