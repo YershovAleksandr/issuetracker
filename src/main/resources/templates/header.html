@@ -9,14 +9,12 @@
     <tr>
         <td><a href="/">Home</a></td>
 
-        <th:block>
-            <th:block th:if="${user}">
-                <td><a href="/create">Create Issue</a></td>
-                <td><a href="/logout">Logout</a></td>
-            </th:block>
-            <td th:unless="${user}"><a href="/login">Login</a></td>
+        <th:block th:if="${user}">
+            <td><a href="/create">Create Issue</a></td>
+            <td><a href="/logout">Logout</a></td>
         </th:block>
 
+        <td th:unless="${user}"><a href="/login">Login</a></td>
     </tr>
 </table>
 </div>
