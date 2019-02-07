@@ -29,36 +29,29 @@ public class CommentService {
         return resultList;
     }
 
-    public static void create(Map<String, Object> params){
-        //int userId = Integer.valueOf(params.get("userid"));
-        //TODO FIX THIS FUCKING SHIT!!!!
-        String issueId = (String)params.get("issueid");
-        String strStatus = (String)params.get("status");
-        String text = (String)params.get("text");
-
+    public static void createCommentByIssueId(String id, String status, String text, User user){
         Comment comment = new Comment();
 
-        //comment.setId(33);
-        User user = (User)params.get("user");
         comment.setUser(user);
-        comment.setIssueId(Integer.valueOf(issueId));
+        //TODO FIX THIS FUCKING SHIT!!!
+        comment.setIssueId(Integer.valueOf(id));
 
-        Status status = null;
+        Status st = null;
 
-        switch(strStatus){
-            case "resolved" : status = StatusService.getResolvedStatus(); break;
-            case "closed" : status = StatusService.getClosedStatus(); break;
-            case "duplicated" : status = StatusService.getDuplicatedStatus(); break;
-            case "reopened" : status = StatusService.getReopenedStatus(); break;
+        switch(status){
+            case "resolved" : st = StatusService.getResolvedStatus(); break;
+            case "closed" : st = StatusService.getClosedStatus(); break;
+            case "duplicated" : st = StatusService.getDuplicatedStatus(); break;
+            case "reopened" : st = StatusService.getReopenedStatus(); break;
 
-            default: status = StatusService.getCreatedStatus(); //Created;
+            default: st = StatusService.getCreatedStatus(); //Created;
         }
 
-        comment.setStatus(status);
+        comment.setStatus(st);
         comment.setText(text);
         comment.setDate(new Date());
 
-        IssueService.updateStatusByIssueId(issueId, status);
+        IssueService.updateStatusByIssueId(id, st);
 
         log.info("Create comment " + comment);
 

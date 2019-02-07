@@ -151,7 +151,7 @@ public class IssueController {
         User user = request.session().attribute("user");
 
         if (user == null){
-            log.warn("Create issue post for not authorized user");
+            log.warn("Update issue post for not authorized user");
 
             //TODO show NotAuthorizesUser page?
             response.redirect("/");
@@ -201,7 +201,7 @@ public class IssueController {
         User user = request.session().attribute("user");
 
         if (user == null){
-            log.warn("Create issue post for not authorized user");
+            log.warn("Delete issue post for not authorized user");
 
             //TODO show NotAuthorizesUser page?
             response.redirect("/");
@@ -210,7 +210,7 @@ public class IssueController {
         }
 
         if (!IssueService.getIssueById(id).getUser().equals(user)){
-            log.warn("Update issue for foreign user");
+            log.warn("Delete issue for foreign user");
 
             //TODO show ForeignUser page?
             response.redirect("/");

@@ -1,6 +1,10 @@
 package com.axmor.controller;
 
+import com.axmor.model.User;
 import com.axmor.service.CommentService;
+import com.axmor.service.IssueService;
+import com.axmor.util.CommentValidator;
+import com.axmor.util.IssueValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Route;
@@ -14,16 +18,38 @@ public class CommentController {
     public static Route CreateComment = (request, response) -> {
         log.info("Create new comment at issue id = " + request.params(":id"));
 
-        Map<String, Object> map= new HashMap<>();
-        //TODO fix this shit
-        //map.put("userid", request.queryParams("userid"));
+        String id = request.params(":id");
 
-        map.put("issueid", request.params(":id"));
-        map.put("status", request.queryParams("status"));
-        map.put("text", request.queryParams("text"));
-        map.put("user", request.session().attribute("user"));
+        if (!IssueService.isIssueExistsById(id)){
+            log.warn("Issue id not valid");
 
-        CommentService.create(map);
+            //TODO show IssueIdNotValid page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        User user = request.session().attribute("user");
+
+        if (user == null){
+            log.warn("Create comment for not authorized user");
+
+            //TODO show NotAuthorizesUser page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        String status = request.queryParams("status");
+        String text = request.queryParams("text");
+
+        if (!CommentValidator.isStatusValid(status) || !CommentValidator.isTextValid(text)) {
+            log.warn("Comment status or text not valid");
+
+            //TODO show CommentStatusOrDescriptionNotValid page?
+        } else {
+            CommentService.createCommentByIssueId(id, status, text, user);
+        }
 
         response.redirect(request.url());
 
