@@ -87,11 +87,7 @@ public class UserController {
     public static Route Logout = (request, response) -> {
         log.info("Logout ");
 
-        //request.session().removeAttribute("user");
         request.session().invalidate();
-
-        UserService.logout();
-
         response.redirect("/");
 
         return null;

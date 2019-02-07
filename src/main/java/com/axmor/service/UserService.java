@@ -28,10 +28,6 @@ public class UserService {
         userDAO.delete(id);
     }
 
-    public static void logout(){
-        //
-    }
-
     public static User getUserByName(String name){
         List<User> userList = getAll();
 
