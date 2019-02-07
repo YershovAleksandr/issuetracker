@@ -2,6 +2,7 @@ package com.axmor.controller;
 
 import com.axmor.model.User;
 import com.axmor.service.UserService;
+import com.axmor.util.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.*;
@@ -53,35 +54,31 @@ public class UserController {
     public static Route LoginPost = (request, response) -> {
         log.info("Login post ");
 
-        //TODO fix this shit
-
-        Map<String, String> map= new HashMap<>();
-
         String login = request.queryParams("login");
         String password = request.queryParams("password");
 
-        //request.session().attribute("user", login);
+        String url = "/login";
 
-        User user = UserService.getUserByName(login);
+        if (!UserValidator.isNameValid(login) || !UserValidator.isPasswordValid(password)){
+            log.warn("User name or password not valid");
 
-        String url = "/";
-
-        if (user != null && user.getPassword().equals(password)){
-            log.info("User accepted " + user);
-
-            request.session().attribute("user", user);
-
-            log.info("request.session.attribute(user) " + request.session().attribute("user"));
-
-            //TODO user accepted
-
+            //TODO show UserNameOrPasswordNotValid page?
         } else {
-            log.info("User not accepted " + user);
+            User user = UserService.getUserByName(login);
 
-            //TODO user not accepted
-            url = "/login";
+            if (user != null && user.getPassword().equals(password)){
+                log.info("User accepted " + user);
+
+                request.session().attribute("user", user);
+
+                url = "/";
+            } else {
+                log.info("User not accepted [login " + login + " password " + password + "]");
+
+                url = "/login";
+            }
+
         }
-
         response.redirect(url);
 
         return null;

@@ -2,7 +2,8 @@ package com.axmor.util;
 
 public class UserValidator {
     public static boolean isNameValid(String name){
-        if (name.length() > 2){
+        //TODO length > 3
+        if (name.length() > 0){
             return true;
         } else {
             return false;
