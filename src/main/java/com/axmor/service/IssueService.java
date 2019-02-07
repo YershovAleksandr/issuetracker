@@ -54,23 +54,17 @@ public class IssueService {
         issueDAO.create(issue);
     }
 
-    public static void update(Map<String, String> params){
-        log.info("Update id = " + params.get("id"));
-        String title = params.get("title");
-        String description = params.get("description");
-        String id = params.get("id");
-
+    public static void updateIssue(String id, String title, String description){
         Issue issue = getIssueById(id);
-
-        log.info("Issue" + issue);
         issue.setTitle(title);
         issue.setDescription(description);
+
         log.info("Updated Issue" + issue);
 
         issueDAO.update(issue);
     }
 
-    public static void delete(String strId){
+    public static void deleteById(String strId){
         int id = Integer.valueOf(strId);
         log.info("Delete id = " + id);
 

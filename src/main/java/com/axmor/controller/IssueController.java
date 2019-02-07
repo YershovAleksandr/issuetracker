@@ -96,9 +96,9 @@ public class IssueController {
     public static Route UpdateIssue =  (request, response) -> {
         log.info("Update issue id = " + request.params(":id"));
 
-        String strId = request.params(":id");
+        String id = request.params(":id");
 
-        if (!IssueService.isIssueExistsById(strId)){
+        if (!IssueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
 
             //TODO show IssueIdNotValid page?
@@ -108,6 +108,7 @@ public class IssueController {
         }
 
         User user = request.session().attribute("user");
+
         if (user == null){
             log.warn("Create issue post for not authorized user");
 
@@ -117,7 +118,7 @@ public class IssueController {
             return null;
         }
 
-        if (!IssueService.getIssueById(strId).getUser().equals(user)){
+        if (!IssueService.getIssueById(id).getUser().equals(user)){
             log.warn("Update issue for foreign user");
 
             //TODO show ForeignUser page?
@@ -127,33 +128,99 @@ public class IssueController {
         }
 
         Map map = new HashMap();
-        map.put("issue", IssueService.getIssueById(strId));
+        map.put("issue", IssueService.getIssueById(id));
         map.put("user", user);
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "update"));
     };
 
     public static Route UpdateIssuePost = (request, response) -> {
-        log.info("Update issue");
+        log.info("Update issue post id = " + request.queryParams("id"));
 
-        Map<String, String> map= new HashMap<>();
-        //TODO fix this shit
-        map.put("id", request.queryParams("id"));
-        map.put("title", request.queryParams("title"));
-        map.put("description", request.queryParams("description"));
+        String id = request.queryParams("id");
 
-        IssueService.update(map);
+        if (!IssueService.isIssueExistsById(id)){
+            log.warn("Issue id not valid");
+
+            //TODO show IssueIdNotValid page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        User user = request.session().attribute("user");
+
+        if (user == null){
+            log.warn("Create issue post for not authorized user");
+
+            //TODO show NotAuthorizesUser page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        if (!IssueService.getIssueById(id).getUser().equals(user)){
+            log.warn("Update issue for foreign user");
+
+            //TODO show ForeignUser page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        String title = request.queryParams("title");
+        String description = request.queryParams("description");
+
+        if (!IssueValidator.isTitleValid(title) || !IssueValidator.isDescriptionValid(description)) {
+            log.warn("Issue title or description not valid");
+
+            //TODO show IssueTitleOrDescriptionNotValid page?
+        } else {
+            IssueService.updateIssue(id, title, description);
+        }
+
         response.redirect("/");
 
         return null;
     };
 
     public static Route DeleteIssue = (request, response) -> {
-        log.info("delete issue id = " + request.params(":id"));
+        log.info("Delete issue id = " + request.params(":id"));
 
-        //TODO fix this shit
-        IssueService.delete(request.params(":id"));
-        CommentService.deleteByIssueId(request.params(":id"));
+        String id = request.params(":id");
+
+        if (!IssueService.isIssueExistsById(id)){
+            log.warn("Issue id not valid");
+
+            //TODO show IssueIdNotValid page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        User user = request.session().attribute("user");
+
+        if (user == null){
+            log.warn("Create issue post for not authorized user");
+
+            //TODO show NotAuthorizesUser page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        if (!IssueService.getIssueById(id).getUser().equals(user)){
+            log.warn("Update issue for foreign user");
+
+            //TODO show ForeignUser page?
+            response.redirect("/");
+
+            return null;
+        }
+
+        IssueService.deleteById(id);
+        CommentService.deleteByIssueId(id);
+
         response.redirect("/");
 
         return null;
