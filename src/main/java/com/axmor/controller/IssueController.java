@@ -3,6 +3,7 @@ package com.axmor.controller;
 import com.axmor.model.Comment;
 import com.axmor.model.Issue;
 import com.axmor.model.Status;
+import com.axmor.model.User;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import com.axmor.service.StatusService;
@@ -19,12 +20,13 @@ public class IssueController {
 
     public static Route ViewIssues = (request, response) -> {
         log.info("view all issues");
-        log.info("request.session.attribute(user) " + request.session().attribute("user"));
 
         Map map = new HashMap();
         //TODO fix this shit
         List<Issue> issueList = new ArrayList<Issue>(IssueService.getAll().values());
         map.put("issueList", issueList);
+
+        map.put("user", request.session().attribute("user"));
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issues"));
     };
@@ -44,6 +46,9 @@ public class IssueController {
 
         List<Comment> commentList = CommentService.getByUserId(intId);
         map.put("commentList", commentList);
+
+        //TODO FIX THIS SHIT
+        map.put("user", request.session().attribute("user"));
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issue"));
     };
@@ -99,10 +104,13 @@ public class IssueController {
     public static Route CreateIssuePost = (request, response) -> {
         log.info("Create issue post");
 
-        Map<String, String> map= new HashMap<>();
+        Map<String, Object> map= new HashMap<>();
         map.put("title", request.queryParams("title"));
         map.put("description", request.queryParams("description"));
         //TODO fix this shit
+
+        map.put("user", request.session().attribute("user"));
+
         IssueService.create(map);
         response.redirect("/");
 

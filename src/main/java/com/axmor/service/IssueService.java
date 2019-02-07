@@ -22,14 +22,13 @@ public class IssueService {
         return issueDAO.get(id);
     }
 
-    public static void create(Map<String, String> params){
-        String title = params.get("title");
-        String description = params.get("description");
-
+    public static void create(Map<String, Object> params){
+        String title = (String)params.get("title");
+        String description = (String)params.get("description");
+        User user = (User)params.get("user");
         Issue issue = new Issue();
 
         //issue.setId(2);
-        User user = UserService.get(0);
         issue.setUser(user);
         issue.setTitle(title);
         issue.setDescription(description);

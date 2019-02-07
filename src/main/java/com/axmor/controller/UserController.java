@@ -4,10 +4,7 @@ import com.axmor.model.User;
 import com.axmor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.Route;
+import spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.HashMap;
@@ -16,18 +13,41 @@ import java.util.Map;
 public class UserController {
     private static Logger log = LoggerFactory.getLogger(UserController.class);
 
+
+
+    public static Filter CheckAuth = (request, response) -> {
+        log.info("CheckAuth");
+
+        //Session session = request.session(true);
+        log.info("Session.isNew() " + request.session().isNew());
+
+        log.info("session.maxInactiveInterval() " + request.session().maxInactiveInterval());
+        //request.session().maxInactiveInterval(10);
+        log.info("session.maxInactiveInterval() " + request.session().maxInactiveInterval());
+        log.info("request.session().id() " + request.session().id());
+        log.info("Request.cookies " + request.cookies());
+        log.info("Session.attributes " + request.session().attributes());
+        log.info("Session.attribute(user)  " + request.session().attribute("user"));
+
+
+        //response.cookie("foo", "bar");
+        //request.session().attribute("user", "pidor");
+        //request.session().attributes()
+        //response.cookie("foo", "bar");
+
+        //Map map = new HashMap();
+
+        //request.session().removeAttribute("user");
+
+
+
+        return;
+    };
+
+
     //public static Route Login = (request, response) -> {
     public static ModelAndView Login (Request request, Response response){
         log.info("Login ");
-
-        log.info("Request.headers " + request.headers());
-        log.info("Request.cookies " + request.cookies());
-
-        //response.cookie("foo", "bar");
-        //request.session(true);
-        log.info("request.session " + request.session().attributes());
-        //request.session().attribute("user", "pidor");
-        //request.session().attributes()
 
         //TODO FIX
         Map map = new HashMap();
@@ -39,11 +59,8 @@ public class UserController {
     public static Route Logout = (request, response) -> {
         log.info("Logout ");
 
-        //response.cookie("foo", "bar");
-        log.info("request.session " + request.session().attribute("user"));
-        //Map map = new HashMap();
-
-        request.session().removeAttribute("user");
+        //request.session().removeAttribute("user");
+        request.session().invalidate();
 
         UserService.logout();
 
@@ -88,12 +105,14 @@ public class UserController {
         String login = request.queryParams("login");
         String password = request.queryParams("password");
 
+        //request.session().attribute("user", login);
+
         User user = UserService.getUserByName(login);
 
         if (user != null && user.getPassword().equals(password)){
             log.info("User accepted " + user);
 
-            request.session().attribute("user", user.getName()+user.getPassword());
+            request.session().attribute("user", user);
 
             log.info("request.session.attribute(user) " + request.session().attribute("user"));
 

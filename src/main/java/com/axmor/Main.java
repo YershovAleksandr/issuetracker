@@ -33,6 +33,8 @@ public class Main {
 
         port(8080);
 
+        before("/*", UserController.CheckAuth);
+
         get("/login", UserController::Login, new ThymeleafTemplateEngine());
         get("/logout", UserController.Logout);
         get("/register", UserController.Register);
@@ -65,9 +67,17 @@ public class Main {
         }
 
         User user = new User();
-        user.setId(42);
-        user.setName("User1");
-        user.setPassword("qwe");
+        //user.setId(42);
+        user.setName("q");
+        user.setPassword("w");
+
         UserService.create(user);
+
+        User user2 = new User();
+        //user.setId(42);
+        user2.setName("qq");
+        user2.setPassword("ww");
+
+        UserService.create(user2);
     }
 }

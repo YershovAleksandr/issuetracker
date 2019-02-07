@@ -14,13 +14,14 @@ public class CommentController {
     public static Route CreateComment = (request, response) -> {
         log.info("Create new comment at issue id = " + request.params(":id"));
 
-        Map<String, String> map= new HashMap<>();
+        Map<String, Object> map= new HashMap<>();
         //TODO fix this shit
         //map.put("userid", request.queryParams("userid"));
 
         map.put("issueid", request.params(":id"));
         map.put("status", request.queryParams("status"));
         map.put("text", request.queryParams("text"));
+        map.put("user", request.session().attribute("user"));
 
         CommentService.create(map);
 

@@ -27,16 +27,17 @@ public class CommentService {
         return resultList;
     }
 
-    public static void create(Map<String, String> params){
+    public static void create(Map<String, Object> params){
         //int userId = Integer.valueOf(params.get("userid"));
-        int issueId = Integer.valueOf(params.get("issueid"));
-        String strStatus = params.get("status");
-        String text = params.get("text");
+        //TODO FIX THIS FUCKING SHIT!!!!
+        int issueId = Integer.valueOf((String)params.get("issueid"));
+        String strStatus = (String)params.get("status");
+        String text = (String)params.get("text");
 
         Comment comment = new Comment();
 
         //comment.setId(33);
-        User user = UserService.get(0);
+        User user = (User)params.get("user");
         comment.setUser(user);
         comment.setIssueId(issueId);
 

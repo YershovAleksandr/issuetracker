@@ -29,7 +29,10 @@ th {
 <!-- Header -->
 <header th:insert="header"></header>
 
-<h1>Issue Tracker <span th:text="${foo}"></span></h1>
+<h1>Issue Tracker</h1>
+<th:block th:if="${user}">
+    <h1>Welcome <span th:text="${user.getName()}"></span></h1>
+</th:block>
 
 <table>
     <tr>
@@ -47,8 +50,14 @@ th {
         <td><span th:text="${issue.getStatus().getStatus()}"></span></td>
         <td><span th:text="${issue.getDate().toString()}"></span></td>
         <td><span th:text="${issue.getUser().getName()}"></span></td>
-        <td><a th:href="@{update/{id}(id=${issue.getId()})}">Update</a></td>
-        <td><a th:href="@{delete/{id}(id=${issue.getId()})}">Delete</a></td>
+
+
+            <th:block th:if="${user} == ${issue.getUser()}">
+                <td><a th:href="@{update/{id}(id=${issue.getId()})}">Update</a></td>
+                <td><a th:href="@{delete/{id}(id=${issue.getId()})}">Delete</a></td>
+            </th:block>
+
+
     </tr>
 </table>
 
