@@ -9,18 +9,6 @@ public class StatusHelper {
         return statusList;
     }
 
-    public static String getStatusById(int id){
-        String ret = null;
-
-        try {
-            ret = statusList.get(id);
-        }catch (IndexOutOfBoundsException e){
-            e.printStackTrace();
-        }
-
-        return ret;
-    }
-
     public static int getIdByStatus(String status){
         return statusList.indexOf(status);
     }

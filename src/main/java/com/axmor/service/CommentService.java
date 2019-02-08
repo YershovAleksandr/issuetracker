@@ -14,18 +14,6 @@ public class CommentService {
     private static CommentDAO commentDAO = new CommentDAO();
 
     public static List<Comment> getCommentByIssueId(String id){
-        //
-        //int issueId = Integer.valueOf(id);
-
-        //List<Comment> commentList = commentDAO.getAll();
-        /*List<Comment> resultList = new ArrayList<>();
-
-        for(Comment comment : commentList){
-            if (comment.getIssue().getId() == issueId){
-                resultList.add(comment);
-            }
-        }*/
-
         return commentDAO.getByIssueId(id);
     }
 

@@ -22,8 +22,6 @@ public class Main {
 
         staticFiles.location("/web");
 
-
-
         port(8080);
 
         get("/login", UserController.Login);

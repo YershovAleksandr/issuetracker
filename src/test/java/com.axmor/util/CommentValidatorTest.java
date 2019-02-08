@@ -35,7 +35,7 @@ public class CommentValidatorTest {
     }
 
     @Test
-    public void testStatusEqualsFucked(){
+    public void testStatusNotEqualsFucked(){
         boolean ret = CommentValidator.isStatusValid("Fucked");
         Assert.assertEquals(ret, false);
     }
