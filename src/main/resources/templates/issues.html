@@ -197,12 +197,12 @@
                 </th:block>
             </td>
             <td><span th:text="${issue.getUser().getName()}"></span></td>
-            <th:block th:if="${user} == ${issue.getUser()}">
-                <td>
+            <td>
+                <th:block th:if="${user} == ${issue.getUser()}">
                     <a th:href="@{update/{id}(id=${issue.getId()})}" class="edit" data-toggle="modal"><i style="color:#FFC107;" class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a th:href="@{delete/{id}(id=${issue.getId()})}" class="delete" data-toggle="modal"><i style="color:#F44336;" class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                </td>
-            </th:block>
+                </th:block>
+            </td>
         </tr>
         </th:block>
         </tbody>
