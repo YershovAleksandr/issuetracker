@@ -43,7 +43,8 @@ th {
         </tr>
         <tr th:each="issue : ${issueList}">
             <td><a th:href="@{issue/{id}(id=${issue.getId()})}"><span th:text="${issue.getTitle()}"></span></a></td>
-            <td><span th:text="${issue.getStatus().getStatus()}"></span></td>
+            <!--td><span th:text="${T(com.axmor.util.StatusHelper).getStatusById(issue.getStatus())}"></span></td-->
+            <td><span th:text="${issue.getStatus()}"></span></td>
             <td><span th:text="${issue.getDate()}"></span></td>
             <td><span th:text="${issue.getUser().getName()}"></span></td>
 

@@ -8,7 +8,7 @@ public class Issue {
     private String title;
     private String description;
     private Date date;
-    private Status status;
+    private int status;
 
     public int getId() {
         return id;
@@ -50,11 +50,11 @@ public class Issue {
         this.date = date;
     }
 
-    public Status getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

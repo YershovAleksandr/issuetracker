@@ -6,37 +6,37 @@ import org.junit.Test;
 public class CommentValidatorTest {
     @Test
     public void testStatusEqualsCreated(){
-        boolean ret = CommentValidator.isStatusValid("created");
+        boolean ret = CommentValidator.isStatusValid("Created");
         Assert.assertEquals(ret, true);
     }
 
     @Test
     public void testStatusEqualsResolved(){
-        boolean ret = CommentValidator.isStatusValid("resolved");
+        boolean ret = CommentValidator.isStatusValid("Resolved");
         Assert.assertEquals(ret, true);
     }
 
     @Test
     public void testStatusEqualsClosed(){
-        boolean ret = CommentValidator.isStatusValid("closed");
+        boolean ret = CommentValidator.isStatusValid("Closed");
         Assert.assertEquals(ret, true);
     }
 
     @Test
     public void testStatusEqualsDuplicated(){
-        boolean ret = CommentValidator.isStatusValid("duplicated");
+        boolean ret = CommentValidator.isStatusValid("Duplicated");
         Assert.assertEquals(ret, true);
     }
 
     @Test
     public void testStatusEqualsReopened(){
-        boolean ret = CommentValidator.isStatusValid("reopened");
+        boolean ret = CommentValidator.isStatusValid("Reopened");
         Assert.assertEquals(ret, true);
     }
 
     @Test
     public void testStatusEqualsFucked(){
-        boolean ret = CommentValidator.isStatusValid("fucked");
+        boolean ret = CommentValidator.isStatusValid("Fucked");
         Assert.assertEquals(ret, false);
     }
 

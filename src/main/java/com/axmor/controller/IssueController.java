@@ -3,7 +3,6 @@ package com.axmor.controller;
 import com.axmor.model.User;
 import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
-import com.axmor.service.StatusService;
 import com.axmor.util.IssueValidator;
 import com.axmor.util.StatusHelper;
 import org.slf4j.Logger;

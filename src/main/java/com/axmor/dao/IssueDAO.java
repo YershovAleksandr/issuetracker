@@ -1,9 +1,7 @@
 package com.axmor.dao;
 
 import com.axmor.model.Issue;
-import com.axmor.model.Status;
 import com.axmor.model.User;
-import com.axmor.service.StatusService;
 import com.axmor.util.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,7 @@ public class IssueDAO {
         List<Issue> issueList = new ArrayList<>();
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user_id = issue_userid JOIN status ON issue_statusid = status_id");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user_id = issue_userid");
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -38,7 +36,7 @@ public class IssueDAO {
                 issue.setTitle(rs.getString("issue_title"));
                 issue.setDescription(rs.getString("issue_description"));
                 issue.setDate(rs.getTimestamp("issue_date"));
-                issue.setStatus(StatusService.getStatusByStatus(rs.getString("status_status")));
+                issue.setStatus(rs.getInt("issue_statusid"));
 
                 issueList.add(issue);
             }
@@ -53,7 +51,7 @@ public class IssueDAO {
         Issue issue = null;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user_id = issue_userid JOIN status ON issue_statusid = status_id WHERE issue_id = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user_id = issue_userid WHERE issue_id = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
@@ -71,15 +69,7 @@ public class IssueDAO {
                 issue.setTitle(rs.getString("issue_title"));
                 issue.setDescription(rs.getString("issue_description"));
                 issue.setDate(rs.getTimestamp("issue_date"));
-
-                issue.setStatus(StatusService.getStatusByStatus(rs.getString("status_status")));
-
-                Status status = new Status();
-                status.setId(0);
-                status.setStatus("Created");
-                issue.setStatus(status);
-
-                issue.setStatus(new Status());
+                issue.setStatus(rs.getInt("issue_statusid"));
             }
         }catch(SQLException e){
             log.error("Error", e);
@@ -98,7 +88,7 @@ public class IssueDAO {
             ps.setString(2, issue.getTitle());
             ps.setString(3, issue.getDescription());
             ps.setTimestamp(4, new java.sql.Timestamp(issue.getDate().getTime()));
-            ps.setInt(5, issue.getStatus().getId());
+            ps.setInt(5, issue.getStatus());
 
             rez = ps.executeUpdate();
 
@@ -129,6 +119,25 @@ public class IssueDAO {
 
         return rez;
     }
+
+    public int updateStatus(Issue issue){
+        int rez = 0;
+
+        try(Connection con = DataSource.getConnection()){
+            PreparedStatement ps = con.prepareStatement("UPDATE issue SET issue_statusId = ? WHERE issue_id = ?");
+
+            ps.setInt(1, issue.getStatus());
+            ps.setInt(2, issue.getId());
+
+            rez = ps.executeUpdate();
+
+        }catch(SQLException e){
+            log.error("Error", e);
+        }
+
+        return rez;
+    }
+
 
     public int delete(int id){
         int rez = 0;

@@ -4,6 +4,7 @@ import com.axmor.dao.CommentDAO;
 import com.axmor.model.Comment;
 import com.axmor.model.Issue;
 import com.axmor.model.User;
+import com.axmor.util.StatusHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,12 +30,12 @@ public class CommentService {
         return commentDAO.getByIssueId(id);
     }
 
-    public static void createCommentByIssueId(Issue issue, String status, String text, User user){
+    public static void createCommentByIssueId(Issue issue, int status, String text, User user){
         Comment comment = new Comment();
 
         comment.setUser(user);
         comment.setIssue(issue);
-        comment.setStatus(StatusService.getStatusByStatus(status));
+        comment.setStatus(status);
         comment.setText(text);
         comment.setDate(new Date());
 

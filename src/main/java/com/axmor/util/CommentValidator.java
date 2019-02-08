@@ -2,14 +2,10 @@ package com.axmor.util;
 
 public class CommentValidator {
     public static boolean isStatusValid(String status){
-        //TODO Check for empty string!!
-        switch (status){
-            case "created" :
-            case "resolved" :
-            case "closed" :
-            case "duplicated" :
-            case "reopened" : return true;
-            default: return false;
+        if (StatusHelper.getIdByStatus(status) == -1){
+            return false;
+        } else {
+            return true;
         }
     }
 

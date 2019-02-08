@@ -1,13 +1,31 @@
 package com.axmor.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class StatusHelper {
-    private static List<String> statusStringList = new ArrayList<>(Arrays.asList("Created", "Resolved", "Closed", "Duplicated", "Reopened"));
+    private static List<String> statusList = new ArrayList<>(Arrays.asList("Created", "Resolved", "Closed", "Duplicated", "Reopened"));
 
     public static List<String> getStatusList(){
-        return statusStringList;
+        return statusList;
+    }
+
+    public static String getStatusById(int id){
+        String ret = null;
+
+        try {
+            ret = statusList.get(id);
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
+    public static int getIdByStatus(String status){
+        return statusList.indexOf(status);
+    }
+
+    public static int getCreatedStatus(){
+        return statusList.indexOf("Created");
     }
 }

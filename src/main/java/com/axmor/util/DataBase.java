@@ -12,7 +12,6 @@ public class DataBase {
 
     public static void init(){
         createUserSchema();
-        createStatusSchema();
         createIssueSchema();
         createCommentSchema();
     }
@@ -28,22 +27,6 @@ public class DataBase {
                     "user_name VARCHAR NOT NULL," +
                     "user_password VARCHAR NOT NULL," +
                     "PRIMARY KEY (user_id)) ");
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    private static void createStatusSchema(){
-        log.info("Status schema");
-
-        try (Connection cn = DataSource.getConnection()){
-            Statement st = cn.createStatement();
-
-            st.executeUpdate("CREATE TABLE IF NOT EXISTS status (" +
-                    "status_id int NOT NULL AUTO_INCREMENT," +
-                    "status_status VARCHAR NOT NULL," +
-                    "PRIMARY KEY (status_id)) ");
 
         }catch (SQLException e){
             e.printStackTrace();

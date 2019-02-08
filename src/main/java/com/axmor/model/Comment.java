@@ -6,7 +6,7 @@ public class Comment {
     private int id;
     private User user;
     private Issue issue;
-    private Status status;
+    private int status;
     private String text;
     private Date date;
 
@@ -34,11 +34,11 @@ public class Comment {
         this.issue = issue;
     }
 
-    public Status getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

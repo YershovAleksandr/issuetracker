@@ -3,16 +3,10 @@ package com.axmor;
 import com.axmor.controller.CommentController;
 import com.axmor.controller.IssueController;
 import com.axmor.controller.UserController;
-import com.axmor.model.Status;
-import com.axmor.service.StatusService;
 import com.axmor.service.UserService;
 import com.axmor.util.DataBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static spark.Spark.*;
 

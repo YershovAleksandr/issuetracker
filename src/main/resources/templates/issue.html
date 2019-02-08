@@ -55,7 +55,8 @@
     </tr>
     <tr>
         <td>Status</td>
-        <td><span th:text="${issue.getStatus().getStatus()}"></span></td>
+        <!--td><span th:text="${StatusHelper.getStatusById(issue.getStatus())}"></span></td-->
+        <td><span th:text="${issue.getStatus()}"></span></td>
     </tr>
     <tr>
         <td>Date</td>
@@ -84,7 +85,8 @@
         </tr>
         <tr>
             <td>Status changed to </td>
-            <td><span th:text="${comment.getStatus().getStatus()}"></span></td>
+            <!--td><span th:text="${StatusHelper.getStatusById(comment.getStatus())}"></span></td-->
+            <td><span th:text="${comment.getStatus()}"></span></td>
         </tr>
         <tr>
             <td>Date </td>
@@ -108,7 +110,7 @@
             <td>
                 <select name="status">
                     <th:block th:each="status : ${statusList}">
-                        <option th:value="${status.toLowerCase()}"><span th:text="${status}"></span></option>
+                        <option th:value="${status}"><span th:text="${status}"></span></option>
                     </th:block>
                 </select>
             </td>
