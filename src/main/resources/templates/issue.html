@@ -87,6 +87,10 @@
             <td><span th:text="${comment.getStatus().getStatus()}"></span></td>
         </tr>
         <tr>
+            <td>Date </td>
+            <td><span th:text="${comment.getDate()}"></span></td>
+        </tr>
+        <tr>
             <td>Text</td>
             <td><span th:text="${comment.getText()}"></span></td>
         </tr>
@@ -104,7 +108,7 @@
             <td>
                 <select name="status">
                     <th:block th:each="status : ${statusList}">
-                        <option th:value="${status.getStatus().toLowerCase()}"><span th:text="${status.getStatus()}"></span></option>
+                        <option th:value="${status.toLowerCase()}"><span th:text="${status}"></span></option>
                     </th:block>
                 </select>
             </td>

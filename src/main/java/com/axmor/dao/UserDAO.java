@@ -17,7 +17,7 @@ public class UserDAO {
         User user = null;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM user WHERE name = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM user WHERE user_name = ?");
             ps.setString(1, name);
 
             ResultSet rs = ps.executeQuery();
@@ -25,9 +25,9 @@ public class UserDAO {
             if (rs.next()){
                 user = new User();
 
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setPassword(rs.getString("password"));
+                user.setId(rs.getInt("user_id"));
+                user.setName(rs.getString("user_name"));
+                user.setPassword(rs.getString("user_password"));
             }
 
         }catch(SQLException e){
@@ -41,7 +41,7 @@ public class UserDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("INSERT INTO user(name, password) values(?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO user(user_name, user_password) values(?, ?)");
 
             ps.setString(1, user.getName());
             ps.setString(2, user.getPassword());

@@ -24,10 +24,10 @@ public class DataBase {
             Statement st = cn.createStatement();
 
             st.executeUpdate("CREATE TABLE IF NOT EXISTS user (" +
-                    "id int NOT NULL AUTO_INCREMENT," +
-                    "name VARCHAR NOT NULL," +
-                    "password VARCHAR NOT NULL," +
-                    "PRIMARY KEY (id)) ");
+                    "user_id int NOT NULL AUTO_INCREMENT," +
+                    "user_name VARCHAR NOT NULL," +
+                    "user_password VARCHAR NOT NULL," +
+                    "PRIMARY KEY (user_id)) ");
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -41,9 +41,9 @@ public class DataBase {
             Statement st = cn.createStatement();
 
             st.executeUpdate("CREATE TABLE IF NOT EXISTS status (" +
-                    "id int NOT NULL AUTO_INCREMENT," +
-                    "status VARCHAR NOT NULL," +
-                    "PRIMARY KEY (id)) ");
+                    "status_id int NOT NULL AUTO_INCREMENT," +
+                    "status_status VARCHAR NOT NULL," +
+                    "PRIMARY KEY (status_id)) ");
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -56,16 +56,15 @@ public class DataBase {
         try (Connection cn = DataSource.getConnection()){
             Statement st = cn.createStatement();
 
-            //TODO TIMESTAMP
             st.executeUpdate("CREATE TABLE IF NOT EXISTS issue (" +
-                    "id int NOT NULL AUTO_INCREMENT," +
-                    "userid int NOT NULL," +
-                    "title VARCHAR NOT NULL," +
-                    "description VARCHAR NOT NULL," +
-                    "date TIMESTAMP NOT NULL," +
-                    "statusid int NOT NULL," +
-                    "PRIMARY KEY (id)," +
-                    "FOREIGN KEY (userid) REFERENCES User(id))");
+                    "issue_id int NOT NULL AUTO_INCREMENT," +
+                    "issue_userid int NOT NULL," +
+                    "issue_title VARCHAR NOT NULL," +
+                    "issue_description VARCHAR NOT NULL," +
+                    "issue_date TIMESTAMP NOT NULL," +
+                    "issue_statusid int NOT NULL," +
+                    "PRIMARY KEY (issue_id)," +
+                    "FOREIGN KEY (issue_userid) REFERENCES user(user_id))");
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -74,6 +73,24 @@ public class DataBase {
 
     private static void createCommentSchema(){
         log.info("Comment schema");
+
+        try (Connection cn = DataSource.getConnection()){
+            Statement st = cn.createStatement();
+
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS comment (" +
+                    "comment_id int NOT NULL AUTO_INCREMENT," +
+                    "comment_userid int NOT NULL," +
+                    "comment_issueid int NOT NULL," +
+                    "comment_statusid int NOT NULL," +
+                    "comment_text VARCHAR NOT NULL," +
+                    "comment_date TIMESTAMP NOT NULL," +
+                    "PRIMARY KEY (comment_id)," +
+                    "FOREIGN KEY (comment_userid) REFERENCES user(user_id)," +
+                    "FOREIGN KEY (comment_issueid) REFERENCES issue(issue_id) ON DELETE CASCADE)");
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 
     }
 

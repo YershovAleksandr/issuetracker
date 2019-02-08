@@ -5,6 +5,7 @@ import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import com.axmor.service.StatusService;
 import com.axmor.util.IssueValidator;
+import com.axmor.util.StatusHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
@@ -46,7 +47,7 @@ public class IssueController {
         Map map = new HashMap();
         map.put("issue", IssueService.getIssueById(strId));
         map.put("commentList", CommentService.getCommentByIssueId(strId));
-        map.put("statusList", StatusService.getAllStatus());
+        map.put("statusList", StatusHelper.getStatusList());
         map.put("user", request.session().attribute("user"));
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issue"));

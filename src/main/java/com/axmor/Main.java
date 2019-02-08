@@ -56,14 +56,6 @@ public class Main {
     private static void Configuration(){
         DataBase.init();
 
-         List<String> statusStringList = new ArrayList<>(Arrays.asList("Created", "Resolved", "Closed", "Duplicated", "Reopened"));
-
-        for(String statusString : statusStringList) {
-            Status status = new Status();
-            status.setStatus(statusString);
-            StatusService.create(status);
-        }
-
         UserService.createNewUser("q", "w");
         UserService.createNewUser("qq", "ww");
     }

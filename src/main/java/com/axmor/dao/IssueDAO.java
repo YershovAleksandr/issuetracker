@@ -21,7 +21,7 @@ public class IssueDAO {
         List<Issue> issueList = new ArrayList<>();
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user.id = issue.userid JOIN status ON issue.statusid = status.id");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user_id = issue_userid JOIN status ON issue_statusid = status_id");
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -30,15 +30,15 @@ public class IssueDAO {
                 issue.setId(rs.getInt(1));
 
                 User user = new User();
-                user.setId(rs.getInt("userid"));
-                user.setName(rs.getString("name"));
-                user.setPassword(rs.getString("password"));
+                user.setId(rs.getInt("issue_userid"));
+                user.setName(rs.getString("user_name"));
+                user.setPassword(rs.getString("user_password"));
                 issue.setUser(user);
 
-                issue.setTitle(rs.getString("title"));
-                issue.setDescription(rs.getString("description"));
-                issue.setDate(rs.getTimestamp("date"));
-                issue.setStatus(StatusService.getStatusByStatus(rs.getString("status")));
+                issue.setTitle(rs.getString("issue_title"));
+                issue.setDescription(rs.getString("issue_description"));
+                issue.setDate(rs.getTimestamp("issue_date"));
+                issue.setStatus(StatusService.getStatusByStatus(rs.getString("status_status")));
 
                 issueList.add(issue);
             }
@@ -53,25 +53,26 @@ public class IssueDAO {
         Issue issue = null;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user.id = issue.userid JOIN status ON issue.statusid = status.id WHERE issue.id = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user_id = issue_userid JOIN status ON issue_statusid = status_id WHERE issue_id = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            if (rs.next()) {
                 issue = new Issue();
 
                 issue.setId(rs.getInt(1));
 
                 User user = new User();
-                user.setId(rs.getInt("userid"));
-                user.setName(rs.getString("name"));
-                user.setPassword(rs.getString("password"));
+                user.setId(rs.getInt("issue_userid"));
+                user.setName(rs.getString("user_name"));
+                user.setPassword(rs.getString("user_password"));
                 issue.setUser(user);
 
-                issue.setTitle(rs.getString("title"));
-                issue.setDescription(rs.getString("description"));
-                issue.setDate(rs.getTimestamp("date"));
-                issue.setStatus(StatusService.getStatusByStatus(rs.getString("status")));
+                issue.setTitle(rs.getString("issue_title"));
+                issue.setDescription(rs.getString("issue_description"));
+                issue.setDate(rs.getTimestamp("issue_date"));
+
+                issue.setStatus(StatusService.getStatusByStatus(rs.getString("status_status")));
 
                 Status status = new Status();
                 status.setId(0);
@@ -91,7 +92,7 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("INSERT INTO issue(userid, title, description, date, statusid) values(?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO issue(issue_userid, issue_title, issue_description, issue_date, issue_statusid) values(?, ?, ?, ?, ?)");
 
             ps.setInt(1, issue.getUser().getId());
             ps.setString(2, issue.getTitle());
@@ -114,7 +115,7 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("UPDATE issue SET title = ?, description = ? WHERE id = ?");
+            PreparedStatement ps = con.prepareStatement("UPDATE issue SET issue_title = ?, issue_description = ? WHERE issue_id = ?");
 
             ps.setString(1, issue.getTitle());
             ps.setString(2, issue.getDescription());
@@ -133,7 +134,7 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("DELETE FROM issue WHERE id = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM issue WHERE issue_id = ?");
 
             ps.setInt(1, id);
 

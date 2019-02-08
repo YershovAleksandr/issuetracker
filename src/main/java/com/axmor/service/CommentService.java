@@ -15,18 +15,18 @@ public class CommentService {
 
     public static List<Comment> getCommentByIssueId(String id){
         //
-        int issueId = Integer.valueOf(id);
+        //int issueId = Integer.valueOf(id);
 
-        List<Comment> commentList = new ArrayList<>(commentDAO.getAll().values());
-        List<Comment> resultList = new ArrayList<>();
+        //List<Comment> commentList = commentDAO.getAll();
+        /*List<Comment> resultList = new ArrayList<>();
 
         for(Comment comment : commentList){
             if (comment.getIssue().getId() == issueId){
                 resultList.add(comment);
             }
-        }
+        }*/
 
-        return resultList;
+        return commentDAO.getByIssueId(id);
     }
 
     public static void createCommentByIssueId(Issue issue, String status, String text, User user){
@@ -44,13 +44,13 @@ public class CommentService {
     }
 
     public static void deleteByIssueId(String issueId){
-        Map<Integer, Comment> commentMap = commentDAO.getAll();
+        /*Map<Integer, Comment> commentMap = commentDAO.getAll();
 
         int intIssueId = Integer.valueOf(issueId);
 
         log.info("Comments " + commentMap.toString());
         commentMap.entrySet().removeIf(comment -> (comment.getValue().getIssue().getId() == intIssueId));
-        log.info("Comments after remove" + commentMap.toString());
+        log.info("Comments after remove" + commentMap.toString());*/
         /*
         for(Comment comment: commentList){
             if (comment.getIssueId() == intIssueId){

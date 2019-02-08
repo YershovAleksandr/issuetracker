@@ -24,8 +24,8 @@ public class StatusDAO {
 
             while(rs.next()) {
                 Status status = new Status();
-                status.setId(rs.getInt("id"));
-                status.setStatus(rs.getString("status"));
+                status.setId(rs.getInt("status_id"));
+                status.setStatus(rs.getString("status_status"));
 
                 statusList.add(status);
             }
@@ -40,15 +40,15 @@ public class StatusDAO {
         Status st = null;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM status WHERE status = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM status WHERE status_status = ?");
             ps.setString(1, status);
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 st = new Status();
-                st.setId(rs.getInt("id"));
-                st.setStatus(rs.getString("status"));
+                st.setId(rs.getInt("status_id"));
+                st.setStatus(rs.getString("status_status"));
             }
         }catch(SQLException e){
             log.error("Error", e);
@@ -61,7 +61,7 @@ public class StatusDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("INSERT INTO status(status) values(?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO status(status_status) values(?)");
 
             ps.setString(1, status.getStatus());
 

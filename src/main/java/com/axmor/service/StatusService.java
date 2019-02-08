@@ -11,9 +11,9 @@ public class StatusService {
     private static Logger log = LoggerFactory.getLogger(StatusService.class);
     private static StatusDAO statusDAO = new StatusDAO();
 
-    public static List<Status> getAllStatus(){
+    /*public static List<Status> getAllStatus(){
         return statusDAO.getAll();
-    }
+    }*/
 
     public static void create(Status status){
         statusDAO.create(status);
