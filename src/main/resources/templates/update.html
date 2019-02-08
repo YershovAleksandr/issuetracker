@@ -13,10 +13,10 @@
     <form action="/updateissue" method="post">
         <input type="hidden" name="id" th:value="${issue.getId()}">
         <div class="form-group">
-            <input class="form-control form-control-lg" name="title" type="text" th:value="${issue.getTitle()}" required>
+            <input class="form-control form-control-lg" name="title" type="text" th:value="${issue.getTitle()}" required minlength="3">
         </div>
         <div class="form-group">
-            <textarea class="form-control form-control-lg" rows="5" name="description" th:utext="${issue.getDescription()}" required></textarea>
+            <textarea class="form-control form-control-lg" rows="5" name="description" th:utext="${issue.getDescription()}" required minlength="3"></textarea>
         </div>
         <div class="form-group">
             <button class="btn btn-success btn-lg">Save</button>

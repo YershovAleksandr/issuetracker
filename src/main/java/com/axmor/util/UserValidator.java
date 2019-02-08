@@ -2,7 +2,7 @@ package com.axmor.util;
 
 public class UserValidator {
     public static boolean isNameValid(String name){
-        if (name.length() >= 3){
+        if (name.trim().length() >= 3){
             return true;
         } else {
             return false;
@@ -10,7 +10,7 @@ public class UserValidator {
     }
 
     public static boolean isPasswordValid(String password){
-        if (password.length() >= 3){
+        if (password.trim().length() >= 3){
             return true;
         } else {
             return false;

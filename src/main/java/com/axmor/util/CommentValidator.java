@@ -10,8 +10,7 @@ public class CommentValidator {
     }
 
     public static boolean isTextValid(String text){
-        //TODO Check for empty string!!
-        if (text.length() >= 3){
+        if (text.trim().length() >= 3){
             return true;
         } else{
             return false;
