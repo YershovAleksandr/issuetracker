@@ -39,13 +39,13 @@ public class CommentDAO {
                 user.setPassword(rs.getString("user_password"));
                 comment.setUser(user);
                 comment.setIssue(IssueService.getIssueById(String.valueOf(rs.getInt("comment_issueid"))));
-                comment.setStatus(StatusHelper.getCreatedStatus());
+                comment.setStatus(rs.getInt("comment_statusid"));
                 comment.setText(rs.getString("comment_text"));
                 comment.setDate(rs.getTimestamp("comment_date"));
 
                 commentList.add(comment);
 
-                log.info("Select comment " + comment);
+                log.info("Select comment status " + comment.getStatus());
             }
         }catch(SQLException e){
             log.error("Error", e);
@@ -62,7 +62,7 @@ public class CommentDAO {
 
             ps.setInt(1, comment.getUser().getId());
             ps.setInt(2, comment.getIssue().getId());
-            ps.setInt(3, 42);
+            ps.setInt(3, comment.getStatus());
             ps.setString(4, comment.getText());
             ps.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis()));
 

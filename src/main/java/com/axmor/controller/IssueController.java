@@ -221,7 +221,6 @@ public class IssueController {
         }
 
         IssueService.deleteById(id);
-        CommentService.deleteByIssueId(id);
 
         response.redirect("/");
 

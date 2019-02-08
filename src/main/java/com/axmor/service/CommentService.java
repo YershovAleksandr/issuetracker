@@ -4,7 +4,6 @@ import com.axmor.dao.CommentDAO;
 import com.axmor.model.Comment;
 import com.axmor.model.Issue;
 import com.axmor.model.User;
-import com.axmor.util.StatusHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,23 +41,5 @@ public class CommentService {
         log.info("Create comment " + comment);
 
         commentDAO.create(comment);
-    }
-
-    public static void deleteByIssueId(String issueId){
-        /*Map<Integer, Comment> commentMap = commentDAO.getAll();
-
-        int intIssueId = Integer.valueOf(issueId);
-
-        log.info("Comments " + commentMap.toString());
-        commentMap.entrySet().removeIf(comment -> (comment.getValue().getIssue().getId() == intIssueId));
-        log.info("Comments after remove" + commentMap.toString());*/
-        /*
-        for(Comment comment: commentList){
-            if (comment.getIssueId() == intIssueId){
-                log.info("Remove " + comment);
-
-                commentList.remove(comment);
-            }
-        }*/
     }
 }
