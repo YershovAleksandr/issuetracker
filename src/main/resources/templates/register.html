@@ -9,10 +9,10 @@
     function check(){
         if (document.getElementById('password').value == document.getElementById('password2').value) {
             document.getElementById('message').style.color = 'green';
-            document.getElementById('message').innerHTML = 'matching';
+            document.getElementById('message').innerHTML = 'Matching';
         } else {
             document.getElementById('message').style.color = 'red';
-            document.getElementById('message').innerHTML = 'not matching';
+            document.getElementById('message').innerHTML = 'Not matching';
         }
     }
     </script>
@@ -21,7 +21,7 @@
 <div class="d-flex align-items-center flex-column justify-content-center h-100 text-dark">
     <br>
     <h5><a href="/">Home</a></h5>
-    <form action="/register" method="post" onsubmit="checkPassword()">
+    <form action="/register" method="post">
         <div class="form-group">
             <input class="form-control form-control-lg" name="login" placeholder="Login" type="text" required minlength="3">
         </div>
