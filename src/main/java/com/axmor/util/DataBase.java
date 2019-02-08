@@ -24,8 +24,8 @@ public class DataBase {
 
             st.executeUpdate("CREATE TABLE IF NOT EXISTS user (" +
                     "id int NOT NULL AUTO_INCREMENT," +
-                    "name VARCHAR(10) NOT NULL," +
-                    "password VARCHAR(10) NOT NULL," +
+                    "name VARCHAR NOT NULL," +
+                    "password VARCHAR NOT NULL," +
                     "PRIMARY KEY (id)) ");
 
         }catch (SQLException e){
@@ -39,13 +39,14 @@ public class DataBase {
         try (Connection cn = DataSource.getConnection()){
             Statement st = cn.createStatement();
 
+            //TODO TIMESTAMP
             st.executeUpdate("CREATE TABLE IF NOT EXISTS issue (" +
                     "id int NOT NULL AUTO_INCREMENT," +
                     "userid int NOT NULL," +
-                    "title VARCHAR(10) NOT NULL," +
-                    "description VARCHAR(50) NOT NULL," +
-                    "date DATETIME NOT NULL," +
-                    "status int(10) NOT NULL," +
+                    "title VARCHAR NOT NULL," +
+                    "description VARCHAR NOT NULL," +
+                    "date TIMESTAMP NOT NULL," +
+                    "status int NOT NULL," +
                     "PRIMARY KEY (id)," +
                     "FOREIGN KEY (userid) REFERENCES User(id)) ");
 

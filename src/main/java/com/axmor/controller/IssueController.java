@@ -24,6 +24,8 @@ public class IssueController {
         map.put("issueList", IssueService.getAllIssues());
         map.put("user", request.session().attribute("user"));
 
+        log.info("user " + request.session().attribute("user"));
+
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "issues"));
     };
 
