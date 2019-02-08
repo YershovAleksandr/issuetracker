@@ -4,7 +4,6 @@ import com.axmor.model.Comment;
 import com.axmor.model.User;
 import com.axmor.service.IssueService;
 import com.axmor.util.DataSource;
-import com.axmor.util.StatusHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

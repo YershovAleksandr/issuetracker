@@ -57,5 +57,4 @@ public class CommentValidatorTest {
         boolean ret = CommentValidator.isTextValid("abcd");
         Assert.assertEquals(ret, true);
     }
-
 }

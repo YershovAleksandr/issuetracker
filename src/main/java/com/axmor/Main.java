@@ -3,7 +3,6 @@ package com.axmor;
 import com.axmor.controller.CommentController;
 import com.axmor.controller.IssueController;
 import com.axmor.controller.UserController;
-import com.axmor.service.UserService;
 import com.axmor.util.DataBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,7 @@ public class Main {
     final static Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        Configuration();
+        DataBase.init();
 
         staticFiles.location("/web");
 
@@ -42,13 +41,6 @@ public class Main {
 
         post("/issue/:id", CommentController.CreateComment);
 
-        notFound("<html><body><h1>Fuck off!</h1></body></html>");
-    }
-
-    private static void Configuration(){
-        DataBase.init();
-
-        UserService.createNewUser("q", "w");
-        UserService.createNewUser("qq", "ww");
+        notFound("<html><body><h1>WTF???</h1></body></html>");
     }
 }
