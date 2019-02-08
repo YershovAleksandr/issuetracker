@@ -28,5 +28,3 @@ target/
 *.iml
 .idea/
 
-#H2 database
-*.db
