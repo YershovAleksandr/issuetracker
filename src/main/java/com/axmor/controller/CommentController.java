@@ -47,7 +47,7 @@ public class CommentController {
         } else {
             CommentService.createCommentByIssueId(IssueService.getIssueById(id), status, text, user);
 
-            IssueService.updateStatusById(id, StatusService.getStatusByName(status));
+            IssueService.updateStatusById(id, StatusService.getStatusByStatus(status));
         }
 
         response.redirect(request.url());

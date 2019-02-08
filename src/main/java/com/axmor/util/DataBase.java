@@ -12,6 +12,7 @@ public class DataBase {
 
     public static void init(){
         createUserSchema();
+        createStatusSchema();
         createIssueSchema();
         createCommentSchema();
     }
@@ -33,6 +34,22 @@ public class DataBase {
         }
     }
 
+    private static void createStatusSchema(){
+        log.info("Status schema");
+
+        try (Connection cn = DataSource.getConnection()){
+            Statement st = cn.createStatement();
+
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS status (" +
+                    "id int NOT NULL AUTO_INCREMENT," +
+                    "status VARCHAR NOT NULL," +
+                    "PRIMARY KEY (id)) ");
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     private static void createIssueSchema(){
         log.info("Issue schema");
 
@@ -46,9 +63,9 @@ public class DataBase {
                     "title VARCHAR NOT NULL," +
                     "description VARCHAR NOT NULL," +
                     "date TIMESTAMP NOT NULL," +
-                    "status int NOT NULL," +
+                    "statusid int NOT NULL," +
                     "PRIMARY KEY (id)," +
-                    "FOREIGN KEY (userid) REFERENCES User(id)) ");
+                    "FOREIGN KEY (userid) REFERENCES User(id))");
 
         }catch (SQLException e){
             e.printStackTrace();

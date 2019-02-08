@@ -46,7 +46,7 @@ public class IssueService {
         issue.setTitle(title);
         issue.setDescription(description);
         issue.setDate(new Date());
-        issue.setStatus(StatusService.getStatusByName("created"));
+        issue.setStatus(StatusService.getStatusByStatus("Created"));
 
         log.info("Create issue " + issue);
 

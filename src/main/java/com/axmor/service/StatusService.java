@@ -15,31 +15,11 @@ public class StatusService {
         return statusDAO.getAll();
     }
 
-    public static Status get(int id){
-        return statusDAO.get(id);
-    }
-
     public static void create(Status status){
         statusDAO.create(status);
     }
 
-    public static void update(Status status){
-        statusDAO.update(status);
-    }
-
-    public static void delete(int id){
-        statusDAO.delete(id);
-    }
-
-     public static Status getStatusByName(String name){
-        List<Status> statusList = getAllStatus();
-
-        for (Status status : statusList){
-            if (status.getStatus().toLowerCase().equals(name)){
-                return status;
-            }
-        }
-
-        return null;
+    public static Status getStatusByStatus(String status){
+        return statusDAO.get(status);
     }
 }

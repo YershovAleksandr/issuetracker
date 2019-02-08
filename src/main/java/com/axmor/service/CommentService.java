@@ -34,7 +34,7 @@ public class CommentService {
 
         comment.setUser(user);
         comment.setIssue(issue);
-        comment.setStatus(StatusService.getStatusByName(status));
+        comment.setStatus(StatusService.getStatusByStatus(status));
         comment.setText(text);
         comment.setDate(new Date());
 
