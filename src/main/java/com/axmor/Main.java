@@ -7,15 +7,9 @@ import com.axmor.model.Status;
 import com.axmor.service.StatusService;
 import com.axmor.service.UserService;
 import com.axmor.util.DataBase;
-import com.axmor.util.DataSource;
-import org.h2.jdbcx.JdbcConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,80 +23,12 @@ import static spark.Spark.*;
 public class Main {
     final static Logger log = LoggerFactory.getLogger(Main.class);
 
-    /*private static void db(){
-
-        JdbcConnectionPool cp = JdbcConnectionPool.create("jdbc:h2:./db", "user1", "123");
-
-        try (Connection conn = cp.getConnection()) {
-
-            Statement st = conn.createStatement();
-
-            st.execute("create table if not exists user(id integer primary key auto_increment, name varchar(100));");
-            st.execute("insert into user(name) values('sss'), ('sss')");
-
-            //st.executeQuery("select 1+1, h2version() ");/
-            st.executeQuery("select * from user;");
-
-            ResultSet rs = st.getResultSet();
-
-            while(rs.next()){
-
-                //log.info(String.valueOf(rs.getInt(1)));
-                log.info(String.valueOf(rs.getInt("id")));
-                log.info(rs.getString("name"));
-
-            }
-
-
-
-
-        }catch (SQLException e){
-            log.error("Error", e);
-        }
-
-        //conn.close();
-        cp.dispose();
-
-
-        try (Connection cn = DataSource.getConnection()){
-
-            Statement st = cn.createStatement();
-
-            //st.executeQuery("select 1+1, h2version() ");
-            //st.executeQuery("show databases");
-            st.executeUpdate("CREATE TABLE IF NOT EXISTS issue (" +
-                    "id int(10) NOT NULL AUTO_INCREMENT," +
-                    "title VARCHAR(10) NOT NULL," +
-                    "description VARCHAR(50) NOT NULL," +
-                    "PRIMARY key(id)) ");
-            //st.executeQuery("select * from user;");
-
-            /*ResultSet rs = st.getResultSet();
-
-            while(rs.next()){
-
-                //log.info(String.valueOf(rs.getInt(1)));
-                //log.info(rs.getString(2));
-                log.info(rs.getString(1));
-              //  log.info(String.valueOf(rs.getInt("id")));
-                //log.info(rs.getString("name"));
-
-            }*/
-/*
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-       // System.exit(0);
-    }*/
-
     public static void main(String[] args) {
-
-        DataBase.init();
+        Configuration();
 
         staticFiles.location("/web");
 
-        Configuration();
+
 
         port(8080);
 
@@ -128,6 +54,8 @@ public class Main {
     }
 
     private static void Configuration(){
+        DataBase.init();
+
          List<String> statusStringList = new ArrayList<>(Arrays.asList("Created", "Resolved", "Closed", "Duplicated", "Reopened"));
 
         for(String statusString : statusStringList) {
