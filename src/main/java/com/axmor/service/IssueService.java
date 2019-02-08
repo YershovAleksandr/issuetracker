@@ -70,7 +70,7 @@ public class IssueService {
         issueDAO.delete(id);
     }
 
-    public static void updateStatusById(String id, int status){
+    public static void updateStatusById(String id, String status){
         Issue issue = getIssueById(id);
         issue.setStatus(status);
 

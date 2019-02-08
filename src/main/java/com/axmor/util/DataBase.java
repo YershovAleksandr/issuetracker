@@ -45,7 +45,7 @@ public class DataBase {
                     "issue_title VARCHAR NOT NULL," +
                     "issue_description VARCHAR NOT NULL," +
                     "issue_date TIMESTAMP NOT NULL," +
-                    "issue_statusid int NOT NULL," +
+                    "issue_status VARCHAR NOT NULL," +
                     "PRIMARY KEY (issue_id)," +
                     "FOREIGN KEY (issue_userid) REFERENCES user(user_id))");
 
@@ -64,7 +64,7 @@ public class DataBase {
                     "comment_id int NOT NULL AUTO_INCREMENT," +
                     "comment_userid int NOT NULL," +
                     "comment_issueid int NOT NULL," +
-                    "comment_statusid int NOT NULL," +
+                    "comment_status VARCHAR NOT NULL," +
                     "comment_text VARCHAR NOT NULL," +
                     "comment_date TIMESTAMP NOT NULL," +
                     "PRIMARY KEY (comment_id)," +

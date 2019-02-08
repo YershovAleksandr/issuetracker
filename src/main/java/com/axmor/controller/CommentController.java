@@ -45,9 +45,9 @@ public class CommentController {
 
             //TODO show CommentStatusOrDescriptionNotValid page?
         } else {
-            CommentService.createCommentByIssueId(IssueService.getIssueById(id), StatusHelper.getIdByStatus(status), text, user);
+            CommentService.createCommentByIssueId(IssueService.getIssueById(id), status, text, user);
 
-            IssueService.updateStatusById(id, StatusHelper.getIdByStatus(status));
+            IssueService.updateStatusById(id, status);
         }
 
         response.redirect(request.url());

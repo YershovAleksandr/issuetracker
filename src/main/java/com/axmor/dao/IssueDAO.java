@@ -36,7 +36,7 @@ public class IssueDAO {
                 issue.setTitle(rs.getString("issue_title"));
                 issue.setDescription(rs.getString("issue_description"));
                 issue.setDate(rs.getTimestamp("issue_date"));
-                issue.setStatus(rs.getInt("issue_statusid"));
+                issue.setStatus(rs.getString("issue_status"));
 
                 issueList.add(issue);
             }
@@ -69,7 +69,7 @@ public class IssueDAO {
                 issue.setTitle(rs.getString("issue_title"));
                 issue.setDescription(rs.getString("issue_description"));
                 issue.setDate(rs.getTimestamp("issue_date"));
-                issue.setStatus(rs.getInt("issue_statusid"));
+                issue.setStatus(rs.getString("issue_status"));
             }
         }catch(SQLException e){
             log.error("Error", e);
@@ -82,13 +82,13 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("INSERT INTO issue(issue_userid, issue_title, issue_description, issue_date, issue_statusid) values(?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO issue(issue_userid, issue_title, issue_description, issue_date, issue_status) values(?, ?, ?, ?, ?)");
 
             ps.setInt(1, issue.getUser().getId());
             ps.setString(2, issue.getTitle());
             ps.setString(3, issue.getDescription());
             ps.setTimestamp(4, new java.sql.Timestamp(issue.getDate().getTime()));
-            ps.setInt(5, issue.getStatus());
+            ps.setString(5, issue.getStatus());
 
             rez = ps.executeUpdate();
 
@@ -124,9 +124,9 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("UPDATE issue SET issue_statusId = ? WHERE issue_id = ?");
+            PreparedStatement ps = con.prepareStatement("UPDATE issue SET issue_status = ? WHERE issue_id = ?");
 
-            ps.setInt(1, issue.getStatus());
+            ps.setString(1, issue.getStatus());
             ps.setInt(2, issue.getId());
 
             rez = ps.executeUpdate();

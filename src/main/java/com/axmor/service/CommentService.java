@@ -29,7 +29,7 @@ public class CommentService {
         return commentDAO.getByIssueId(id);
     }
 
-    public static void createCommentByIssueId(Issue issue, int status, String text, User user){
+    public static void createCommentByIssueId(Issue issue, String status, String text, User user){
         Comment comment = new Comment();
 
         comment.setUser(user);

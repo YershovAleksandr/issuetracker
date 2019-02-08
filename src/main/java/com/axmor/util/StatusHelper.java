@@ -25,7 +25,7 @@ public class StatusHelper {
         return statusList.indexOf(status);
     }
 
-    public static int getCreatedStatus(){
-        return statusList.indexOf("Created");
+    public static String getCreatedStatus(){
+        return "Created";
     }
 }

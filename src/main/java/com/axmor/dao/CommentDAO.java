@@ -39,7 +39,7 @@ public class CommentDAO {
                 user.setPassword(rs.getString("user_password"));
                 comment.setUser(user);
                 comment.setIssue(IssueService.getIssueById(String.valueOf(rs.getInt("comment_issueid"))));
-                comment.setStatus(rs.getInt("comment_statusid"));
+                comment.setStatus(rs.getString("comment_status"));
                 comment.setText(rs.getString("comment_text"));
                 comment.setDate(rs.getTimestamp("comment_date"));
 
@@ -58,11 +58,11 @@ public class CommentDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("INSERT INTO comment(comment_userid, comment_issueid, comment_statusid, comment_text, comment_date) values(?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO comment(comment_userid, comment_issueid, comment_status, comment_text, comment_date) values(?, ?, ?, ?, ?)");
 
             ps.setInt(1, comment.getUser().getId());
             ps.setInt(2, comment.getIssue().getId());
-            ps.setInt(3, comment.getStatus());
+            ps.setString(3, comment.getStatus());
             ps.setString(4, comment.getText());
             ps.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis()));
 
