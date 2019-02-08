@@ -27,3 +27,6 @@ target/
 #Intellij IDEA
 *.iml
 .idea/
+
+#H2 database
+*.db
