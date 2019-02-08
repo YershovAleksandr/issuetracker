@@ -29,23 +29,18 @@ public class UserController {
 
         if (!UserValidator.isNameValid(login) || !UserValidator.isPasswordValid(password)){
             log.warn("User name or password not valid");
-
-            //TODO show UserLoginOrPasswordNotValid page?
         } else {
             User user = UserService.getUserByName(login);
 
             if (user != null && user.getPassword().equals(password)){
                 log.info("User accepted " + user);
-
                 request.session().attribute("user", user);
-
                 url = "/";
             } else {
                 log.info("User not accepted [login " + login + " password " + password + "]");
 
                 url = "/login";
             }
-
         }
 
         response.redirect(url);
@@ -76,8 +71,6 @@ public class UserController {
 
         if (!UserValidator.isNameValid(login) || !UserValidator.isPasswordValid(password)){
             log.warn("User name or password not valid");
-
-            //TODO show UserLoginOrPasswordNotValid page?
         } else {
             UserService.createNewUser(login, password);
         }

@@ -18,10 +18,7 @@ public class CommentController {
 
         if (!IssueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
-
-            //TODO show IssueIdNotValid page?
             response.redirect("/");
-
             return null;
         }
 
@@ -29,10 +26,7 @@ public class CommentController {
 
         if (user == null){
             log.warn("Create comment for not authorized user");
-
-            //TODO show NotAuthorizesUser page?
             response.redirect("/");
-
             return null;
         }
 
@@ -41,11 +35,8 @@ public class CommentController {
 
         if (!CommentValidator.isStatusValid(status) || !CommentValidator.isTextValid(text)) {
             log.warn("Comment status or text not valid");
-
-            //TODO show CommentStatusOrDescriptionNotValid page?
         } else {
             CommentService.createCommentByIssueId(IssueService.getIssueById(id), status, text, user);
-
             IssueService.updateStatusById(id, status);
         }
 

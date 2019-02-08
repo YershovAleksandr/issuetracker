@@ -36,10 +36,7 @@ public class IssueController {
 
         if (!IssueService.isIssueExistsById(strId)){
             log.warn("Issue id not valid");
-
-            //TODO show IssueIdNotValid page?
             response.redirect("/");
-
             return null;
         }
 
@@ -57,10 +54,7 @@ public class IssueController {
 
         if (request.session().attribute("user") == null){
             log.warn("Create issue for not authorized user");
-
-            //TODO show NotAuthorizesUser page?
             response.redirect("/");
-
             return null;
         }
 
@@ -72,10 +66,7 @@ public class IssueController {
 
         if (request.session().attribute("user") == null){
             log.warn("Create issue post for not authorized user");
-
-            //TODO show NotAuthorizesUser page?
             response.redirect("/");
-
             return null;
         }
 
@@ -84,14 +75,11 @@ public class IssueController {
 
         if (!IssueValidator.isTitleValid(title) || !IssueValidator.isDescriptionValid(description)) {
             log.warn("Issue title or description not valid");
-
-            //TODO show IssueTitleOrDescriptionNotValid page?
         } else {
             IssueService.createIssue(request.session().attribute("user"), title, description);
         }
 
         response.redirect("/");
-
         return null;
     };
 
@@ -102,10 +90,7 @@ public class IssueController {
 
         if (!IssueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
-
-            //TODO show IssueIdNotValid page?
             response.redirect("/");
-
             return null;
         }
 
@@ -113,19 +98,13 @@ public class IssueController {
 
         if (user == null){
             log.warn("Create issue post for not authorized user");
-
-            //TODO show NotAuthorizesUser page?
             response.redirect("/");
-
             return null;
         }
 
         if (!IssueService.getIssueById(id).getUser().equals(user)){
             log.warn("Update issue for foreign user");
-
-            //TODO show ForeignUser page?
             response.redirect("/");
-
             return null;
         }
 
@@ -143,10 +122,7 @@ public class IssueController {
 
         if (!IssueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
-
-            //TODO show IssueIdNotValid page?
             response.redirect("/");
-
             return null;
         }
 
@@ -154,19 +130,13 @@ public class IssueController {
 
         if (user == null){
             log.warn("Update issue post for not authorized user");
-
-            //TODO show NotAuthorizesUser page?
             response.redirect("/");
-
             return null;
         }
 
         if (!IssueService.getIssueById(id).getUser().equals(user)){
             log.warn("Update issue for foreign user");
-
-            //TODO show ForeignUser page?
             response.redirect("/");
-
             return null;
         }
 
@@ -175,14 +145,11 @@ public class IssueController {
 
         if (!IssueValidator.isTitleValid(title) || !IssueValidator.isDescriptionValid(description)) {
             log.warn("Issue title or description not valid");
-
-            //TODO show IssueTitleOrDescriptionNotValid page?
         } else {
             IssueService.updateIssue(id, title, description);
         }
 
         response.redirect("/");
-
         return null;
     };
 
@@ -193,10 +160,7 @@ public class IssueController {
 
         if (!IssueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
-
-            //TODO show IssueIdNotValid page?
             response.redirect("/");
-
             return null;
         }
 
@@ -204,26 +168,18 @@ public class IssueController {
 
         if (user == null){
             log.warn("Delete issue post for not authorized user");
-
-            //TODO show NotAuthorizesUser page?
             response.redirect("/");
-
             return null;
         }
 
         if (!IssueService.getIssueById(id).getUser().equals(user)){
             log.warn("Delete issue for foreign user");
-
-            //TODO show ForeignUser page?
             response.redirect("/");
-
             return null;
         }
 
         IssueService.deleteById(id);
-
         response.redirect("/");
-
         return null;
     };
 }
