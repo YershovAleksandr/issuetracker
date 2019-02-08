@@ -1,9 +1,14 @@
 package com.axmor.dao;
 
 import com.axmor.model.Issue;
+import com.axmor.util.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class IssueDAO {
@@ -29,6 +34,22 @@ public class IssueDAO {
 
         issueMap.put(newId, issue);
         issue.setId(newId);
+
+        try (Connection con = DataSource.getConnection()){
+
+            PreparedStatement pst = con.prepareStatement("show tables");
+
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()){
+                log.info(rs.getString(1));
+            }
+
+
+        }catch (SQLException e){
+            log.error("Error", e);
+        }
+
 
         log.info("Create issue " + issue);
     }
