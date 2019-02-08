@@ -23,10 +23,10 @@ public class DataBase {
             Statement st = cn.createStatement();
 
             st.executeUpdate("CREATE TABLE IF NOT EXISTS user (" +
-                    "id int(10) NOT NULL AUTO_INCREMENT," +
+                    "id int NOT NULL AUTO_INCREMENT," +
                     "name VARCHAR(10) NOT NULL," +
                     "password VARCHAR(10) NOT NULL," +
-                    "PRIMARY key(id)) ");
+                    "PRIMARY KEY (id)) ");
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -40,10 +40,14 @@ public class DataBase {
             Statement st = cn.createStatement();
 
             st.executeUpdate("CREATE TABLE IF NOT EXISTS issue (" +
-                    "id int(10) NOT NULL AUTO_INCREMENT," +
+                    "id int NOT NULL AUTO_INCREMENT," +
+                    "userid int NOT NULL," +
                     "title VARCHAR(10) NOT NULL," +
                     "description VARCHAR(50) NOT NULL," +
-                    "PRIMARY key(id)) ");
+                    "date DATETIME NOT NULL," +
+                    "status int(10) NOT NULL," +
+                    "PRIMARY KEY (id)," +
+                    "FOREIGN KEY (userid) REFERENCES User(id)) ");
 
         }catch (SQLException e){
             e.printStackTrace();

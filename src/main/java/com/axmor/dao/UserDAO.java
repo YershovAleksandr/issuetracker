@@ -52,7 +52,7 @@ public class UserDAO {
             log.error("Error", e);
         }
 
-        log.info("Created user " + user);
+        log.info("Created user " + user.getName() + " password " + user.getPassword());
 
         return rez;
     }
