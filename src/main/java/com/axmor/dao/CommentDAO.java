@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import static com.axmor.dao.SQL.*;
+
 
 public class CommentDAO {
     private Logger log = LoggerFactory.getLogger(CommentDAO.class);
@@ -21,7 +23,7 @@ public class CommentDAO {
         List<Comment> commentList = new ArrayList<>();
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM comment JOIN user ON comment_userid = user_id WHERE comment_issueid = ?");
+            PreparedStatement ps = con.prepareStatement(SELECT_FROM_COMMENT_JOIN_USER_BY_COMMENT_USERID_EQUALS_USER_ID_BY_COMMENT_USERID);
 
             ps.setString(1, issueid);
 
@@ -30,17 +32,17 @@ public class CommentDAO {
             while(rs.next()) {
                 Comment comment = new Comment();
 
-                comment.setId(rs.getInt("comment_id"));
+                comment.setId(rs.getInt(SQL.COMMENTDB_COLUMN_ID));
 
                 User user = new User();
-                user.setId(rs.getInt("comment_userid"));
-                user.setName(rs.getString("user_name"));
-                user.setPassword(rs.getString("user_password"));
+                user.setId(rs.getInt(SQL.COMMENTDB_COLUMN_USERID));
+                user.setName(rs.getString(SQL.USERDB_COLUMN_NAME));
+                user.setPassword(rs.getString(SQL.USERDB_COLUMN_PASSWORD));
                 comment.setUser(user);
-                comment.setIssue(IssueService.getIssueById(String.valueOf(rs.getInt("comment_issueid"))));
-                comment.setStatus(rs.getString("comment_status"));
-                comment.setText(rs.getString("comment_text"));
-                comment.setDate(rs.getTimestamp("comment_date"));
+                comment.setIssue(IssueService.getIssueById(String.valueOf(rs.getInt(SQL.COMMENTDB_COLUMN_ISSUEID))));
+                comment.setStatus(rs.getString(SQL.COMMENTDB_COLUMN_STATUS));
+                comment.setText(rs.getString(SQL.COMMENTDB_COLUMN_TEXT));
+                comment.setDate(rs.getTimestamp(SQL.COMMENTDB_COLUMN_DATE));
 
                 commentList.add(comment);
 
@@ -57,7 +59,7 @@ public class CommentDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("INSERT INTO comment(comment_userid, comment_issueid, comment_status, comment_text, comment_date) values(?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement(INSERT_INTO_COMMENT_VALUES);
 
             ps.setInt(1, comment.getUser().getId());
             ps.setInt(2, comment.getIssue().getId());
