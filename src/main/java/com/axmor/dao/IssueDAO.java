@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import static com.axmor.dao.SQL.*;
+
 public class IssueDAO {
     private Logger log = LoggerFactory.getLogger(IssueDAO.class);
 
@@ -19,7 +21,7 @@ public class IssueDAO {
         List<Issue> issueList = new ArrayList<>();
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user_id = issue_userid");
+            PreparedStatement ps = con.prepareStatement(SELECT_FROM_ISSUE_JOIN_USER_BY_USERID_EQUALS_ISSUE_USERID);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -28,15 +30,15 @@ public class IssueDAO {
                 issue.setId(rs.getInt(1));
 
                 User user = new User();
-                user.setId(rs.getInt("issue_userid"));
-                user.setName(rs.getString("user_name"));
-                user.setPassword(rs.getString("user_password"));
+                user.setId(rs.getInt(USERDB_COLUMN_ID));
+                user.setName(rs.getString(USERDB_COLUMN_NAME));
+                user.setPassword(rs.getString(USERDB_COLUMN_PASSWORD));
                 issue.setUser(user);
 
-                issue.setTitle(rs.getString("issue_title"));
-                issue.setDescription(rs.getString("issue_description"));
-                issue.setDate(rs.getTimestamp("issue_date"));
-                issue.setStatus(rs.getString("issue_status"));
+                issue.setTitle(rs.getString(ISSUEDB_COLUMN_TITLE));
+                issue.setDescription(rs.getString(ISSUEDB_COLUMN_DESCRIPTION));
+                issue.setDate(rs.getTimestamp(ISSUEDB_COLUMN_DATE));
+                issue.setStatus(rs.getString(ISSUEDB_COLUMN_STATUS));
 
                 issueList.add(issue);
             }
@@ -51,7 +53,7 @@ public class IssueDAO {
         Issue issue = null;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM issue JOIN user ON user_id = issue_userid WHERE issue_id = ?");
+            PreparedStatement ps = con.prepareStatement(SELECT_FROM_ISSUE_JOIN_USER_BY_USERID_EQUALS_ISSUE_USERID_BY_ISSUEID);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
@@ -61,15 +63,15 @@ public class IssueDAO {
                 issue.setId(rs.getInt(1));
 
                 User user = new User();
-                user.setId(rs.getInt("issue_userid"));
-                user.setName(rs.getString("user_name"));
-                user.setPassword(rs.getString("user_password"));
+                user.setId(rs.getInt(USERDB_COLUMN_ID));
+                user.setName(rs.getString(USERDB_COLUMN_NAME));
+                user.setPassword(rs.getString(USERDB_COLUMN_PASSWORD));
                 issue.setUser(user);
 
-                issue.setTitle(rs.getString("issue_title"));
-                issue.setDescription(rs.getString("issue_description"));
-                issue.setDate(rs.getTimestamp("issue_date"));
-                issue.setStatus(rs.getString("issue_status"));
+                issue.setTitle(rs.getString(ISSUEDB_COLUMN_TITLE));
+                issue.setDescription(rs.getString(ISSUEDB_COLUMN_DESCRIPTION));
+                issue.setDate(rs.getTimestamp(ISSUEDB_COLUMN_DATE));
+                issue.setStatus(rs.getString(ISSUEDB_COLUMN_STATUS));
             }
         }catch(SQLException e){
             log.error("Error", e);
@@ -82,7 +84,7 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("INSERT INTO issue(issue_userid, issue_title, issue_description, issue_date, issue_status) values(?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement(INSERT_INTO_ISSUE_VALUES);
 
             ps.setInt(1, issue.getUser().getId());
             ps.setString(2, issue.getTitle());
@@ -105,7 +107,7 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("UPDATE issue SET issue_title = ?, issue_description = ? WHERE issue_id = ?");
+            PreparedStatement ps = con.prepareStatement(UPDATE_ISSUE_TITLE_AND_DESCRIPTION_BY_ISSUEID);
 
             ps.setString(1, issue.getTitle());
             ps.setString(2, issue.getDescription());
@@ -124,7 +126,7 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("UPDATE issue SET issue_status = ? WHERE issue_id = ?");
+            PreparedStatement ps = con.prepareStatement(UPDATE_ISSUE_STATUS_BY_ISSUEID);
 
             ps.setString(1, issue.getStatus());
             ps.setInt(2, issue.getId());
@@ -143,7 +145,7 @@ public class IssueDAO {
         int rez = 0;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement("DELETE FROM issue WHERE issue_id = ?");
+            PreparedStatement ps = con.prepareStatement(DELETE_FROM_ISSUE_BY_ISSUEID);
 
             ps.setInt(1, id);
 
