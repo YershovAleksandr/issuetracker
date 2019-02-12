@@ -33,7 +33,7 @@ public class SQLConstants {
             USERDB,
             USERDB_COLUMN_ID,
             ISSUEDB_COLUMN_USERID,
-            ISSUEDB_COLUMN_USERID);
+            ISSUEDB_COLUMN_ID);
 
     final public static String INSERT_INTO_ISSUE_VALUES = String.format("INSERT INTO %s(%s, %s, %s, %s, %s) values(?, ?, ?, ?, ?)",
             ISSUEDB,
@@ -61,7 +61,7 @@ public class SQLConstants {
     final public static String COMMENTDB =                 "comment";
     final public static String COMMENTDB_COLUMN_ID =       "comment_id";
     final public static String COMMENTDB_COLUMN_USERID =   "comment_userid";
-    final public static String COMMENTDB_COLUMN_ISSUEID =  "comment_issuedid";
+    final public static String COMMENTDB_COLUMN_ISSUEID =  "comment_issueid";
     final public static String COMMENTDB_COLUMN_STATUS =   "comment_status";
     final public static String COMMENTDB_COLUMN_TEXT =     "comment_text";
     final public static String COMMENTDB_COLUMN_DATE =     "comment_date";
