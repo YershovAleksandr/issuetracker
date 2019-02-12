@@ -7,13 +7,17 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DataSource {
+
+    private static final String PROPERTIES = "application.properties";
+
     private static HikariConfig config = new HikariConfig();
     private static HikariDataSource ds;
+    private static DataBaseConfig dataBaseConfig = new DataBaseConfig(PROPERTIES);
 
     static {
-        config.setJdbcUrl("jdbc:h2:./db");
-        config.setUsername("user1");
-        config.setPassword("123");
+        config.setJdbcUrl(dataBaseConfig.getUrl());
+        config.setUsername(dataBaseConfig.getUsername());
+        config.setPassword(dataBaseConfig.getPassword());
 
         ds = new HikariDataSource(config);
     }
