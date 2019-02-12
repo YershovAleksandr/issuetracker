@@ -7,8 +7,6 @@ import com.axmor.service.CommentService;
 import com.axmor.service.IssueService;
 import com.axmor.service.UserService;
 import com.axmor.util.DataBase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static spark.Spark.*;
 
@@ -17,8 +15,6 @@ import static spark.Spark.*;
  */
 
 public class Main {
-    final static Logger log = LoggerFactory.getLogger(Main.class);
-
     public static UserService userService = new UserService();
     public static IssueService issueService = new IssueService();
     public static CommentService commentService = new CommentService();
