@@ -1,8 +1,6 @@
 package com.axmor.controller;
 
 import com.axmor.model.User;
-import com.axmor.service.CommentService;
-import com.axmor.service.IssueService;
 import com.axmor.util.IssueValidator;
 import com.axmor.util.StatusHelper;
 import org.slf4j.Logger;
@@ -13,6 +11,9 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.*;
 
+import static com.axmor.Main.commentService;
+import static com.axmor.Main.issueService;
+
 @SuppressWarnings("unchecked")
 public class IssueController {
     private static Logger log = LoggerFactory.getLogger(IssueController.class);
@@ -21,7 +22,7 @@ public class IssueController {
         log.info("View issues");
 
         Map map = new HashMap();
-        map.put("issueList", IssueService.getAllIssues());
+        map.put("issueList", issueService.getAllIssues());
         map.put("user", request.session().attribute("user"));
 
         log.info("user " + request.session().attribute("user"));
@@ -34,15 +35,15 @@ public class IssueController {
 
         String strId = request.params(":id");
 
-        if (!IssueService.isIssueExistsById(strId)){
+        if (!issueService.isIssueExistsById(strId)){
             log.warn("Issue id not valid");
             response.redirect("/");
             return null;
         }
 
         Map map = new HashMap();
-        map.put("issue", IssueService.getIssueById(strId));
-        map.put("commentList", CommentService.getCommentByIssueId(strId));
+        map.put("issue", issueService.getIssueById(strId));
+        map.put("commentList", commentService.getCommentByIssueId(strId));
         map.put("statusList", StatusHelper.getStatusList());
         map.put("user", request.session().attribute("user"));
 
@@ -76,7 +77,7 @@ public class IssueController {
         if (!IssueValidator.isTitleValid(title) || !IssueValidator.isDescriptionValid(description)) {
             log.warn("Issue title or description not valid");
         } else {
-            IssueService.createIssue(request.session().attribute("user"), title, description);
+            issueService.createIssue(request.session().attribute("user"), title, description);
         }
 
         response.redirect("/");
@@ -88,7 +89,7 @@ public class IssueController {
 
         String id = request.params(":id");
 
-        if (!IssueService.isIssueExistsById(id)){
+        if (!issueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
             response.redirect("/");
             return null;
@@ -102,14 +103,14 @@ public class IssueController {
             return null;
         }
 
-        if (!IssueService.getIssueById(id).getUser().equals(user)){
+        if (!issueService.getIssueById(id).getUser().equals(user)){
             log.warn("Update issue for foreign user");
             response.redirect("/");
             return null;
         }
 
         Map map = new HashMap();
-        map.put("issue", IssueService.getIssueById(id));
+        map.put("issue", issueService.getIssueById(id));
         map.put("user", user);
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(map, "update"));
@@ -120,7 +121,7 @@ public class IssueController {
 
         String id = request.queryParams("id");
 
-        if (!IssueService.isIssueExistsById(id)){
+        if (!issueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
             response.redirect("/");
             return null;
@@ -134,7 +135,7 @@ public class IssueController {
             return null;
         }
 
-        if (!IssueService.getIssueById(id).getUser().equals(user)){
+        if (!issueService.getIssueById(id).getUser().equals(user)){
             log.warn("Update issue for foreign user");
             response.redirect("/");
             return null;
@@ -146,7 +147,7 @@ public class IssueController {
         if (!IssueValidator.isTitleValid(title) || !IssueValidator.isDescriptionValid(description)) {
             log.warn("Issue title or description not valid");
         } else {
-            IssueService.updateIssue(id, title, description);
+            issueService.updateIssue(id, title, description);
         }
 
         response.redirect("/");
@@ -158,7 +159,7 @@ public class IssueController {
 
         String id = request.params(":id");
 
-        if (!IssueService.isIssueExistsById(id)){
+        if (!issueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
             response.redirect("/");
             return null;
@@ -172,13 +173,13 @@ public class IssueController {
             return null;
         }
 
-        if (!IssueService.getIssueById(id).getUser().equals(user)){
+        if (!issueService.getIssueById(id).getUser().equals(user)){
             log.warn("Delete issue for foreign user");
             response.redirect("/");
             return null;
         }
 
-        IssueService.deleteById(id);
+        issueService.deleteById(id);
         response.redirect("/");
         return null;
     };

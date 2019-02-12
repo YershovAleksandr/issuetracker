@@ -6,11 +6,11 @@ import com.axmor.model.User;
 public class UserService {
     private static UserDAO userDAO = new UserDAO();
 
-    public static User getUserByName(String name){
+    public User getUserByName(String name){
         return userDAO.getUser(name);
     }
 
-    public static void createNewUser(String login, String password){
+    public void createNewUser(String login, String password){
         User user = new User();
         user.setName(login);
         user.setPassword(password);

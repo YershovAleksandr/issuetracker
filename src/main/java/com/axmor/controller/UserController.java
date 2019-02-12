@@ -1,7 +1,6 @@
 package com.axmor.controller;
 
 import com.axmor.model.User;
-import com.axmor.service.UserService;
 import com.axmor.util.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +8,8 @@ import spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.HashMap;
+
+import static com.axmor.Main.userService;
 
 public class UserController {
     private static Logger log = LoggerFactory.getLogger(UserController.class);
@@ -30,7 +31,7 @@ public class UserController {
         if (!UserValidator.isNameValid(login) || !UserValidator.isPasswordValid(password)){
             log.warn("User name or password not valid");
         } else {
-            User user = UserService.getUserByName(login);
+            User user = userService.getUserByName(login);
 
             if (user != null && user.getPassword().equals(password)){
                 log.info("User accepted " + user);
@@ -72,7 +73,7 @@ public class UserController {
         if (!UserValidator.isNameValid(login) || !UserValidator.isPasswordValid(password)){
             log.warn("User name or password not valid");
         } else {
-            UserService.createNewUser(login, password);
+            userService.createNewUser(login, password);
         }
 
         response.redirect("/login");

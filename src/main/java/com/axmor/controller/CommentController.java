@@ -1,12 +1,13 @@
 package com.axmor.controller;
 
 import com.axmor.model.User;
-import com.axmor.service.CommentService;
-import com.axmor.service.IssueService;
 import com.axmor.util.CommentValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Route;
+
+import static com.axmor.Main.commentService;
+import static com.axmor.Main.issueService;
 
 public class CommentController {
     private static Logger log = LoggerFactory.getLogger(CommentController.class);
@@ -16,7 +17,7 @@ public class CommentController {
 
         String id = request.params(":id");
 
-        if (!IssueService.isIssueExistsById(id)){
+        if (!issueService.isIssueExistsById(id)){
             log.warn("Issue id not valid");
             response.redirect("/");
             return null;
@@ -36,8 +37,8 @@ public class CommentController {
         if (!CommentValidator.isStatusValid(status) || !CommentValidator.isTextValid(text)) {
             log.warn("Comment status or text not valid");
         } else {
-            CommentService.createCommentByIssueId(IssueService.getIssueById(id), status, text, user);
-            IssueService.updateStatusById(id, status);
+            commentService.createCommentByIssueId(issueService.getIssueById(id), status, text, user);
+            issueService.updateStatusById(id, status);
         }
 
         response.redirect(request.url());

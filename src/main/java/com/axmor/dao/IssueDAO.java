@@ -21,7 +21,7 @@ public class IssueDAO {
         List<Issue> issueList = new ArrayList<>();
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement(SELECT_FROM_ISSUE_JOIN_USER_BY_USERID_EQUALS_ISSUE_USERID);
+            PreparedStatement ps = con.prepareStatement(SELECT_FROM_ISSUE_JOIN_USER_ON_USERID_EQUALS_ISSUE_USERID);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -53,7 +53,7 @@ public class IssueDAO {
         Issue issue = null;
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement(SELECT_FROM_ISSUE_JOIN_USER_BY_USERID_EQUALS_ISSUE_USERID_BY_ISSUEID);
+            PreparedStatement ps = con.prepareStatement(SELECT_FROM_ISSUE_JOIN_USER_ON_USERID_EQUALS_ISSUE_USERID_BY_ISSUEID);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 

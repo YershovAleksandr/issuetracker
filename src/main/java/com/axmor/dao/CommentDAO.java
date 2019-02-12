@@ -23,7 +23,7 @@ public class CommentDAO {
         List<Comment> commentList = new ArrayList<>();
 
         try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement(SELECT_FROM_COMMENT_JOIN_USER_BY_COMMENT_USERID_EQUALS_USER_ID_BY_COMMENT_USERID);
+            PreparedStatement ps = con.prepareStatement(SELECT_FROM_COMMENT_JOIN_USER_ON_COMMENT_USERID_EQUALS_USER_ID_BY_COMMENT_USERID);
 
             ps.setString(1, issueid);
 

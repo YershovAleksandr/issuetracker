@@ -22,13 +22,13 @@ public class SQLConstants {
     final public static String ISSUEDB_COLUMN_DATE =        "issue_date";
     final public static String ISSUEDB_COLUMN_STATUS =      "issue_status";
 
-    final public static String SELECT_FROM_ISSUE_JOIN_USER_BY_USERID_EQUALS_ISSUE_USERID = String.format("SELECT * FROM %s JOIN %s ON %s = %s",
+    final public static String SELECT_FROM_ISSUE_JOIN_USER_ON_USERID_EQUALS_ISSUE_USERID = String.format("SELECT * FROM %s JOIN %s ON %s = %s",
             ISSUEDB,
             USERDB,
             USERDB_COLUMN_ID,
             ISSUEDB_COLUMN_USERID);
 
-    final public static String SELECT_FROM_ISSUE_JOIN_USER_BY_USERID_EQUALS_ISSUE_USERID_BY_ISSUEID = String.format("SELECT * FROM %s JOIN %s ON %s = %s WHERE %s = ?",
+    final public static String SELECT_FROM_ISSUE_JOIN_USER_ON_USERID_EQUALS_ISSUE_USERID_BY_ISSUEID = String.format("SELECT * FROM %s JOIN %s ON %s = %s WHERE %s = ?",
             ISSUEDB,
             USERDB,
             USERDB_COLUMN_ID,
@@ -66,7 +66,7 @@ public class SQLConstants {
     final public static String COMMENTDB_COLUMN_TEXT =     "comment_text";
     final public static String COMMENTDB_COLUMN_DATE =     "comment_date";
 
-    final public static String SELECT_FROM_COMMENT_JOIN_USER_BY_COMMENT_USERID_EQUALS_USER_ID_BY_COMMENT_USERID = String.format("SELECT * FROM %s JOIN %s ON %s = %s WHERE %s = ?",
+    final public static String SELECT_FROM_COMMENT_JOIN_USER_ON_COMMENT_USERID_EQUALS_USER_ID_BY_COMMENT_USERID = String.format("SELECT * FROM %s JOIN %s ON %s = %s WHERE %s = ?",
             COMMENTDB,
             USERDB,
             COMMENTDB_COLUMN_USERID,

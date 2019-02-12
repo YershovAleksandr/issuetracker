@@ -12,13 +12,13 @@ import java.util.List;
 
 public class IssueService {
     private static Logger log = LoggerFactory.getLogger(IssueService.class);
-    private static IssueDAO issueDAO = new IssueDAO();
+    private IssueDAO issueDAO = new IssueDAO();
 
-    public static List<Issue> getAllIssues(){
+    public List<Issue> getAllIssues(){
         return issueDAO.getAll();
     }
 
-    public static boolean isIssueExistsById(String id){
+    public boolean isIssueExistsById(String id){
         Issue issue = getIssueById(id);
 
         if (issue != null){
@@ -28,7 +28,7 @@ public class IssueService {
         }
     }
 
-    public static Issue getIssueById(String id){
+    public Issue getIssueById(String id){
         int intId;
 
         try {
@@ -40,7 +40,7 @@ public class IssueService {
         return issueDAO.get(intId);
     }
 
-    public static void createIssue(User user, String title, String description){
+    public void createIssue(User user, String title, String description){
         Issue issue = new Issue();
         issue.setUser(user);
         issue.setTitle(title);
@@ -53,7 +53,7 @@ public class IssueService {
         issueDAO.create(issue);
     }
 
-    public static void updateIssue(String id, String title, String description){
+    public void updateIssue(String id, String title, String description){
         Issue issue = getIssueById(id);
         issue.setTitle(title);
         issue.setDescription(description);
@@ -63,14 +63,14 @@ public class IssueService {
         issueDAO.update(issue);
     }
 
-    public static void deleteById(String strId){
+    public void deleteById(String strId){
         int id = Integer.valueOf(strId);
         log.info("Delete id = {}", id);
 
         issueDAO.delete(id);
     }
 
-    public static void updateStatusById(String id, String status){
+    public void updateStatusById(String id, String status){
         Issue issue = getIssueById(id);
         issue.setStatus(status);
 
