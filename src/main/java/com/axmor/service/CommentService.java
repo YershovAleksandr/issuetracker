@@ -26,7 +26,7 @@ public class CommentService {
         comment.setText(text);
         comment.setDate(new Date());
 
-        log.info("Create comment " + comment);
+        log.info("Create comment {}", comment);
 
         commentDAO.create(comment);
     }

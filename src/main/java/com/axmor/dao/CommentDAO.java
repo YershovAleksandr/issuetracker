@@ -44,7 +44,7 @@ public class CommentDAO {
 
                 commentList.add(comment);
 
-                log.info("Select comment status " + comment.getStatus());
+                log.info("Select comment status {}", comment.getStatus());
             }
         }catch(SQLException e){
             log.error("Error", e);
@@ -71,7 +71,7 @@ public class CommentDAO {
             log.error("Error", e);
         }
 
-        log.info("Created comment " + comment);
+        log.info("Created comment {}", comment);
 
         return rez;
     }

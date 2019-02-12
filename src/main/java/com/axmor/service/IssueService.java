@@ -48,7 +48,7 @@ public class IssueService {
         issue.setDate(new Date());
         issue.setStatus(StatusHelper.getCreatedStatus());
 
-        log.info("Create issue " + issue);
+        log.info("Create issue {}", issue);
 
         issueDAO.create(issue);
     }
@@ -58,14 +58,14 @@ public class IssueService {
         issue.setTitle(title);
         issue.setDescription(description);
 
-        log.info("Updated Issue" + issue);
+        log.info("Updated Issue {}", issue);
 
         issueDAO.update(issue);
     }
 
     public static void deleteById(String strId){
         int id = Integer.valueOf(strId);
-        log.info("Delete id = " + id);
+        log.info("Delete id = {}", id);
 
         issueDAO.delete(id);
     }
@@ -74,7 +74,7 @@ public class IssueService {
         Issue issue = getIssueById(id);
         issue.setStatus(status);
 
-        log.info("Updated Issue status" + issue);
+        log.info("Updated Issue status {}", issue);
 
         issueDAO.updateStatus(issue);
     }

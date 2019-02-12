@@ -96,7 +96,7 @@ public class IssueDAO {
             log.error("Error", e);
         }
 
-        log.info("Created issue " + issue);
+        log.info("Created issue {}", issue);
 
         return rez;
     }

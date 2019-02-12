@@ -30,7 +30,7 @@ public class IssueController {
     };
 
     public static Route ViewIssue = (request, response) -> {
-        log.info("View issue id = " + request.params(":id"));
+        log.info("View issue id = {}", request.params(":id"));
 
         String strId = request.params(":id");
 
@@ -84,7 +84,7 @@ public class IssueController {
     };
 
     public static Route UpdateIssue =  (request, response) -> {
-        log.info("Update issue id = " + request.params(":id"));
+        log.info("Update issue id = {}", request.params(":id"));
 
         String id = request.params(":id");
 
@@ -116,7 +116,7 @@ public class IssueController {
     };
 
     public static Route UpdateIssuePost = (request, response) -> {
-        log.info("Update issue post id = " + request.queryParams("id"));
+        log.info("Update issue post id = {}", request.queryParams("id"));
 
         String id = request.queryParams("id");
 
@@ -154,7 +154,7 @@ public class IssueController {
     };
 
     public static Route DeleteIssue = (request, response) -> {
-        log.info("Delete issue id = " + request.params(":id"));
+        log.info("Delete issue id = {}", request.params(":id"));
 
         String id = request.params(":id");
 

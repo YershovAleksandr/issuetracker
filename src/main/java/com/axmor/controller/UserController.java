@@ -37,7 +37,7 @@ public class UserController {
                 request.session().attribute("user", user);
                 url = "/";
             } else {
-                log.info("User not accepted [login " + login + " password " + password + "]");
+                log.info("User not accepted [login {} password {}]", login, password);
 
                 url = "/login";
             }

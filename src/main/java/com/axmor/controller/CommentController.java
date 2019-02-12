@@ -12,7 +12,7 @@ public class CommentController {
     private static Logger log = LoggerFactory.getLogger(CommentController.class);
 
     public static Route CreateComment = (request, response) -> {
-        log.info("Create new comment at issue id = " + request.params(":id"));
+        log.info("Create new comment at issue id = {}", request.params(":id"));
 
         String id = request.params(":id");
 
