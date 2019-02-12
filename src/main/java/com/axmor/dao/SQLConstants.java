@@ -1,6 +1,6 @@
 package com.axmor.dao;
 
-public class SQL {
+public class SQLConstants {
     final public static String USERDB =                 "user";
     final public static String USERDB_COLUMN_ID =       "user_id";
     final public static String USERDB_COLUMN_NAME =     "user_name";

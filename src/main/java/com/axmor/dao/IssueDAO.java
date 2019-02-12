@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import static com.axmor.dao.SQL.*;
+import static com.axmor.dao.SQLConstants.*;
 
 public class IssueDAO {
     private Logger log = LoggerFactory.getLogger(IssueDAO.class);

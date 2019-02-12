@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.axmor.dao.SQL.*;
+import static com.axmor.dao.SQLConstants.*;
 
 public class UserDAO {
     private static Logger log = LoggerFactory.getLogger(UserDAO.class);
