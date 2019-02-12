@@ -2,7 +2,6 @@ package com.axmor.dao;
 
 import com.axmor.model.Comment;
 import com.axmor.model.User;
-import com.axmor.service.IssueService;
 import com.axmor.util.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import static com.axmor.Main.issueService;
 import static com.axmor.dao.SQLConstants.*;
 
 
@@ -39,7 +39,7 @@ public class CommentDAO {
                 user.setName(rs.getString(SQLConstants.USERDB_COLUMN_NAME));
                 user.setPassword(rs.getString(SQLConstants.USERDB_COLUMN_PASSWORD));
                 comment.setUser(user);
-                comment.setIssue(IssueService.getIssueById(String.valueOf(rs.getInt(SQLConstants.COMMENTDB_COLUMN_ISSUEID))));
+                comment.setIssue(issueService.getIssueById(String.valueOf(rs.getInt(SQLConstants.COMMENTDB_COLUMN_ISSUEID))));
                 comment.setStatus(rs.getString(SQLConstants.COMMENTDB_COLUMN_STATUS));
                 comment.setText(rs.getString(SQLConstants.COMMENTDB_COLUMN_TEXT));
                 comment.setDate(rs.getTimestamp(SQLConstants.COMMENTDB_COLUMN_DATE));
