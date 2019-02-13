@@ -32,17 +32,17 @@ public class CommentDAO {
             while(rs.next()) {
                 Comment comment = new Comment();
 
-                comment.setId(rs.getInt(SQLConstants.COMMENTDB_COLUMN_ID));
+                comment.setId(rs.getInt(SQLConstants.TABLECOMMENT_COLUMN_ID));
 
                 User user = new User();
-                user.setId(rs.getInt(SQLConstants.COMMENTDB_COLUMN_USERID));
-                user.setName(rs.getString(SQLConstants.USERDB_COLUMN_NAME));
-                user.setPassword(rs.getString(SQLConstants.USERDB_COLUMN_PASSWORD));
+                user.setId(rs.getInt(SQLConstants.TABLECOMMENT_COLUMN_USERID));
+                user.setName(rs.getString(SQLConstants.TABLEUSER_COLUMN_NAME));
+                user.setPassword(rs.getString(SQLConstants.TABLEUSER_COLUMN_PASSWORD));
                 comment.setUser(user);
-                comment.setIssue(issueService.getIssueById(String.valueOf(rs.getInt(SQLConstants.COMMENTDB_COLUMN_ISSUEID))));
-                comment.setStatus(rs.getString(SQLConstants.COMMENTDB_COLUMN_STATUS));
-                comment.setText(rs.getString(SQLConstants.COMMENTDB_COLUMN_TEXT));
-                comment.setDate(rs.getTimestamp(SQLConstants.COMMENTDB_COLUMN_DATE));
+                comment.setIssue(issueService.getIssueById(String.valueOf(rs.getInt(SQLConstants.TABLECOMMENT_COLUMN_ISSUEID))));
+                comment.setStatus(rs.getString(SQLConstants.TABLECOMMENT_COLUMN_STATUS));
+                comment.setText(rs.getString(SQLConstants.TABLECOMMENT_COLUMN_TEXT));
+                comment.setDate(rs.getTimestamp(SQLConstants.TABLECOMMENT_COLUMN_DATE));
 
                 commentList.add(comment);
 

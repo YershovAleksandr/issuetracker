@@ -8,11 +8,9 @@ import java.sql.SQLException;
 
 public class DataSource {
 
-    private static final String PROPERTIES = "application.properties";
-
     private static HikariConfig config = new HikariConfig();
     private static HikariDataSource ds;
-    private static DataBaseConfig dataBaseConfig = new DataBaseConfig(PROPERTIES);
+    private static DataBaseConfig dataBaseConfig = new DataBaseConfig("application.properties");
 
     static {
         config.setJdbcUrl(dataBaseConfig.getUrl());

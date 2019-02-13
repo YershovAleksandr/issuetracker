@@ -30,15 +30,15 @@ public class IssueDAO {
                 issue.setId(rs.getInt(1));
 
                 User user = new User();
-                user.setId(rs.getInt(USERDB_COLUMN_ID));
-                user.setName(rs.getString(USERDB_COLUMN_NAME));
-                user.setPassword(rs.getString(USERDB_COLUMN_PASSWORD));
+                user.setId(rs.getInt(TABLEUSER_COLUMN_ID));
+                user.setName(rs.getString(TABLEUSER_COLUMN_NAME));
+                user.setPassword(rs.getString(TABLEUSER_COLUMN_PASSWORD));
                 issue.setUser(user);
 
-                issue.setTitle(rs.getString(ISSUEDB_COLUMN_TITLE));
-                issue.setDescription(rs.getString(ISSUEDB_COLUMN_DESCRIPTION));
-                issue.setDate(rs.getTimestamp(ISSUEDB_COLUMN_DATE));
-                issue.setStatus(rs.getString(ISSUEDB_COLUMN_STATUS));
+                issue.setTitle(rs.getString(TABLEISSUE_COLUMN_TITLE));
+                issue.setDescription(rs.getString(TABLEISSUE_COLUMN_DESCRIPTION));
+                issue.setDate(rs.getTimestamp(TABLEISSUE_COLUMN_DATE));
+                issue.setStatus(rs.getString(TABLEISSUE_COLUMN_STATUS));
 
                 issueList.add(issue);
             }
@@ -63,15 +63,15 @@ public class IssueDAO {
                 issue.setId(rs.getInt(1));
 
                 User user = new User();
-                user.setId(rs.getInt(USERDB_COLUMN_ID));
-                user.setName(rs.getString(USERDB_COLUMN_NAME));
-                user.setPassword(rs.getString(USERDB_COLUMN_PASSWORD));
+                user.setId(rs.getInt(TABLEUSER_COLUMN_ID));
+                user.setName(rs.getString(TABLEUSER_COLUMN_NAME));
+                user.setPassword(rs.getString(TABLEUSER_COLUMN_PASSWORD));
                 issue.setUser(user);
 
-                issue.setTitle(rs.getString(ISSUEDB_COLUMN_TITLE));
-                issue.setDescription(rs.getString(ISSUEDB_COLUMN_DESCRIPTION));
-                issue.setDate(rs.getTimestamp(ISSUEDB_COLUMN_DATE));
-                issue.setStatus(rs.getString(ISSUEDB_COLUMN_STATUS));
+                issue.setTitle(rs.getString(TABLEISSUE_COLUMN_TITLE));
+                issue.setDescription(rs.getString(TABLEISSUE_COLUMN_DESCRIPTION));
+                issue.setDate(rs.getTimestamp(TABLEISSUE_COLUMN_DATE));
+                issue.setStatus(rs.getString(TABLEISSUE_COLUMN_STATUS));
             }
         }catch(SQLException e){
             log.error("Error", e);
