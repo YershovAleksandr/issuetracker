@@ -15,7 +15,6 @@ import java.util.*;
 import static com.axmor.Main.issueService;
 import static com.axmor.dao.SQLConstants.*;
 
-
 public class CommentDAO {
     private Logger log = LoggerFactory.getLogger(CommentDAO.class);
 
@@ -24,7 +23,6 @@ public class CommentDAO {
 
         try(Connection con = DataSource.getConnection()){
             PreparedStatement ps = con.prepareStatement(SELECT_FROM_COMMENT_JOIN_USER_ON_COMMENT_USERID_EQUALS_USER_ID_BY_COMMENT_USERID);
-
             ps.setString(1, issueid);
 
             ResultSet rs = ps.executeQuery();
@@ -32,17 +30,18 @@ public class CommentDAO {
             while(rs.next()) {
                 Comment comment = new Comment();
 
-                comment.setId(rs.getInt(SQLConstants.TABLECOMMENT_COLUMN_ID));
+                comment.setId(rs.getInt(SQLConstants.TABLE_COMMENT_COLUMN_ID));
 
                 User user = new User();
-                user.setId(rs.getInt(SQLConstants.TABLECOMMENT_COLUMN_USERID));
-                user.setName(rs.getString(SQLConstants.TABLEUSER_COLUMN_NAME));
-                user.setPassword(rs.getString(SQLConstants.TABLEUSER_COLUMN_PASSWORD));
+                user.setId(rs.getInt(SQLConstants.TABLE_COMMENT_COLUMN_USERID));
+                user.setName(rs.getString(SQLConstants.TABLE_USER_COLUMN_NAME));
+                user.setPassword(rs.getString(SQLConstants.TABLE_USER_COLUMN_PASSWORD));
                 comment.setUser(user);
-                comment.setIssue(issueService.getIssueById(String.valueOf(rs.getInt(SQLConstants.TABLECOMMENT_COLUMN_ISSUEID))));
-                comment.setStatus(rs.getString(SQLConstants.TABLECOMMENT_COLUMN_STATUS));
-                comment.setText(rs.getString(SQLConstants.TABLECOMMENT_COLUMN_TEXT));
-                comment.setDate(rs.getTimestamp(SQLConstants.TABLECOMMENT_COLUMN_DATE));
+
+                comment.setIssue(issueService.getIssueById(String.valueOf(rs.getInt(SQLConstants.TABLE_COMMENT_COLUMN_ISSUEID))));
+                comment.setStatus(rs.getString(SQLConstants.TABLE_COMMENT_COLUMN_STATUS));
+                comment.setText(rs.getString(SQLConstants.TABLE_COMMENT_COLUMN_TEXT));
+                comment.setDate(rs.getTimestamp(SQLConstants.TABLE_COMMENT_COLUMN_DATE));
 
                 commentList.add(comment);
 

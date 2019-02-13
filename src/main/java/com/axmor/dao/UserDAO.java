@@ -27,9 +27,9 @@ public class UserDAO {
             if (rs.next()){
                 user = new User();
 
-                user.setId(rs.getInt(TABLEUSER_COLUMN_ID));
-                user.setName(rs.getString(TABLEUSER_COLUMN_NAME));
-                user.setPassword(rs.getString(TABLEUSER_COLUMN_PASSWORD));
+                user.setId(rs.getInt(TABLE_USER_COLUMN_ID));
+                user.setName(rs.getString(TABLE_USER_COLUMN_NAME));
+                user.setPassword(rs.getString(TABLE_USER_COLUMN_PASSWORD));
             }
 
         }catch(SQLException e){
