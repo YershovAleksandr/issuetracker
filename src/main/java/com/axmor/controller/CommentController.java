@@ -1,5 +1,6 @@
 package com.axmor.controller;
 
+import com.axmor.model.Status;
 import com.axmor.model.User;
 import com.axmor.util.CommentValidator;
 import org.slf4j.Logger;
@@ -37,8 +38,8 @@ public class CommentController {
         if (!CommentValidator.isStatusValid(status) || !CommentValidator.isTextValid(text)) {
             log.warn("Comment status or text not valid");
         } else {
-            commentService.createCommentByIssueId(issueService.getIssueById(id), status, text, user);
-            issueService.updateStatusById(id, status);
+            commentService.createCommentByIssueId(issueService.getIssueById(id), Status.valueOf(status), text, user);
+            issueService.updateStatusById(id, Status.valueOf(status));
         }
 
         response.redirect(request.url());

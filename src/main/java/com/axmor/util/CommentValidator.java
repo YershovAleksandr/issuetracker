@@ -1,12 +1,22 @@
 package com.axmor.util;
 
+import com.axmor.model.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CommentValidator {
+    private static Logger log = LoggerFactory.getLogger(CommentValidator.class);
+
     public static boolean isStatusValid(String status){
-        if (StatusHelper.getIdByStatus(status) == -1){
+        try{
+            Status.valueOf(status);
+        }catch (IllegalArgumentException e){
+            log.error("Error Status value");
+
             return false;
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     public static boolean isTextValid(String text){

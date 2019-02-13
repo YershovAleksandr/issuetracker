@@ -2,6 +2,7 @@ package com.axmor.service;
 
 import com.axmor.dao.IssueDAO;
 import com.axmor.model.Issue;
+import com.axmor.model.Status;
 import com.axmor.model.User;
 import com.axmor.util.StatusHelper;
 import org.slf4j.Logger;
@@ -70,7 +71,7 @@ public class IssueService {
         issueDAO.delete(id);
     }
 
-    public void updateStatusById(String id, String status){
+    public void updateStatusById(String id, Status status){
         Issue issue = getIssueById(id);
         issue.setStatus(status);
 

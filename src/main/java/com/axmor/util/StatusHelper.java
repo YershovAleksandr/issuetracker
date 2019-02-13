@@ -1,19 +1,23 @@
 package com.axmor.util;
 
+import com.axmor.model.Status;
+
 import java.util.*;
 
 public class StatusHelper {
-    private static List<String> statusList = new ArrayList<>(Arrays.asList("Created", "Resolved", "Closed", "Duplicated", "Reopened"));
+    private static List<String> statusList = new ArrayList<>();
+
+    static {
+        for (Status status :Status.values()){
+            statusList.add(status.name());
+        }
+    }
 
     public static List<String> getStatusList(){
         return statusList;
     }
 
-    public static int getIdByStatus(String status){
-        return statusList.indexOf(status);
-    }
-
-    public static String getCreatedStatus(){
-        return "Created";
+    public static Status getCreatedStatus(){
+        return Status.valueOf("Created");
     }
 }

@@ -1,6 +1,22 @@
 package com.axmor.dao;
 
+import com.axmor.util.StatusHelper;
+
 public class SQLConstants {
+
+    //Status
+
+    private static String STATUS_LIST;
+
+    static{
+        StringBuffer s = new StringBuffer();
+
+        for (String st : StatusHelper.getStatusList()){
+            s.append(String.format("'%s',", st));
+        }
+
+        STATUS_LIST = s.substring(0, s.length() - 1);
+    }
 
     //Tables
 
@@ -49,7 +65,7 @@ public class SQLConstants {
             "%s VARCHAR NOT NULL," +
             "%s VARCHAR NOT NULL," +
             "%s TIMESTAMP NOT NULL," +
-            "%s VARCHAR NOT NULL," +
+            "%s ENUM (%s) NOT NULL," +
             "PRIMARY KEY (%s)," +
             "FOREIGN KEY (%s) REFERENCES %s(%s))",
             TABLE_ISSUE,
@@ -59,6 +75,7 @@ public class SQLConstants {
             TABLE_ISSUE_COLUMN_DESCRIPTION,
             TABLE_ISSUE_COLUMN_DATE,
             TABLE_ISSUE_COLUMN_STATUS,
+            STATUS_LIST,
             TABLE_ISSUE_COLUMN_ID,
             TABLE_ISSUE_COLUMN_USERID,
             TABLE_USER,
@@ -68,7 +85,7 @@ public class SQLConstants {
             "%s int NOT NULL AUTO_INCREMENT," +
             "%s int NOT NULL," +
             "%s int NOT NULL," +
-            "%s VARCHAR NOT NULL," +
+            "%s ENUM(%s) NOT NULL," +
             "%s VARCHAR NOT NULL," +
             "%s TIMESTAMP NOT NULL," +
             "PRIMARY KEY (%s)," +
@@ -79,6 +96,7 @@ public class SQLConstants {
             TABLE_COMMENT_COLUMN_USERID,
             TABLE_COMMENT_COLUMN_ISSUEID,
             TABLE_COMMENT_COLUMN_STATUS,
+            STATUS_LIST,
             TABLE_COMMENT_COLUMN_TEXT,
             TABLE_COMMENT_COLUMN_DATE,
             TABLE_COMMENT_COLUMN_ID,

@@ -173,26 +173,26 @@
         </thead>
         <tbody>
         <th:block th:each="issue : ${issueList}">
-            <tr th:data-status="${issue.getStatus().toLowerCase()}">
+            <tr th:data-status="${issue.getStatus().name().toLowerCase()}">
             <td><span th:text="${issue.getId()}"></span></td>
             <td><a th:href="@{issue/{id}(id=${issue.getId()})}"><span th:text="${issue.getTitle()}"></span></a></td>
             <td><span th:text="${issue.getDate()}"></span></td>
             <td>
-                <th:block th:switch="${issue.getStatus()}">
+                <th:block th:switch="${issue.getStatus().name()}">
                     <div th:case="Created">
-                        <span class="label label-danger" th:text="${issue.getStatus()}"></span>
+                        <span class="label label-danger" th:text="${issue.getStatus().name()}"></span>
                     </div>
                     <div th:case="Duplicated">
-                        <span class="label label-primary" th:text="${issue.getStatus()}"></span>
+                        <span class="label label-primary" th:text="${issue.getStatus().name()}"></span>
                     </div>
                     <div th:case="Reopened">
-                        <span class="label label-warning" th:text="${issue.getStatus()}"></span>
+                        <span class="label label-warning" th:text="${issue.getStatus().name()}"></span>
                     </div>
                     <div th:case="Resolved">
-                        <span class="label label-info" th:text="${issue.getStatus()}"></span>
+                        <span class="label label-info" th:text="${issue.getStatus().name()}"></span>
                     </div>
                     <div th:case="Closed">
-                        <span class="label label-success" th:text="${issue.getStatus()}"></span>
+                        <span class="label label-success" th:text="${issue.getStatus().name()}"></span>
                     </div>
                 </th:block>
             </td>

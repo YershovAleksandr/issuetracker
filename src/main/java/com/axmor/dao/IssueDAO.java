@@ -1,6 +1,7 @@
 package com.axmor.dao;
 
 import com.axmor.model.Issue;
+import com.axmor.model.Status;
 import com.axmor.model.User;
 import com.axmor.util.DataSource;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class IssueDAO {
                 issue.setTitle(rs.getString(TABLE_ISSUE_COLUMN_TITLE));
                 issue.setDescription(rs.getString(TABLE_ISSUE_COLUMN_DESCRIPTION));
                 issue.setDate(rs.getTimestamp(TABLE_ISSUE_COLUMN_DATE));
-                issue.setStatus(rs.getString(TABLE_ISSUE_COLUMN_STATUS));
+                issue.setStatus(Status.valueOf(rs.getString(TABLE_ISSUE_COLUMN_STATUS)));
 
                 issueList.add(issue);
             }
@@ -71,7 +72,7 @@ public class IssueDAO {
                 issue.setTitle(rs.getString(TABLE_ISSUE_COLUMN_TITLE));
                 issue.setDescription(rs.getString(TABLE_ISSUE_COLUMN_DESCRIPTION));
                 issue.setDate(rs.getTimestamp(TABLE_ISSUE_COLUMN_DATE));
-                issue.setStatus(rs.getString(TABLE_ISSUE_COLUMN_STATUS));
+                issue.setStatus(Status.valueOf(rs.getString(TABLE_ISSUE_COLUMN_STATUS)));
             }
         }catch(SQLException e){
             log.error("Error", e);
@@ -90,7 +91,7 @@ public class IssueDAO {
             ps.setString(2, issue.getTitle());
             ps.setString(3, issue.getDescription());
             ps.setTimestamp(4, new java.sql.Timestamp(issue.getDate().getTime()));
-            ps.setString(5, issue.getStatus());
+            ps.setString(5, issue.getStatus().name());
 
             rez = ps.executeUpdate();
 
@@ -128,7 +129,7 @@ public class IssueDAO {
         try(Connection con = DataSource.getConnection()){
             PreparedStatement ps = con.prepareStatement(UPDATE_ISSUE_STATUS_BY_ISSUEID);
 
-            ps.setString(1, issue.getStatus());
+            ps.setString(1, issue.getStatus().name());
             ps.setInt(2, issue.getId());
 
             rez = ps.executeUpdate();

@@ -1,6 +1,7 @@
 package com.axmor.dao;
 
 import com.axmor.model.Comment;
+import com.axmor.model.Status;
 import com.axmor.model.User;
 import com.axmor.util.DataSource;
 import org.slf4j.Logger;
@@ -30,18 +31,18 @@ public class CommentDAO {
             while(rs.next()) {
                 Comment comment = new Comment();
 
-                comment.setId(rs.getInt(SQLConstants.TABLE_COMMENT_COLUMN_ID));
+                comment.setId(rs.getInt(TABLE_COMMENT_COLUMN_ID));
 
                 User user = new User();
-                user.setId(rs.getInt(SQLConstants.TABLE_COMMENT_COLUMN_USERID));
-                user.setName(rs.getString(SQLConstants.TABLE_USER_COLUMN_NAME));
-                user.setPassword(rs.getString(SQLConstants.TABLE_USER_COLUMN_PASSWORD));
+                user.setId(rs.getInt(TABLE_COMMENT_COLUMN_USERID));
+                user.setName(rs.getString(TABLE_USER_COLUMN_NAME));
+                user.setPassword(rs.getString(TABLE_USER_COLUMN_PASSWORD));
                 comment.setUser(user);
 
-                comment.setIssue(issueService.getIssueById(String.valueOf(rs.getInt(SQLConstants.TABLE_COMMENT_COLUMN_ISSUEID))));
-                comment.setStatus(rs.getString(SQLConstants.TABLE_COMMENT_COLUMN_STATUS));
-                comment.setText(rs.getString(SQLConstants.TABLE_COMMENT_COLUMN_TEXT));
-                comment.setDate(rs.getTimestamp(SQLConstants.TABLE_COMMENT_COLUMN_DATE));
+                comment.setIssue(issueService.getIssueById(String.valueOf(rs.getInt(TABLE_COMMENT_COLUMN_ISSUEID))));
+                comment.setStatus(Status.valueOf(rs.getString(TABLE_COMMENT_COLUMN_STATUS)));
+                comment.setText(rs.getString(TABLE_COMMENT_COLUMN_TEXT));
+                comment.setDate(rs.getTimestamp(TABLE_COMMENT_COLUMN_DATE));
 
                 commentList.add(comment);
 
@@ -62,7 +63,7 @@ public class CommentDAO {
 
             ps.setInt(1, comment.getUser().getId());
             ps.setInt(2, comment.getIssue().getId());
-            ps.setString(3, comment.getStatus());
+            ps.setString(3, comment.getStatus().name());
             ps.setString(4, comment.getText());
             ps.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis()));
 
