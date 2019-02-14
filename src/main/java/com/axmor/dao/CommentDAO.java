@@ -22,6 +22,7 @@ public class CommentDAO {
     public List<Comment> getByIssueId(String issueid){
         List<Comment> commentList = new ArrayList<>();
 
+        //TODO create wrapper
         try(Connection con = DataSource.getConnection()){
             PreparedStatement ps = con.prepareStatement(SELECT_FROM_COMMENT_JOIN_USER_ON_COMMENT_USERID_EQUALS_USER_ID_BY_COMMENT_USERID);
             ps.setString(1, issueid);
@@ -58,8 +59,8 @@ public class CommentDAO {
     public int create(Comment comment){
         int rez = 0;
 
-        try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement(INSERT_INTO_COMMENT_VALUES);
+        try(Connection con = DataSource.getConnection();
+            PreparedStatement ps = con.prepareStatement(INSERT_INTO_COMMENT_VALUES)){
 
             ps.setInt(1, comment.getUser().getId());
             ps.setInt(2, comment.getIssue().getId());

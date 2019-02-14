@@ -18,6 +18,7 @@ public class UserDAO {
     public User getUser(String name){
         User user = null;
 
+        //TODO create wrapper
         try(Connection con = DataSource.getConnection()){
             PreparedStatement ps = con.prepareStatement(SELECT_FROM_USER_BY_NAME);
             ps.setString(1, name);
@@ -42,14 +43,11 @@ public class UserDAO {
     public int create(User user){
         int rez = 0;
 
-        try(Connection con = DataSource.getConnection()){
-            PreparedStatement ps = con.prepareStatement(INSERT_INTO_USER_VALUES);
-
+        try(Connection con = DataSource.getConnection(); PreparedStatement ps = con.prepareStatement(INSERT_INTO_USER_VALUES)){
             ps.setString(1, user.getName());
             ps.setString(2, user.getPassword());
 
             rez = ps.executeUpdate();
-
         }catch(SQLException e){
             log.error("Error", e);
         }
