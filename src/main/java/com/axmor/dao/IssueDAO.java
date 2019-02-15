@@ -1,5 +1,6 @@
 package com.axmor.dao;
 
+import com.axmor.dao.wrapper.IssueResultSetWrapper;
 import com.axmor.model.Issue;
 import com.axmor.model.Status;
 import com.axmor.model.User;
@@ -53,26 +54,25 @@ public class IssueDAO {
         Issue issue = null;
 
         //TODO create wrapper
-        try(Connection con = DataSource.getConnection()){
+        try(Connection con = DataSource.getConnection();
             PreparedStatement ps = con.prepareStatement(SELECT_FROM_ISSUE_JOIN_USER_ON_USERID_EQUALS_ISSUE_USERID_BY_ISSUEID);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            IssueResultSetWrapper rsWrapper = new IssueResultSetWrapper(1, id, ps)){
 
-            if (rs.next()) {
+            if (rsWrapper.getResultSet().next()) {
                 issue = new Issue();
 
-                issue.setId(rs.getInt(1));
+                issue.setId(rsWrapper.getResultSet().getInt(1));
 
                 User user = new User();
-                user.setId(rs.getInt(TABLE_USER_COLUMN_ID));
-                user.setName(rs.getString(TABLE_USER_COLUMN_NAME));
-                user.setPassword(rs.getString(TABLE_USER_COLUMN_PASSWORD));
+                user.setId(rsWrapper.getResultSet().getInt(TABLE_USER_COLUMN_ID));
+                user.setName(rsWrapper.getResultSet().getString(TABLE_USER_COLUMN_NAME));
+                user.setPassword(rsWrapper.getResultSet().getString(TABLE_USER_COLUMN_PASSWORD));
                 issue.setUser(user);
 
-                issue.setTitle(rs.getString(TABLE_ISSUE_COLUMN_TITLE));
-                issue.setDescription(rs.getString(TABLE_ISSUE_COLUMN_DESCRIPTION));
-                issue.setDate(rs.getTimestamp(TABLE_ISSUE_COLUMN_DATE));
-                issue.setStatus(Status.valueOf(rs.getString(TABLE_ISSUE_COLUMN_STATUS)));
+                issue.setTitle(rsWrapper.getResultSet().getString(TABLE_ISSUE_COLUMN_TITLE));
+                issue.setDescription(rsWrapper.getResultSet().getString(TABLE_ISSUE_COLUMN_DESCRIPTION));
+                issue.setDate(rsWrapper.getResultSet().getTimestamp(TABLE_ISSUE_COLUMN_DATE));
+                issue.setStatus(Status.valueOf(rsWrapper.getResultSet().getString(TABLE_ISSUE_COLUMN_STATUS)));
             }
         }catch(SQLException e){
             log.error("Error", e);
