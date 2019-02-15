@@ -46,7 +46,7 @@ public class CommentDAO {
 
                 log.info("Select comment status {}", comment.getStatus());
             }
-        }catch(Exception e){
+        }catch(SQLException e){
             log.error("Error", e);
         }
 

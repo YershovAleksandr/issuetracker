@@ -30,7 +30,7 @@ public class UserDAO {
                 user.setPassword(rsWrapper.getResultSet().getString(TABLE_USER_COLUMN_PASSWORD));
             }
 
-        }catch(Exception e){
+        }catch(SQLException e){
             log.error("Error", e);
         }
 
