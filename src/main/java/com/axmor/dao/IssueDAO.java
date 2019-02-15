@@ -1,6 +1,6 @@
 package com.axmor.dao;
 
-import com.axmor.dao.wrapper.IssueResultSetWrapper;
+import com.axmor.dao.wrapper.ResultSetWrapper;
 import com.axmor.model.Issue;
 import com.axmor.model.Status;
 import com.axmor.model.User;
@@ -53,10 +53,9 @@ public class IssueDAO {
     public Issue get(int id){
         Issue issue = null;
 
-        //TODO create wrapper
         try(Connection con = DataSource.getConnection();
             PreparedStatement ps = con.prepareStatement(SELECT_FROM_ISSUE_JOIN_USER_ON_USERID_EQUALS_ISSUE_USERID_BY_ISSUEID);
-            IssueResultSetWrapper rsWrapper = new IssueResultSetWrapper(1, id, ps)){
+            ResultSetWrapper rsWrapper = new ResultSetWrapper(1, id, ps)){
 
             if (rsWrapper.getResultSet().next()) {
                 issue = new Issue();

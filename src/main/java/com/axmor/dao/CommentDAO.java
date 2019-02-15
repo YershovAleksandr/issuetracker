@@ -1,6 +1,6 @@
 package com.axmor.dao;
 
-import com.axmor.dao.wrapper.CommentResultSetWrapper;
+import com.axmor.dao.wrapper.ResultSetWrapper;
 import com.axmor.model.Comment;
 import com.axmor.model.Status;
 import com.axmor.model.User;
@@ -24,7 +24,7 @@ public class CommentDAO {
 
         try(Connection con = DataSource.getConnection();
             PreparedStatement ps = con.prepareStatement(SELECT_FROM_COMMENT_JOIN_USER_ON_COMMENT_USERID_EQUALS_USER_ID_BY_COMMENT_USERID);
-            CommentResultSetWrapper rsWrapper = new CommentResultSetWrapper(1, issueid, ps)){
+            ResultSetWrapper rsWrapper = new ResultSetWrapper(1, issueid, ps)){
 
             while(rsWrapper.getResultSet().next()) {
                 Comment comment = new Comment();

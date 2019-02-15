@@ -1,6 +1,6 @@
 package com.axmor.dao;
 
-import com.axmor.dao.wrapper.UserResultSetWrapper;
+import com.axmor.dao.wrapper.ResultSetWrapper;
 import com.axmor.model.User;
 import com.axmor.util.DataSource;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class UserDAO {
 
         try(Connection con = DataSource.getConnection();
             PreparedStatement ps = con.prepareStatement(SELECT_FROM_USER_BY_NAME);
-            UserResultSetWrapper rsWrapper = new UserResultSetWrapper(1, name, ps)){
+            ResultSetWrapper rsWrapper = new ResultSetWrapper(1, name, ps)){
 
             if (rsWrapper.getResultSet().next()){
                 user = new User();
