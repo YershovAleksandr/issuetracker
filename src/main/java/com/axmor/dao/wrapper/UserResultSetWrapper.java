@@ -3,11 +3,11 @@ package com.axmor.dao.wrapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class CommentResultSetWrapper implements AutoCloseable{
+public class UserResultSetWrapper implements AutoCloseable {
     private ResultSet resultSet;
 
-    public CommentResultSetWrapper(int parameterIndex, String issueId, PreparedStatement preparedStatement) throws Exception{
-        preparedStatement.setString(parameterIndex, issueId);
+    public UserResultSetWrapper(int parameterIndex, String name, PreparedStatement preparedStatement) throws Exception{
+        preparedStatement.setString(parameterIndex, name);
 
         resultSet = preparedStatement.executeQuery();
     }
@@ -20,4 +20,5 @@ public class CommentResultSetWrapper implements AutoCloseable{
     public void close() throws Exception{
         resultSet.close();
     }
+
 }

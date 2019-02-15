@@ -1,5 +1,6 @@
 package com.axmor.dao;
 
+import com.axmor.dao.wrapper.UserResultSetWrapper;
 import com.axmor.model.User;
 import com.axmor.util.DataSource;
 import org.slf4j.Logger;
@@ -7,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static com.axmor.dao.SQLConstants.*;
@@ -18,22 +18,19 @@ public class UserDAO {
     public User getUser(String name){
         User user = null;
 
-        //TODO create wrapper
-        try(Connection con = DataSource.getConnection()){
+        try(Connection con = DataSource.getConnection();
             PreparedStatement ps = con.prepareStatement(SELECT_FROM_USER_BY_NAME);
-            ps.setString(1, name);
+            UserResultSetWrapper rsWrapper = new UserResultSetWrapper(1, name, ps)){
 
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()){
+            if (rsWrapper.getResultSet().next()){
                 user = new User();
 
-                user.setId(rs.getInt(TABLE_USER_COLUMN_ID));
-                user.setName(rs.getString(TABLE_USER_COLUMN_NAME));
-                user.setPassword(rs.getString(TABLE_USER_COLUMN_PASSWORD));
+                user.setId(rsWrapper.getResultSet().getInt(TABLE_USER_COLUMN_ID));
+                user.setName(rsWrapper.getResultSet().getString(TABLE_USER_COLUMN_NAME));
+                user.setPassword(rsWrapper.getResultSet().getString(TABLE_USER_COLUMN_PASSWORD));
             }
 
-        }catch(SQLException e){
+        }catch(Exception e){
             log.error("Error", e);
         }
 
