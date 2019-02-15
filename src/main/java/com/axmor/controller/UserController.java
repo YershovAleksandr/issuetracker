@@ -8,16 +8,21 @@ import spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.axmor.Main.userService;
 
 public class UserController {
     private static Logger log = LoggerFactory.getLogger(UserController.class);
+    final static private String ATTRIBUTE_AUTH_FAILED = "authFailed";
 
     public static Route Login = (request, response) -> {
         log.info("Login ");
 
-        return new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(), "login"));
+        Map<String, Object> map = new HashMap<>();
+        map.put(ATTRIBUTE_AUTH_FAILED, request.session().attribute(ATTRIBUTE_AUTH_FAILED));
+
+        return new ThymeleafTemplateEngine().render(new ModelAndView(map, "login"));
     };
 
     public static Route LoginPost = (request, response) -> {
@@ -36,9 +41,11 @@ public class UserController {
             if (user != null && user.getPassword().equals(password)){
                 log.info("User accepted " + user);
                 request.session().attribute("user", user);
+                request.session().removeAttribute(ATTRIBUTE_AUTH_FAILED);
                 url = "/";
             } else {
                 log.info("User not accepted [login {} password {}]", login, password);
+                request.session().attribute(ATTRIBUTE_AUTH_FAILED, true);
 
                 url = "/login";
             }
@@ -60,6 +67,7 @@ public class UserController {
 
     public static Route Register = (request, response) -> {
         log.info("Register user ");
+        request.session().removeAttribute(ATTRIBUTE_AUTH_FAILED);
 
         return new ThymeleafTemplateEngine().render(new ModelAndView(new HashMap(), "register"));
     };

@@ -16,6 +16,9 @@
         </div>
         <div class="form-group">
             <input class="form-control form-control-lg" name="password" placeholder="Password" type="password" minlength="3">
+            <span style="color:red;">
+                <th:block th:if="${authFailed}">Invalid login or password</th:block>
+            </span>
         </div>
         <div class="form-group">
             <button class="btn btn-info btn-lg btn-block">Sign In</button>
